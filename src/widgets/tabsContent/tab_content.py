@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'tabsContent/tab_content.ui'
+# Form implementation generated from reading ui file 'src/widgets/tabsContent/tab_content.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
