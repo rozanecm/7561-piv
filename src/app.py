@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, \
 from PyQt5 import QtGui
 from PyQt5.QtGui import QPixmap, QPainter
 
-from components.tabs.tabs import Ui_Form
+from widgets.tabs.tabs import Ui_Form
 
 
 class myClassForTabs(QWidget, Ui_Form):
@@ -86,12 +86,11 @@ class ImageWidget(QWidget):
         print("x: {}, y: {}; current size: {}".format(x, y, self.size()))
         print("widget size:", self.frameSize())
 
-
     def getPos(self, event):
         print("vnm")
         x = event.pos().x()
         y = event.pos().y()
-        print("x: {}, y: {}".format(x,y))
+        print("x: {}, y: {}".format(x, y))
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -138,8 +137,6 @@ class MainWindow(QWidget):
         # #
         # # self.setLayout(vbox)
         self.show()
-
-
 
     def cbClicked(self, cb):
         print(cb)

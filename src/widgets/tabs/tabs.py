@@ -64,4 +64,4 @@ class Ui_Form(object):
         self.agregar_punto_button.setText(_translate("Form", "Agregar punto"))
         self.quitar_punto_button.setText(_translate("Form", "Quitar punto"))
         self.restablecer_button.setText(_translate("Form", "Restablecer"))
-from components.tabsContent.tab_content_widget import TabContent
+from widgets.tabsContent.tab_content_widget import TabContent
