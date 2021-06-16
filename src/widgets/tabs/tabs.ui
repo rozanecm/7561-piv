@@ -90,7 +90,7 @@
   <customwidget>
    <class>TabContent</class>
    <extends>QWidget</extends>
-   <header>widgets/tabsContent/tab_content_widget.h</header>
+   <header>src/widgets/tabsContent/tab_content_widget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

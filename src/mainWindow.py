@@ -1,20 +1,9 @@
-import sys
-
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, \
-    QButtonGroup, QCheckBox, QGridLayout, QLineEdit
 from PyQt5 import QtGui
 from PyQt5.QtGui import QPixmap, QPainter
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QButtonGroup, QCheckBox, QVBoxLayout
 
-from widgets.tabs.tabs_widget import tabWidget
+from src.widgets.tabs.tabs_widget import tabWidget
 
-
-# sample empty widget
-# src: https://www.geeksforgeeks.org/creating-custom-widgets-in-pyqt5/
-# class MyWidget(QtWidgets.QWidget):
-# 	def __init__(self, *args, **kwargs):
-# 		super().__init__(*args, **kwargs)
-# 		self.layout = QtWidgets.QGridLayout()
-# 		self.setLayout(self.layout)
 
 class EchoText(QWidget):
     def __init__(self, *args, **kwargs):
@@ -92,8 +81,9 @@ class ImageWidget(QWidget):
 
 
 class MainWindow(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, app, parent=None):
         super().__init__(parent)
+        self.app = app
         self.init_gui()
 
     def init_gui(self):
@@ -139,14 +129,13 @@ class MainWindow(QWidget):
         minimum_size = self.get_minimum_size()
         self.setMinimumSize(minimum_size[0], minimum_size[1])
 
-    @staticmethod
-    def get_minimum_size(width_fraction=0.9, height_fraction=0.8):
+    def get_minimum_size(self, width_fraction=0.9, height_fraction=0.8):
         """
         :return min_width, min_height of the window.
         :argument width_fraction: the amount of the available width the actual screen will take
         :argument height_fraction: the amount of the available height the actual screen will take
         """
-        screen = app.primaryScreen()
+        screen = self.app.primaryScreen()
 
         # for more screen properties available: https://doc.qt.io/qt-5/qscreen.html
         available_width = screen.availableGeometry().width()
@@ -154,9 +143,3 @@ class MainWindow(QWidget):
         print(screen.availableSize())
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    main_window = MainWindow()
-    sys.exit(app.exec_())

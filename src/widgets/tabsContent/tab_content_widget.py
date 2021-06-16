@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget
 
-from widgets.tabsContent.tab_content import Ui_TabContent
+from src.widgets.tabsContent.tab_content import Ui_TabContent
 
 
 class TabContent(QWidget, Ui_TabContent):

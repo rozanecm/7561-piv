@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QWidget
 
-from widgets.tabs.tabs import Ui_Form
+from src.widgets.tabs.tabs import Ui_Form
 
 
 class tabWidget(QWidget, Ui_Form):
