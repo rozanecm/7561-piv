@@ -4,7 +4,7 @@ from PyQt5.QtGui import QPixmap, QPainter, QImage, QColor, QPen
 from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QButtonGroup, QCheckBox, QVBoxLayout, QSizePolicy, \
     QHBoxLayout
 
-from src.widgets.tabs.tabs_widget import tabWidget
+from src.widgets.tabs.tabs_widget import TabWidget
 
 
 class EchoText(QWidget):
@@ -36,7 +36,7 @@ class CircleMarker(QLabel):
         color: black;
         border-radius: {0};
         """
-        self.setStyleSheet(style.format(str(size/2)))
+        self.setStyleSheet(style.format(str(size / 2)))
         self.setAlignment(QtCore.Qt.AlignCenter)
 
 
@@ -74,7 +74,6 @@ class ImageWidget(QLabel):
         print("x: {}, y: {}".format(x, y))
 
 
-
 class MainWindow(QWidget):
     def __init__(self, app, parent=None):
         super().__init__(parent)
@@ -90,7 +89,7 @@ class MainWindow(QWidget):
         self.setLayout(self.layout)
         self.layout.addWidget(EchoText())
         self.layout.addWidget(ImageWidget())
-        self.layout.addWidget(tabWidget())
+        self.layout.addWidget(TabWidget())
 
         self.show()
 
