@@ -1,6 +1,8 @@
-from PyQt5 import QtGui
-from PyQt5.QtGui import QPixmap, QPainter
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QButtonGroup, QCheckBox, QVBoxLayout
+from PyQt5 import QtGui, QtCore
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap, QPainter, QImage, QColor, QPen
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QButtonGroup, QCheckBox, QVBoxLayout, QSizePolicy, \
+    QHBoxLayout
 
 from src.widgets.tabs.tabs_widget import tabWidget
 
@@ -23,44 +25,36 @@ class EchoText(QWidget):
         self.echo_label.setText(self.textbox.text())
 
 
-class SizeSelector(QWidget):
-    def __init__(self, parent=None):
+class CircleMarker(QLabel):
+    def __init__(self, number: int, size: int = 20, parent=None):
         super().__init__(parent=parent)
-        # QWidget.__init__(self, parent=parent)
-        self.b_group = QButtonGroup()  # Create instance of QButtonGroup
-        # Create two checkboxes
-        cb_1 = QCheckBox("CB 1")
-        cb_2 = QCheckBox("CB 2")
-        # Add checkboxes into QButtonGroup
-        self.b_group.addButton(cb_1)
-        self.b_group.addButton(cb_2)
-        # Connect all buttons in a group to one signal
-        self.b_group.buttonClicked.connect(self.cbClicked)
-
-    def cbClicked(self, cb):
-        print(cb)
+        self.setText(str(number))
+        print(size)
+        self.setFixedSize(size, size)
+        style = """
+        border: 3px solid red;
+        color: black;
+        border-radius: {0};
+        """
+        self.setStyleSheet(style.format(str(size/2)))
+        self.setAlignment(QtCore.Qt.AlignCenter)
 
 
-class ImageWidget(QWidget):
+class ImageWidget(QLabel):
     # inspired by: https://stackoverflow.com/questions/45018926/how-to-properly-setpixmap-scaled-on-pyqt5
     # which also shows how to draw something on the img!
     #
-    def __init__(self, parent=None):
-        # QWidget.__init__(self, parent=parent)
-        super().__init__(parent=parent)
-        self.pixmap = QPixmap("../res/icon.png")
-        path = "../res/icon.png"
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.layout = QHBoxLayout()
+        self.setLayout(self.layout)
 
-        self.image = QLabel()
-        self.image.setPixmap(QPixmap(path))
-        self.image.setText("lkajsdlkfjasdf")
-        # self.image.pixmap().scaled(532)
-        self.image.setObjectName("image")
-        self.image.mousePressEvent = self.getPos
-        # self.image.setMouseTracking(True)
-        print("widget size:", self.frameSize())
-        print("widget size:", self.size())
-        print("widget size:", self.geometry())
+        path = "res/icon.png"
+
+        self.setPixmap(QPixmap(path))
+        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+        self.show()
 
     def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
         print("hehe")
@@ -68,6 +62,10 @@ class ImageWidget(QWidget):
         y = event.pos().y()
         print("x: {}, y: {}; current size: {}".format(x, y, self.size()))
         print("widget size:", self.frameSize())
+        asdf = CircleMarker(1, parent=self)
+        asdf.move(x, y)
+        asdf.show()
+        self.update()
 
     def getPos(self, event):
         print("vnm")
@@ -75,15 +73,13 @@ class ImageWidget(QWidget):
         y = event.pos().y()
         print("x: {}, y: {}".format(x, y))
 
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.drawPixmap(self.rect(), self.pixmap)
 
 
 class MainWindow(QWidget):
     def __init__(self, app, parent=None):
         super().__init__(parent)
         self.app = app
+        self.layout = QVBoxLayout()
         self.init_gui()
 
     def init_gui(self):
@@ -91,39 +87,12 @@ class MainWindow(QWidget):
         self.setWindowTitle('PIV')
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
 
-        self.layout = QVBoxLayout()
         self.setLayout(self.layout)
-        # self.layout.addWidget(EchoText())
+        self.layout.addWidget(EchoText())
         self.layout.addWidget(ImageWidget())
         self.layout.addWidget(tabWidget())
 
-        # self.b_group = QButtonGroup()  # Create instance of QButtonGroup
-        # cb_1 = QCheckBox("CB 1")
-        # cb_2 = QCheckBox("CB 2")
-        # # Add checkboxes into QButtonGroup
-        # self.b_group.addButton(cb_1)
-        # self.b_group.addButton(cb_2)
-        # # Connect all buttons in a group to one signal
-        # self.b_group.buttonClicked.connect(self.cbClicked)
-        #
-        # # box layout docs: https://doc.qt.io/qt-5/qboxlayout.html
-        # # vbox = QVBoxLayout()
-        # # # vbox.addWidget(QPushButton("b1"))
-        # # vbox.addWidget(SizeSelector())
-        # # # vbox.addStretch()
-        # #
-        # # hbox = QHBoxLayout()
-        # # # hbox.addStrut(500)
-        # # # hbox.addWidget(ImageWidget(), 5)
-        # # hbox.addWidget(QPushButton("b2"), 2)
-        # #
-        # # vbox.addLayout(hbox)
-        # #
-        # # self.setLayout(vbox)
         self.show()
-
-    def cbClicked(self, cb):
-        print(cb)
 
     def set_size(self):
         minimum_size = self.get_minimum_size()
