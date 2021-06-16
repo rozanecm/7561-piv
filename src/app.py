@@ -5,13 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, \
 from PyQt5 import QtGui
 from PyQt5.QtGui import QPixmap, QPainter
 
-from widgets.tabs.tabs import Ui_Form
-
-
-class myClassForTabs(QWidget, Ui_Form):
-    def __init__(self, parent=None):
-        QWidget.__init__(self, parent=parent)
-        self.setupUi(self)
+from widgets.tabs.tabs_widget import tabWidget
 
 
 # sample empty widget
@@ -111,7 +105,7 @@ class MainWindow(QWidget):
         self.setLayout(self.layout)
         # self.layout.addWidget(EchoText())
         self.layout.addWidget(ImageWidget())
-        self.layout.addWidget(myClassForTabs())
+        self.layout.addWidget(tabWidget())
 
         # self.b_group = QButtonGroup()  # Create instance of QButtonGroup
         # cb_1 = QCheckBox("CB 1")
