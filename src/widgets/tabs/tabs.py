@@ -56,6 +56,7 @@ class Ui_Form(object):
 
         self.retranslateUi(Form)
         self.tabWidget.setCurrentIndex(0)
+        self.agregar_punto_button.clicked.connect(Form.addPoint)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):

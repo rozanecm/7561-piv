@@ -36,8 +36,8 @@ class MainWindow(QWidget):
         self.setWindowTitle('PIV')
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
 
-        self.layout.addWidget(ImageWidget())
-        self.layout.addWidget(TabWidget())
+        self.layout.addWidget(ImageWidget(self))
+        self.layout.addWidget(TabWidget(parent=self))
 
         self.show()
 
@@ -59,3 +59,6 @@ class MainWindow(QWidget):
         print(screen.availableSize())
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
+
+    def add_point(self):
+        print("Heyy from parent; main window!")
