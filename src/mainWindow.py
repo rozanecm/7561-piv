@@ -26,8 +26,11 @@ class EchoText(QWidget):
 
 
 class CircleMarker(QLabel):
+    id = 0
+
     def __init__(self, number: int, size: int = 20, parent=None):
         super().__init__(parent=parent)
+        self.id = self.get_id()
         self.setText(str(number))
         print(size)
         self.setFixedSize(size, size)
@@ -39,24 +42,35 @@ class CircleMarker(QLabel):
         self.setStyleSheet(style.format(str(size / 2)))
         self.setAlignment(QtCore.Qt.AlignCenter)
 
+    def get_id(self):
+        CircleMarker.id += 1
+        return CircleMarker.id
 
-class ImageWidget(QLabel):
+    def mousePressEvent(self, ev: QtGui.QMouseEvent) -> None:
+        print("Marker with id {} clicked".format(self.id))
+
+
+class ImageWidget(QWidget):
     # inspired by: https://stackoverflow.com/questions/45018926/how-to-properly-setpixmap-scaled-on-pyqt5
     # which also shows how to draw something on the img!
     #
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
         path = "res/icon.png"
 
-        self.setPixmap(QPixmap(path))
+        self.imageLabel = QLabel()
+        self.imageLabel.setPixmap(QPixmap(path))
         self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+
+        self.layout.addWidget(self.imageLabel)
 
         self.show()
 
-    def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
+    # def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
+    def mouseDoubleClickEvent(self, event: QtGui.QMouseEvent) -> None:
         print("hehe")
         x = event.pos().x()
         y = event.pos().y()
@@ -87,7 +101,6 @@ class MainWindow(QWidget):
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
 
         self.setLayout(self.layout)
-        self.layout.addWidget(EchoText())
         self.layout.addWidget(ImageWidget())
         self.layout.addWidget(TabWidget())
 
