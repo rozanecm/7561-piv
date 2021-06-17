@@ -27,6 +27,18 @@ class EchoText(QWidget):
 
 class CircleMarker(QLabel):
     id = 0
+    selected_style = """
+            border: 3px solid red;
+            color: black;
+            background-color: red;
+            border-radius: {0};
+            """
+    default_style = """
+                border: 3px solid white;
+                color: black;
+                background-color: white;
+                border-radius: {0};
+                """
 
     def __init__(self, number: int, size: int = 20, parent=None):
         super().__init__(parent=parent)
@@ -34,12 +46,7 @@ class CircleMarker(QLabel):
         self.setText(str(number))
         print(size)
         self.setFixedSize(size, size)
-        style = """
-        border: 3px solid red;
-        color: black;
-        border-radius: {0};
-        """
-        self.setStyleSheet(style.format(str(size / 2)))
+        self.setStyleSheet(CircleMarker.selected_style.format(str(size / 2)))
         self.setAlignment(QtCore.Qt.AlignCenter)
 
     def get_id(self):
