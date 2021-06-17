@@ -1,6 +1,6 @@
-from PyQt5 import QtGui
+from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
@@ -14,15 +14,24 @@ class ImageWidget(QWidget):
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
-        path = "res/icon.png"
+        path = "res/sample_cropped.png"
 
         self.imageLabel = QLabel()
-        self.imageLabel.setPixmap(QPixmap(path))
-        self.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
+        self.set_image(path)
 
         self.layout.addWidget(self.imageLabel)
 
         self.show()
+
+    def set_image(self, path):
+        if self.imageLabel.size().width() > self.imageLabel.size().height():
+            self.imageLabel.setPixmap(
+                QPixmap(path).scaled(self.imageLabel.size().width(), self.imageLabel.size().width(),
+                                     QtCore.Qt.KeepAspectRatio))
+        else:
+            self.imageLabel.setPixmap(
+                QPixmap(path).scaled(self.imageLabel.size().width(), self.imageLabel.size().width(),
+                                     QtCore.Qt.KeepAspectRatio))
 
     # def mousePressEvent(self, event: QtGui.QMouseEvent) -> None:
     def mouseDoubleClickEvent(self, event: QtGui.QMouseEvent) -> None:
@@ -31,9 +40,12 @@ class ImageWidget(QWidget):
         y = event.pos().y()
         print("x: {}, y: {}; current size: {}".format(x, y, self.size()))
         print("widget size:", self.frameSize())
-        asdf = CircleMarker(1, parent=self)
-        asdf.move(x, y)
-        asdf.show()
+        self.add_point(x, y)
+
+    def add_point(self, x, y):
+        new_point = CircleMarker(parent=self)
+        new_point.move(x, y)
+        new_point.show()
         self.update()
 
     def getPos(self, event):

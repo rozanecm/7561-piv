@@ -17,10 +17,10 @@ class CircleMarker(QLabel):
                 border-radius: {0};
                 """
 
-    def __init__(self, number: int, size: int = 20, parent=None):
+    def __init__(self, size: int = 20, parent=None):
         super().__init__(parent=parent)
         self.id = self.get_id()
-        self.setText(str(number))
+        self.setText(str(self.id))
         print(size)
         self.setFixedSize(size, size)
         self.setStyleSheet(CircleMarker.selected_style.format(str(size / 2)))

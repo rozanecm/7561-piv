@@ -29,15 +29,18 @@ class MainWindow(QWidget):
         self.app = app
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
+
+        self.image_widget = ImageWidget(parent=self)
+        self.tab_widget = TabWidget(parent=self)
+
         self.init_gui()
 
     def init_gui(self):
         self.set_size()
         self.setWindowTitle('PIV')
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
-
-        self.layout.addWidget(ImageWidget(self))
-        self.layout.addWidget(TabWidget(parent=self))
+        self.layout.addWidget(self.image_widget)
+        self.layout.addWidget(self.tab_widget)
 
         self.show()
 
@@ -60,5 +63,6 @@ class MainWindow(QWidget):
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
-    def add_point(self, size):
+    def add_point(self, position_x: int = None, position_y: int = None, selection_size: int = 32):
+        # position_x = self.
         print("Heyy from parent; main window!")
