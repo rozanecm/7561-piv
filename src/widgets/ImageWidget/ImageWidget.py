@@ -43,8 +43,8 @@ class ImageWidget(QWidget):
         print("widget size:", self.frameSize())
         self.parent().add_point(x, y)
 
-    def add_point(self, x, y):
-        new_point = CircleMarker(parent=self)
+    def add_point(self, x, y, id: int):
+        new_point = CircleMarker(id, parent=self)
         new_point.move(x - new_point.marker_size // 2,
                        y - new_point.marker_size // 2)
         new_point.show()

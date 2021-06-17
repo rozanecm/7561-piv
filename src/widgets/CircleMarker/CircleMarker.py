@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QLabel
 
 
 class CircleMarker(QLabel):
-    id = 0
     selected_style = """
             border: 3px solid red;
             color: black;
@@ -17,18 +16,14 @@ class CircleMarker(QLabel):
                 border-radius: {0};
                 """
 
-    def __init__(self, size: int = 20, parent=None):
+    def __init__(self, new_point_id: int, size: int = 20, parent=None):
         super().__init__(parent=parent)
-        self.id = self.get_id()
+        self.id = new_point_id
         self.setText(str(self.id))
         self.marker_size = size
         self.setFixedSize(size, size)
         self.setStyleSheet(CircleMarker.selected_style.format(str(size / 2)))
         self.setAlignment(QtCore.Qt.AlignCenter)
-
-    def get_id(self):
-        CircleMarker.id += 1
-        return CircleMarker.id
 
     def mousePressEvent(self, ev: QtGui.QMouseEvent) -> None:
         print("Marker with id {} clicked".format(self.id))

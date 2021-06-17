@@ -30,6 +30,7 @@ class MainWindow(QWidget):
         self.app = app
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
+        self.points = {}
 
         self.image_widget = ImageWidget(parent=self)
         self.tab_widget = TabWidget(parent=self)
@@ -42,8 +43,15 @@ class MainWindow(QWidget):
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
         self.layout.addWidget(self.image_widget)
         self.layout.addWidget(self.tab_widget)
+        self.initialize_first_point()
 
         self.show()
+
+    def initialize_first_point(self):
+        self.image_widget.add_point(100, 100, 1)
+        self.tab_widget.tab_content.x32_radioButton.setChecked(True)
+        self.tab_widget.tab_content.pos_x_spinBox.setValue(100)
+        self.tab_widget.tab_content.pos_y_spinBox.setValue(100)
 
     def set_size(self):
         minimum_size = self.get_minimum_size()
@@ -65,7 +73,13 @@ class MainWindow(QWidget):
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
     def add_point(self, position_x: int = None, position_y: int = None, selection_size: int = 32):
+        self.tab_widget.tabWidget.addTab(TabContent(position_x=position_x, position_y=position_y), "some striny dingy")
+        new_point_id = self.tab_widget.tabWidget.count()
         self.image_widget.add_point(position_x,
-                                    position_y)
-        self.tab_widget.tabWidget.addTab(TabContent(), "some striny dingy")
+                                    position_y,
+                                    new_point_id)
+        self.points[new_point_id] = {"position_x": position_x,
+                                     "position_y": position_y,
+                                     "selection_size": selection_size}
+
         print("Heyy from parent; main window!")
