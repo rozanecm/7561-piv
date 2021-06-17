@@ -24,6 +24,7 @@ class ImageWidget(QWidget):
         self.show()
 
     def set_image(self, path):
+        # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled
         if self.imageLabel.size().width() > self.imageLabel.size().height():
             self.imageLabel.setPixmap(
                 QPixmap(path).scaled(self.imageLabel.size().width(), self.imageLabel.size().width(),
