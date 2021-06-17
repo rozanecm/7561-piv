@@ -21,7 +21,10 @@
        <property name="currentIndex">
         <number>0</number>
        </property>
-       <widget class="QWidget" name="tab_3">
+       <widget class="QWidget" name="tab_1">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
         <attribute name="title">
          <string>Tab 1</string>
         </attribute>
@@ -37,7 +40,10 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="tab_4">
+       <widget class="QWidget" name="tab_2">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <attribute name="title">
          <string>Tab 2</string>
         </attribute>

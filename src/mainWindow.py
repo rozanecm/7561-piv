@@ -1,12 +1,8 @@
-from PyQt5 import QtGui, QtCore
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap, QPainter, QImage, QColor, QPen
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QButtonGroup, QCheckBox, QVBoxLayout, QSizePolicy, \
-    QHBoxLayout
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QVBoxLayout
 
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.tabs.tabs_widget import TabWidget
-from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
 
 class EchoText(QWidget):
@@ -32,6 +28,7 @@ class MainWindow(QWidget):
         super().__init__(parent)
         self.app = app
         self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
         self.init_gui()
 
     def init_gui(self):
@@ -39,7 +36,6 @@ class MainWindow(QWidget):
         self.setWindowTitle('PIV')
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
 
-        self.setLayout(self.layout)
         self.layout.addWidget(ImageWidget())
         self.layout.addWidget(TabWidget())
 
