@@ -21,7 +21,7 @@ class CircleMarker(QLabel):
         super().__init__(parent=parent)
         self.id = self.get_id()
         self.setText(str(self.id))
-        print(size)
+        self.marker_size = size
         self.setFixedSize(size, size)
         self.setStyleSheet(CircleMarker.selected_style.format(str(size / 2)))
         self.setAlignment(QtCore.Qt.AlignCenter)

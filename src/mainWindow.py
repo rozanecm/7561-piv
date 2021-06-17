@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QVBoxLayout
 
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.tabs.tabs_widget import TabWidget
+from src.widgets.tabsContent.tab_content_widget import TabContent
 
 
 class EchoText(QWidget):
@@ -64,7 +65,7 @@ class MainWindow(QWidget):
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
     def add_point(self, position_x: int = None, position_y: int = None, selection_size: int = 32):
-        # position_x = self.
-        self.image_widget.add_point(position_x - selection_size//2,
-                                    position_y - selection_size//2)
+        self.image_widget.add_point(position_x,
+                                    position_y)
+        self.tab_widget.tabWidget.addTab(TabContent(), "some striny dingy")
         print("Heyy from parent; main window!")
