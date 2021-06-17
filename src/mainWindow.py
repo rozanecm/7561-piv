@@ -60,5 +60,5 @@ class MainWindow(QWidget):
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
-    def add_point(self):
+    def add_point(self, size):
         print("Heyy from parent; main window!")
