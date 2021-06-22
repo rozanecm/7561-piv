@@ -44,6 +44,7 @@ class Ui_Form(object):
         self.agregar_punto_button.setObjectName("agregar_punto_button")
         self.horizontalLayout_7.addWidget(self.agregar_punto_button)
         self.quitar_punto_button = QtWidgets.QPushButton(Form)
+        self.quitar_punto_button.setEnabled(False)
         self.quitar_punto_button.setObjectName("quitar_punto_button")
         self.horizontalLayout_7.addWidget(self.quitar_punto_button)
         self.restablecer_button = QtWidgets.QPushButton(Form)
@@ -55,7 +56,7 @@ class Ui_Form(object):
         self.verticalLayout_6.addLayout(self.verticalLayout_5)
 
         self.retranslateUi(Form)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         self.agregar_punto_button.clicked.connect(Form.addPoint)
         QtCore.QMetaObject.connectSlotsByName(Form)
 

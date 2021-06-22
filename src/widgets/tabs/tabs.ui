@@ -19,7 +19,7 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="tab_1">
         <property name="autoFillBackground">
@@ -61,6 +61,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="quitar_punto_button">
+         <property name="enabled">
+          <bool>false</bool>
+         </property>
          <property name="text">
           <string>Quitar punto</string>
          </property>

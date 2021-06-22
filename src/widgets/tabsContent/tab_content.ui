@@ -151,5 +151,42 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>pos_y_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>TabContent</receiver>
+   <slot>update_position_y()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>380</x>
+     <y>-9</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pos_x_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>TabContent</receiver>
+   <slot>update_position_x()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>273</x>
+     <y>59</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>364</x>
+     <y>-3</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>update_position_x()</slot>
+  <slot>update_position_y()</slot>
+ </slots>
 </ui>

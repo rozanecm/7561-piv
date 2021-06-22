@@ -43,15 +43,17 @@ class MainWindow(QWidget):
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
         self.layout.addWidget(self.image_widget)
         self.layout.addWidget(self.tab_widget)
-        self.initialize_first_point()
+        self.add_point(250, 250)
+        # self.initialize_first_point()
 
         self.show()
 
     def initialize_first_point(self):
-        self.image_widget.add_point(100, 100, 1)
+        self.image_widget.add_point(200, 200, 1)
         self.tab_widget.tab_content.x32_radioButton.setChecked(True)
-        self.tab_widget.tab_content.pos_x_spinBox.setValue(100)
-        self.tab_widget.tab_content.pos_y_spinBox.setValue(100)
+        self.tab_widget.tab_content.pos_x_spinBox.setValue(200)
+        self.tab_widget.tab_content.pos_y_spinBox.setValue(200)
+        self.tab_widget.tabWidget.setTabText(0, "1")
 
     def set_size(self):
         minimum_size = self.get_minimum_size()
@@ -73,13 +75,23 @@ class MainWindow(QWidget):
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
     def add_point(self, position_x: int = None, position_y: int = None, selection_size: int = 32):
-        self.tab_widget.tabWidget.addTab(TabContent(position_x=position_x, position_y=position_y), "some striny dingy")
-        new_point_id = self.tab_widget.tabWidget.count()
+        new_point_id = self.get_new_point_id()
+        self.tab_widget.tabWidget.addTab(TabContent(position_x=position_x, position_y=position_y), str(new_point_id))
         self.image_widget.add_point(position_x,
                                     position_y,
                                     new_point_id)
         self.points[new_point_id] = {"position_x": position_x,
                                      "position_y": position_y,
                                      "selection_size": selection_size}
+        # focus on the last created tab.
+        self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.count() - 1)
+        if len(self.points.keys()) > 1:
+            self.tab_widget.quitar_punto_button.setEnabled(True)
 
-        print("Heyy from parent; main window!")
+    def get_new_point_id(self) -> int:
+        return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
+
+    def update_position_x(self, new_x: int, point_id: int):
+        print("updating pos x for point {} from main window to: {}".format(point_id, new_x))
+        self.tab_widget.tabWidget.widget(self.tab_widget.tabWidget.currentIndex()).update_position_x(195)
+        # self.image_widget.

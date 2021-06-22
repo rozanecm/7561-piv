@@ -10,3 +10,11 @@ class TabContent(QWidget, Ui_TabContent):
         self.x32_radioButton.setChecked(True)
         self.pos_x_spinBox.setValue(position_x)
         self.pos_y_spinBox.setValue(position_y)
+
+    def update_position_x(self, new_x):
+        print("updating x position from tab content widget to: ", new_x)
+        print(self.parent())
+        # self.parent().update_position_x(new_x, 1432)
+
+    def update_position_y(self, new_y):
+        print("updating y position from tab content widget to: ", new_y)

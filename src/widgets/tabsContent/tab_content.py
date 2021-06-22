@@ -84,6 +84,8 @@ class Ui_TabContent(object):
         self.horizontalLayout.addItem(spacerItem1)
 
         self.retranslateUi(TabContent)
+        self.pos_y_spinBox.valueChanged['int'].connect(TabContent.update_position_y)
+        self.pos_x_spinBox.valueChanged['int'].connect(TabContent.update_position_x)
         QtCore.QMetaObject.connectSlotsByName(TabContent)
 
     def retranslateUi(self, TabContent):
