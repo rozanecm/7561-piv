@@ -92,5 +92,6 @@ class MainWindow(QWidget):
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
 
     def update_position_from_image(self, point_id: int, new_x: int, new_y: int):
-        self.tab_widget.tabWidget.widget(point_id - 1).focusWidget()
+        # focus on updating tab.
+        self.tab_widget.tabWidget.setCurrentIndex(point_id - 1)
         self.tab_widget.tabWidget.widget(point_id - 1).update_position(new_x, new_y)
