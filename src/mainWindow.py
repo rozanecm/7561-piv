@@ -91,7 +91,5 @@ class MainWindow(QWidget):
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
 
-    def update_position_x(self, new_x: int, point_id: int):
-        print("updating pos x for point {} from main window to: {}".format(point_id, new_x))
-        self.tab_widget.tabWidget.widget(self.tab_widget.tabWidget.currentIndex()).update_position_x(195)
-        # self.image_widget.
+    def update_position_from_image(self, point_id: int, new_x: int, new_y: int):
+        self.tab_widget.tabWidget.widget(point_id - 1).update_position(new_x, new_y)
