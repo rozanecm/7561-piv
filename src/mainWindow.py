@@ -54,6 +54,8 @@ class MainWindow(QWidget):
         self.layout.addLayout(middle_layout)
         self.layout.addWidget(self.tab_widget)
 
+        self.table_widget.row
+
         self.show()
 
     def set_size(self):

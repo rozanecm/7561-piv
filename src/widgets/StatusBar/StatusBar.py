@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QStatusBar
 
 
 class StatusBar(QStatusBar):
+    # qstatusbar doc: https://doc.qt.io/qt-5/qstatusbar.html
+    # stylesheet reference: https://doc.qt.io/qt-5/stylesheet-reference.html
     style = """background-color: {}; border-radius: 5px; text-align: right"""
 
     def __init__(self, parent=None):
