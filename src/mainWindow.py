@@ -1,5 +1,6 @@
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QVBoxLayout, QTableWidget, QHBoxLayout, QStatusBar
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QVBoxLayout, QTableWidget, QHBoxLayout, QStatusBar, \
+    QTableWidgetItem
 
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.StatusBar.StatusBar import StatusBar
@@ -54,7 +55,11 @@ class MainWindow(QWidget):
         self.layout.addLayout(middle_layout)
         self.layout.addWidget(self.tab_widget)
 
-        self.table_widget.row
+        # add row to table: https://stackoverflow.com/questions/6957943/how-to-add-new-row-to-existing-qtablewidget
+        self.table_widget.setColumnCount(3)
+        self.table_widget.insertRow(0)
+        self.table_widget.setItem(0, 1, QTableWidgetItem("vel x"))
+        self.table_widget.setItem(0, 2, QTableWidgetItem("vel y"))
 
         self.show()
 
@@ -92,6 +97,8 @@ class MainWindow(QWidget):
         self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.count() - 1)
         if len(self.points.keys()) > 1:
             self.tab_widget.quitar_punto_button.setEnabled(True)
+        self.table_widget.insertRow(self.table_widget.rowCount())
+        self.table_widget.setItem(self.table_widget.rowCount() - 1, 0, QTableWidgetItem(str(new_point_id)))
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
