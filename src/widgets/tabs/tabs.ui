@@ -19,35 +19,8 @@
      <item>
       <widget class="QTabWidget" name="tabWidget">
        <property name="currentIndex">
-        <number>1</number>
+        <number>-1</number>
        </property>
-       <widget class="QWidget" name="tab_1">
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <attribute name="title">
-         <string>Tab 1</string>
-        </attribute>
-        <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <item>
-          <widget class="TabContent" name="tab_content" native="true">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <property name="leftMargin">
-             <number>28</number>
-            </property>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="tab_2">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <attribute name="title">
-         <string>Tab 2</string>
-        </attribute>
-       </widget>
       </widget>
      </item>
      <item>
@@ -95,14 +68,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>TabContent</class>
-   <extends>QWidget</extends>
-   <header>src/widgets/tabsContent/tab_content_widget.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>

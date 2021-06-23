@@ -43,17 +43,8 @@ class MainWindow(QWidget):
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
         self.layout.addWidget(self.image_widget)
         self.layout.addWidget(self.tab_widget)
-        self.add_point(250, 250)
-        # self.initialize_first_point()
 
         self.show()
-
-    def initialize_first_point(self):
-        self.image_widget.add_point(200, 200, 1)
-        self.tab_widget.tab_content.x32_radioButton.setChecked(True)
-        self.tab_widget.tab_content.pos_x_spinBox.setValue(200)
-        self.tab_widget.tab_content.pos_y_spinBox.setValue(200)
-        self.tab_widget.tabWidget.setTabText(0, "1")
 
     def set_size(self):
         minimum_size = self.get_minimum_size()
@@ -74,9 +65,11 @@ class MainWindow(QWidget):
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
-    def add_point(self, position_x: int = None, position_y: int = None, selection_size: int = 32):
+    def add_point(self, position_x: int = 0, position_y: int = 0, selection_size: int = 32):
         new_point_id = self.get_new_point_id()
-        self.tab_widget.tabWidget.addTab(TabContent(position_x=position_x, position_y=position_y), str(new_point_id))
+        self.tab_widget.tabWidget.addTab(
+            TabContent(main_window=self, point_id=new_point_id, position_x=position_x, position_y=position_y),
+            str(new_point_id))
         self.image_widget.add_point(position_x,
                                     position_y,
                                     new_point_id)
@@ -95,3 +88,6 @@ class MainWindow(QWidget):
         # focus on updating tab.
         self.tab_widget.tabWidget.setCurrentIndex(point_id - 1)
         self.tab_widget.tabWidget.widget(point_id - 1).update_position(new_x, new_y)
+
+    def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
+        self.image_widget.update_position_from_tab(point_id, new_x, new_y)

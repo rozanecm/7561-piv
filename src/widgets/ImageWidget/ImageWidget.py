@@ -64,5 +64,10 @@ class ImageWidget(QWidget):
             current_marker.move(new_x, new_y)
             self.parentWidget().update_position_from_image(point_id, new_x, new_y)
 
+    def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
+        current_marker = self.markers.get(point_id)
+        if self.point_on_image(new_x, new_y):
+            current_marker.move(new_x, new_y)
+
     def point_on_image(self, x: int, y: int):
         return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
