@@ -1,5 +1,5 @@
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QVBoxLayout, QTableWidget, QHBoxLayout, QStatusBar
 
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.tabs.tabs_widget import TabWidget
@@ -34,6 +34,8 @@ class MainWindow(QWidget):
 
         self.image_widget = ImageWidget(parent=self)
         self.tab_widget = TabWidget(parent=self)
+        self.table_widget = QTableWidget()
+        self.status_bar = QStatusBar()
 
         self.init_gui()
 
@@ -41,10 +43,19 @@ class MainWindow(QWidget):
         self.set_size()
         self.setWindowTitle('PIV')
         self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
-        self.layout.addWidget(self.image_widget)
+        middle_layout = QHBoxLayout()
+        middle_layout.addStretch()
+        middle_layout.addWidget(self.image_widget)
+        middle_layout.addStretch()
+        middle_layout.addWidget(self.table_widget)
+        # self.layout.addWidget(self.image_widget)
+        self.layout.addWidget(self.status_bar)
+        self.layout.addLayout(middle_layout)
         self.layout.addWidget(self.tab_widget)
 
         self.show()
+        self.status_bar.setStyleSheet("""background-color: red; border-radius: 5px; text-align: right""")
+        self.status_bar.showMessage("A tmp msg")
 
     def set_size(self):
         minimum_size = self.get_minimum_size()
