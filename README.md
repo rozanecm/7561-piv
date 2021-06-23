@@ -9,4 +9,6 @@
 # Packing app
 - `sudo apt install python3-dev -y`
 - `sudo apt install binutils -y`
-- `pyinstaller --add-data 'res/*.png:res/' app.py`
+- `pyinstaller --add-data 'res/*.png:res/' --onefile app.py`
+
+Info about static files: [runtime information](https://pyinstaller.readthedocs.io/en/stable/runtime-information.html).
