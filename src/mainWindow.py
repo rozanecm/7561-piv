@@ -75,7 +75,7 @@ class MainWindow(QWidget):
                                      "selection_size": selection_size}
         # focus on the last created tab.
         self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.count() - 1)
-        if len(self.points.keys()) > 1:
+        if len(self.points.keys()) >= 1:
             self.tab_widget.quitar_punto_button.setEnabled(True)
         self.table_widget.insertRow(self.table_widget.rowCount())
         self.table_widget.setItem(self.table_widget.rowCount() - 1, 0, QTableWidgetItem(str(new_point_id)))
