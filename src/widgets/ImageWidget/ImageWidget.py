@@ -1,7 +1,9 @@
+import os
 from typing import Dict
 
 from PyQt5 import QtGui, QtCore
-from PyQt5.QtGui import QPixmap
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QPixmap, QImage
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
@@ -16,7 +18,7 @@ class ImageWidget(QWidget):
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
-        path = "res/sample_cropped.png"
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
 
         self.imageLabel = QLabel()
         self.set_image(path)
