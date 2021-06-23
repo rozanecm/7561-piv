@@ -1,0 +1,54 @@
+('/home/rozanecm/Documents/Univerza/UBA/7561 taller3/tps/piv/build/app/app',
+ True,
+ False,
+ True,
+ None,
+ None,
+ False,
+ False,
+ None,
+ True,
+ 'app.pkg',
+ [('PYZ-00.pyz',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/build/app/PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/build/app/localpycos/struct.pyo',
+   'PYMODULE'),
+  ('pyimod01_os_path',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/PyInstaller/loader/pyimod01_os_path.pyc',
+   'PYMODULE'),
+  ('pyimod02_archive',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/PyInstaller/loader/pyimod02_archive.pyc',
+   'PYMODULE'),
+  ('pyimod03_importers',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/PyInstaller/loader/pyimod03_importers.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/PyInstaller/loader/pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_multiprocessing',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/PyInstaller/hooks/rthooks/pyi_rth_multiprocessing.py',
+   'PYSOURCE'),
+  ('pyi_rth_pyqt5',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/PyInstaller/hooks/rthooks/pyi_rth_pyqt5.py',
+   'PYSOURCE'),
+  ('app',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 taller3/tps/piv/app.py',
+   'PYSOURCE')],
+ [],
+ False,
+ False,
+ 1624478110,
+ [('run',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/PyInstaller/bootloader/Linux-64bit/run',
+   'EXECUTABLE')])

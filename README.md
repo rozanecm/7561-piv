@@ -5,3 +5,8 @@
    3. Source virtual env: `source venv/bin/activate`
 2. Install python dependencies: `pip install -r requirements.txt`
 3. Install Qt: `sudo apt-get install qt5-default -y`
+
+# Packing app
+- `sudo apt install python3-dev -y`
+- `sudo apt install binutils -y`
+- `pyinstaller --add-data 'res/*.png:res/' app.py`
