@@ -1,29 +1,10 @@
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QGridLayout, QLineEdit, QLabel, QVBoxLayout, QTableWidget, QHBoxLayout, QStatusBar, \
-    QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTableWidget, QHBoxLayout, QTableWidgetItem
 
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.StatusBar.StatusBar import StatusBar
 from src.widgets.tabs.tabs_widget import TabWidget
 from src.widgets.tabsContent.tab_content_widget import TabContent
-
-
-class EchoText(QWidget):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.layout = QGridLayout()
-        self.setLayout(self.layout)
-
-        self.textbox = QLineEdit()
-        self.echo_label = QLabel('')
-
-        self.textbox.textChanged.connect(self.textbox_text_changed)
-
-        self.layout.addWidget(self.textbox, 0, 0)
-        self.layout.addWidget(self.echo_label, 1, 0)
-
-    def textbox_text_changed(self):
-        self.echo_label.setText(self.textbox.text())
 
 
 class MainWindow(QWidget):
@@ -38,7 +19,6 @@ class MainWindow(QWidget):
         self.tab_widget = TabWidget(parent=self)
         self.table_widget = QTableWidget()
         self.status_bar = StatusBar()
-        # self.status_bar = QStatusBar()
 
         self.init_gui()
 
