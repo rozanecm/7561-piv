@@ -1,3 +1,5 @@
+import os
+
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTableWidget, QHBoxLayout, QTableWidgetItem
 
@@ -25,7 +27,8 @@ class MainWindow(QWidget):
     def init_gui(self):
         self.set_size()
         self.setWindowTitle('PIV')
-        self.setWindowIcon(QtGui.QIcon('../res/icon.png'))
+        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../res/icon.png"))
+        self.setWindowIcon(QtGui.QIcon(icon_path))
         middle_layout = QHBoxLayout()
         middle_layout.addStretch()
         middle_layout.addWidget(self.image_widget)
