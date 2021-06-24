@@ -58,7 +58,6 @@ class MainWindow(QWidget):
         # for more screen properties available: https://doc.qt.io/qt-5/qscreen.html
         available_width = screen.availableGeometry().width()
         available_height = screen.availableGeometry().height()
-        print(screen.availableSize())
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
