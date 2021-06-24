@@ -41,8 +41,6 @@ class ImageWidget(QWidget):
     def mouseDoubleClickEvent(self, event: QtGui.QMouseEvent) -> None:
         x = event.pos().x()
         y = event.pos().y()
-        print("x: {}, y: {}; current size: {}".format(x, y, self.size()))
-        print("widget size:", self.frameSize())
         self.parent().add_point(x, y)
 
     def add_point(self, x, y, new_point_id: int):
@@ -56,7 +54,6 @@ class ImageWidget(QWidget):
     def getPos(self, event):
         x = event.pos().x()
         y = event.pos().y()
-        print("x: {}, y: {}".format(x, y))
 
     def update_position(self, point_id: int, new_x: int, new_y: int):
         current_marker = self.markers.get(point_id)
