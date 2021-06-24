@@ -13,6 +13,7 @@ from src.widgets.tabsContent.tab_content_widget import TabContent
 class MainWindow(QWidget):
     def __init__(self, app, parent=None):
         super().__init__(parent)
+        self.middle_layout = QHBoxLayout()
         self.app = app
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -26,20 +27,28 @@ class MainWindow(QWidget):
         self.init_gui()
 
     def init_gui(self):
+        self.init_main_window_properties()
+        self.set_middle_layout()
+        self.set_main_layout()
+
+        self.show()
+
+    def set_main_layout(self):
+        self.layout.addWidget(self.status_bar)
+        self.layout.addLayout(self.middle_layout)
+        self.layout.addWidget(self.tab_widget)
+
+    def set_middle_layout(self):
+        self.middle_layout.addStretch()
+        self.middle_layout.addWidget(self.image_widget)
+        self.middle_layout.addStretch()
+        self.middle_layout.addWidget(self.table_widget)
+
+    def init_main_window_properties(self):
         self.set_size()
         self.setWindowTitle('PIV')
         icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../res/icon.png"))
         self.setWindowIcon(QtGui.QIcon(icon_path))
-        middle_layout = QHBoxLayout()
-        middle_layout.addStretch()
-        middle_layout.addWidget(self.image_widget)
-        middle_layout.addStretch()
-        middle_layout.addWidget(self.table_widget)
-        self.layout.addWidget(self.status_bar)
-        self.layout.addLayout(middle_layout)
-        self.layout.addWidget(self.tab_widget)
-
-        self.show()
 
     def set_size(self):
         minimum_size = self.get_minimum_size()
