@@ -13,7 +13,7 @@ class TabWidget(QWidget, Ui_Form):
         self.parent = parent
         self.add_icons_to_buttons()
 
-    def addPoint(self):
+    def add_point(self):
         self.parent.add_point()
 
     def add_icons_to_buttons(self):
