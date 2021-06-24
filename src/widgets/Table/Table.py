@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
 
 
 class Table(QTableWidget):
@@ -10,6 +10,7 @@ class Table(QTableWidget):
         self.insertRow(0)
         self.setItem(0, 1, QTableWidgetItem("vel x"))
         self.setItem(0, 2, QTableWidgetItem("vel y"))
+        self.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
     def remove_marker(self, marker_id: int):
         self.removeRow(marker_id)
