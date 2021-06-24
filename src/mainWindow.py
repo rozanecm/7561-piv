@@ -1,10 +1,11 @@
 import os
 
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QTableWidget, QHBoxLayout, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidgetItem
 
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.StatusBar.StatusBar import StatusBar
+from src.widgets.Table.Table import Table
 from src.widgets.tabs.tabs_widget import TabWidget
 from src.widgets.tabsContent.tab_content_widget import TabContent
 
@@ -19,7 +20,7 @@ class MainWindow(QWidget):
 
         self.image_widget = ImageWidget(parent=self)
         self.tab_widget = TabWidget(parent=self)
-        self.table_widget = QTableWidget()
+        self.table_widget = Table()
         self.status_bar = StatusBar()
 
         self.init_gui()
@@ -37,12 +38,6 @@ class MainWindow(QWidget):
         self.layout.addWidget(self.status_bar)
         self.layout.addLayout(middle_layout)
         self.layout.addWidget(self.tab_widget)
-
-        # add row to table: https://stackoverflow.com/questions/6957943/how-to-add-new-row-to-existing-qtablewidget
-        self.table_widget.setColumnCount(3)
-        self.table_widget.insertRow(0)
-        self.table_widget.setItem(0, 1, QTableWidgetItem("vel x"))
-        self.table_widget.setItem(0, 2, QTableWidgetItem("vel y"))
 
         self.show()
 
