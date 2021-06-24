@@ -71,23 +71,40 @@
  <resources/>
  <connections>
   <connection>
+   <sender>quitar_punto_button</sender>
+   <signal>clicked()</signal>
+   <receiver>Form</receiver>
+   <slot>remove_marker()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>154</x>
+     <y>540</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>375</x>
+     <y>-11</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>agregar_punto_button</sender>
    <signal>clicked()</signal>
    <receiver>Form</receiver>
-   <slot>add_point()</slot>
+   <slot>add_marker()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>47</x>
-     <y>548</y>
+     <x>94</x>
+     <y>552</y>
     </hint>
     <hint type="destinationlabel">
-     <x>174</x>
-     <y>6</y>
+     <x>141</x>
+     <y>-13</y>
     </hint>
    </hints>
   </connection>
  </connections>
  <slots>
-  <slot>add_point()</slot>
+  <slot>add_marker()</slot>
+  <slot>remove_marker()</slot>
  </slots>
 </ui>

@@ -13,7 +13,7 @@ class TabWidget(QWidget, Ui_Form):
         self.parent = parent
         self.add_icons_to_buttons()
 
-    def add_point(self):
+    def add_marker(self):
         self.parent.add_point()
 
     def add_icons_to_buttons(self):
@@ -25,3 +25,11 @@ class TabWidget(QWidget, Ui_Form):
 
         icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/reset.png"))
         self.restablecer_button.setIcon(QIcon(icon_path))
+
+    def remove_marker(self):
+        self.parent.remove_marker()
+
+    def remove_tab(self, marker_id):
+        self.tabWidget.removeTab(marker_id)
+        for tab in range(self.tabWidget.count()):
+            self.tabWidget.setTabText(tab, str(tab + 1))

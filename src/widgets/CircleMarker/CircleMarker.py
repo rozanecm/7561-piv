@@ -34,3 +34,7 @@ class CircleMarker(QLabel):
 
     def mouseReleaseEvent(self, ev: QtGui.QMouseEvent) -> None:
         self.setMouseTracking(False)
+
+    def update_id(self, new_id: int):
+        self.id = new_id
+        self.setText(str(self.id))

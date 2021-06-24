@@ -96,3 +96,20 @@ class MainWindow(QWidget):
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         self.image_widget.update_position_from_tab(point_id, new_x, new_y)
+
+    def remove_marker(self):
+        current_tab_index = self.tab_widget.tabWidget.currentIndex()
+        marker_id = current_tab_index + 1
+
+        self.image_widget.remove_marker(marker_id)
+        self.table_widget.remove_marker(marker_id)
+        self.tab_widget.remove_tab(current_tab_index)
+        # self.tab_widget.tabWidget.removeTab(current_tab_index)
+
+        del self.points[marker_id]
+        self.reorder_markers()
+
+    def reorder_markers(self):
+        l1 = [x+1 for x in range(len(self.points.keys()))]
+        l2 = list(self.points.values())
+        self.points = dict(zip(l1, l2))

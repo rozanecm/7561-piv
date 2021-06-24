@@ -67,3 +67,12 @@ class ImageWidget(QWidget):
 
     def point_on_image(self, x: int, y: int):
         return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
+
+    def remove_marker(self, marker_id: int):
+        self.markers[marker_id].hide()
+        del self.markers[marker_id]
+        l1 = [x + 1 for x in range(len(self.markers.keys()))]
+        l2 = list(self.markers.values())
+        self.markers = dict(zip(l1, l2))
+        for key, marker in self.markers.items():
+            marker.update_id(key)
