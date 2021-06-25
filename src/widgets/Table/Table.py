@@ -1,4 +1,6 @@
-from PyQt5.QtCore import Qt
+from PyQt5.QtChart import QLineSeries, QChart, QChartView
+from PyQt5.QtCore import Qt, QPoint
+from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, QWidget, QVBoxLayout, QPushButton, QLabel
 
 
@@ -21,7 +23,20 @@ class Table(QWidget):
         self.layout.addWidget(table_title)
         self.layout.addWidget(self.table)
         self.layout.addStretch()
-        self.layout.addWidget(QPushButton("Obtener CSV"))
+        self.button = QPushButton("Obtener CSV")
+        self.layout.addWidget(self.button)
+        self.button.clicked.connect(lambda: self.process_csv_click())
+
+        line_series = QLineSeries()
+        line_series.append(QPoint(0, 4))
+        chart = QChart()
+        chart.addSeries(line_series)
+        view = QChartView(chart)
+        view.setRenderHint(QPainter.Antialiasing)
+        self.layout.addWidget(view)
+
+    def process_csv_click(self):
+        print("Clicked csv button heheeyy")
 
     def add_marker(self, marker_id: str):
         self.table.insertRow(self.table.rowCount())
