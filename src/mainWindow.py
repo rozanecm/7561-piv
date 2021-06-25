@@ -1,7 +1,7 @@
 import os
 
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QTableWidgetItem
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.StatusBar.StatusBar import StatusBar
@@ -83,8 +83,7 @@ class MainWindow(QWidget):
         self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.count() - 1)
         if len(self.points.keys()) >= 1:
             self.tab_widget.quitar_punto_button.setEnabled(True)
-        self.table_widget.insertRow(self.table_widget.rowCount())
-        self.table_widget.setItem(self.table_widget.rowCount() - 1, 0, QTableWidgetItem(str(new_point_id)))
+        self.table_widget.add_marker(str(new_point_id))
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
@@ -104,12 +103,11 @@ class MainWindow(QWidget):
         self.image_widget.remove_marker(marker_id)
         self.table_widget.remove_marker(marker_id)
         self.tab_widget.remove_tab(current_tab_index)
-        # self.tab_widget.tabWidget.removeTab(current_tab_index)
 
         del self.points[marker_id]
         self.reorder_markers()
 
     def reorder_markers(self):
-        l1 = [x+1 for x in range(len(self.points.keys()))]
+        l1 = [x + 1 for x in range(len(self.points.keys()))]
         l2 = list(self.points.values())
         self.points = dict(zip(l1, l2))
