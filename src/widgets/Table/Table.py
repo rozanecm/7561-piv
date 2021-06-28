@@ -1,7 +1,5 @@
-from PyQt5.QtChart import QLineSeries, QChart, QChartView
-from PyQt5.QtCore import Qt, QPoint
-from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, QWidget, QVBoxLayout, QPushButton, QLabel
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, QWidget, QVBoxLayout, QLabel
 
 
 class Table(QWidget):
