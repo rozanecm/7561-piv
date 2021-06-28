@@ -29,9 +29,6 @@ class Table(QWidget):
         self.table_title.setText("Velocidades instantáneas")
         self.table_title.setAlignment(Qt.AlignCenter)
 
-    def process_csv_click(self):
-        print("Clicked csv button heheeyy")
-
     def add_marker(self, marker_id: str):
         self.table.insertRow(self.table.rowCount())
         self.table.setItem(self.table.rowCount() - 1, 0, QTableWidgetItem(marker_id))

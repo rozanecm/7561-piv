@@ -20,3 +20,6 @@ class HistoricDataWidget(QWidget):
         self.button = QPushButton("Obtener CSV")
         self.layout.addWidget(self.button)
         self.button.clicked.connect(lambda: self.process_csv_click())
+
+    def process_csv_click(self):
+        print("Clicked csv button heheeyy")
