@@ -7,10 +7,18 @@ from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, Q
 class Table(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+        self.table_title = QLabel()
         self.table = QTableWidget()
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
+        self.init_table()
+
+        self.layout.addWidget(self.table_title)
+        self.layout.addWidget(self.table)
+        self.layout.addStretch()
+
+    def init_table(self):
         # add row to table: https://stackoverflow.com/questions/6957943/how-to-add-new-row-to-existing-qtablewidget
         self.table.setColumnCount(3)
         self.table.insertRow(0)
@@ -18,22 +26,8 @@ class Table(QWidget):
         self.table.setItem(0, 2, QTableWidgetItem("vel y"))
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        table_title = QLabel("Tabla de velocidades")
-        table_title.setAlignment(Qt.AlignCenter)
-        self.layout.addWidget(table_title)
-        self.layout.addWidget(self.table)
-        self.layout.addStretch()
-        self.button = QPushButton("Obtener CSV")
-        self.layout.addWidget(self.button)
-        self.button.clicked.connect(lambda: self.process_csv_click())
-
-        line_series = QLineSeries()
-        line_series.append(QPoint(0, 4))
-        chart = QChart()
-        chart.addSeries(line_series)
-        view = QChartView(chart)
-        view.setRenderHint(QPainter.Antialiasing)
-        self.layout.addWidget(view)
+        self.table_title.setText("Velocidades instantáneas")
+        self.table_title.setAlignment(Qt.AlignCenter)
 
     def process_csv_click(self):
         print("Clicked csv button heheeyy")
