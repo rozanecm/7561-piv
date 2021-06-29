@@ -2,9 +2,8 @@ import os
 from typing import Dict
 
 from PyQt5 import QtGui, QtCore
-from PyQt5.QtCore import QUrl
-from PyQt5.QtGui import QPixmap, QImage
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
@@ -14,35 +13,50 @@ class ImageWidget(QWidget):
     # which also shows how to draw something on the img!
     def __init__(self, parent=None):
         super().__init__(parent=parent)
-        self.markers: Dict[int, CircleMarker] = {}
-        self.layout = QHBoxLayout()
+        self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
-        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
+        self.image = Image(self.parent())
 
-        self.imageLabel = QLabel()
-        self.set_image(path)
-
-        self.layout.addWidget(self.imageLabel)
+        self.layout.addStretch()
+        self.layout.addWidget(self.image)
+        self.layout.addStretch()
 
         self.show()
 
+
+class Image(QWidget):
+    def __init__(self, main_window, parent=None):
+        super().__init__(parent=parent)
+        self.markers: Dict[int, CircleMarker] = {}
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
+        self.imageLabel = QLabel()
+        self.set_image(path)
+        self.main_window = main_window
+        self.imageLabel.setStyleSheet("""border-color:red;
+                border-style: solid;
+                border-width: 5px;""")
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.imageLabel)
+        self.setLayout(self.layout)
+
     def set_image(self, path):
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
-        if self.imageLabel.size().width() > self.imageLabel.size().height():
-            self.imageLabel.setPixmap(
-                QPixmap(path).scaled(self.imageLabel.size().width(), self.imageLabel.size().width(),
-                                     QtCore.Qt.KeepAspectRatio))
-        else:
-            self.imageLabel.setPixmap(
-                QPixmap(path).scaled(self.imageLabel.size().width(), self.imageLabel.size().width(),
-                                     QtCore.Qt.KeepAspectRatio))
+        self.imageLabel.pixmap()
+        self.imageLabel.logicalDpiX()
+        self.imageLabel.setPixmap(
+            QPixmap(path).scaled(self.imageLabel.size().width(), self.imageLabel.size().height(),
+                                 QtCore.Qt.KeepAspectRatio))
+        print("img label size:", self.imageLabel.size())
+        print("pixmap size:", self.imageLabel.pixmap().size())
 
     def mouseDoubleClickEvent(self, event: QtGui.QMouseEvent) -> None:
         x = event.pos().x()
         y = event.pos().y()
         # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
-        self.parent().add_point(x, y)
+        self.main_window.add_point(x, y)
+        print("img label size:", self.imageLabel.size())
+        print("pixmap size:", self.imageLabel.pixmap().size())
 
     def add_point(self, x, y, new_point_id: int):
         new_point = CircleMarker(new_point_id, parent=self)
@@ -58,7 +72,7 @@ class ImageWidget(QWidget):
         new_y = new_y - current_marker.marker_size // 2
         if self.point_on_image(new_x, new_y):
             current_marker.move(new_x, new_y)
-            self.parentWidget().update_position_from_image(point_id, new_x, new_y)
+            self.parentWidget().parent().update_position_from_image(point_id, new_x, new_y)
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         current_marker = self.markers.get(point_id)

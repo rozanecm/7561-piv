@@ -14,6 +14,7 @@ class MainWindow(QWidget):
     def __init__(self, app, parent=None):
         super().__init__(parent)
         self.middle_layout = QHBoxLayout()
+        self.side_layout = QVBoxLayout()
         self.app = app
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -36,13 +37,17 @@ class MainWindow(QWidget):
     def set_main_layout(self):
         self.layout.addWidget(self.status_bar)
         self.layout.addLayout(self.middle_layout)
-        self.layout.addWidget(self.tab_widget)
+        # self.layout.addWidget(self.tab_widget)
 
     def set_middle_layout(self):
+        self.side_layout.addWidget(self.table_widget)
+        self.side_layout.addStretch()
+        self.side_layout.addWidget(self.tab_widget)
+
         self.middle_layout.addStretch()
         self.middle_layout.addWidget(self.image_widget)
         self.middle_layout.addStretch()
-        self.middle_layout.addWidget(self.table_widget)
+        self.middle_layout.addLayout(self.side_layout)
 
     def init_main_window_properties(self):
         self.set_size()
@@ -73,9 +78,9 @@ class MainWindow(QWidget):
         self.tab_widget.tabWidget.addTab(
             TabContent(main_window=self, point_id=new_point_id, position_x=position_x, position_y=position_y),
             str(new_point_id))
-        self.image_widget.add_point(position_x,
-                                    position_y,
-                                    new_point_id)
+        self.image_widget.image.add_point(position_x,
+                                          position_y,
+                                          new_point_id)
         self.points[new_point_id] = {"position_x": position_x,
                                      "position_y": position_y,
                                      "selection_size": selection_size}

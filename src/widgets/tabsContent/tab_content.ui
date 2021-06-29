@@ -2,14 +2,6 @@
 <ui version="4.0">
  <class>TabContent</class>
  <widget class="QWidget" name="TabContent">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>598</width>
-    <height>436</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>

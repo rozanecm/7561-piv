@@ -2,6 +2,9 @@ from PyQt5 import QtGui, QtCore
 from PyQt5.QtWidgets import QLabel
 
 
+# from src.widgets.ImageWidget.ImageWidget import ImageWidget
+
+
 class CircleMarker(QLabel):
     selected_style = """
             border: 3px solid red;

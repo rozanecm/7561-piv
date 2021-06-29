@@ -14,7 +14,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_TabContent(object):
     def setupUi(self, TabContent):
         TabContent.setObjectName("TabContent")
-        TabContent.resize(598, 436)
         self.horizontalLayout = QtWidgets.QHBoxLayout(TabContent)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.horizontalLayout_5 = QtWidgets.QHBoxLayout()
