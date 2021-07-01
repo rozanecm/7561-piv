@@ -1,8 +1,11 @@
+from time import sleep
+
 from PyQt5.QtChart import QLineSeries, QChart, QChartView, QValueAxis
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QWidget, QPushButton, QHBoxLayout
 from random import gauss
+import threading
 
 
 class HistoricDataWidget(QWidget):
@@ -58,9 +61,15 @@ class HistoricDataWidget(QWidget):
         self.button.clicked.connect(lambda: self.process_csv_click())
 
     def process_csv_click(self):
+        for i in range(1000):
+            threading.Timer(i*0.5, self.update_chart).start()
+
+    def update_chart(self):
         self.line_series.clear()
+        points = []
         for i in range(30):
-            self.line_series.append([QPointF(i * 1000, gauss(10,2))])
+            points.append(QPointF(i * 1000, gauss(10, 2)))
+        self.line_series.append(points)
         new_min, new_max = self.get_min_max_points()
         self.axis_y.setRange(new_min, new_max)
 
