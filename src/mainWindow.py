@@ -1,8 +1,9 @@
 import os
 
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton
 
+from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.StatusBar.StatusBar import StatusBar
 from src.widgets.Table.Table import Table
@@ -24,20 +25,21 @@ class MainWindow(QWidget):
         self.tab_widget = TabWidget(parent=self)
         self.table_widget = Table()
         self.status_bar = StatusBar()
+        self.historic_data_widget = HistoricDataWidget()
 
         self.init_gui()
 
     def init_gui(self):
         self.init_main_window_properties()
-        self.set_middle_layout()
         self.set_main_layout()
+        self.set_middle_layout()
 
         self.show()
 
     def set_main_layout(self):
         self.layout.addWidget(self.status_bar)
         self.layout.addLayout(self.middle_layout)
-        # self.layout.addWidget(self.tab_widget)
+        self.layout.addWidget(self.historic_data_widget)
 
     def set_middle_layout(self):
         self.side_layout.addWidget(self.table_widget)
