@@ -1,7 +1,8 @@
-from PyQt5.QtChart import QLineSeries, QChart, QChartView, QDateTimeAxis, QValueAxis
-from PyQt5.QtCore import QPoint, Qt, QPointF
+from PyQt5.QtChart import QLineSeries, QChart, QChartView, QValueAxis
+from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QPushButton, QHBoxLayout
+from random import gauss
 
 
 class HistoricDataWidget(QWidget):
@@ -28,7 +29,7 @@ class HistoricDataWidget(QWidget):
         chart = QChart()
         chart.setTitle("Evolución histórica (últimos 30 seg)")
         chart.setTheme(QChart.ChartThemeBlueIcy)
-        chart.setAnimationOptions(QChart.AllAnimations)
+        chart.setAnimationOptions(QChart.SeriesAnimations)
 
         axis_x = QValueAxis()
         axis_x.setRange(0, 30000)
@@ -57,7 +58,9 @@ class HistoricDataWidget(QWidget):
         self.button.clicked.connect(lambda: self.process_csv_click())
 
     def process_csv_click(self):
-        self.line_series.append(QPointF(30000, 35))
+        self.line_series.clear()
+        for i in range(30):
+            self.line_series.append([QPointF(i * 1000, gauss(10,2))])
         new_min, new_max = self.get_min_max_points()
         self.axis_y.setRange(new_min, new_max)
 
