@@ -9,21 +9,21 @@ class HistoricDataWidget(QWidget):
         super().__init__(parent=parent)
         self.layout = QHBoxLayout()
 
-        line_series = QLineSeries()
-        line_series.append([QPointF(0, 6),
-                            QPointF(1000, 4),
-                            QPointF(2000, 10),
-                            QPointF(3000, 8),
-                            QPointF(4000, 5),
-                            QPointF(5000, 1),
-                            QPointF(6000, 2),
-                            QPointF(7000, 3),
-                            QPointF(8000, 4),
-                            QPointF(9000, 7),
-                            QPointF(10000, 5),
-                            QPointF(11000, 6),
-                            QPointF(25000, 15),
-                            ])
+        self.line_series = QLineSeries()
+        self.line_series.append([QPointF(0, 6),
+                                 QPointF(1000, 4),
+                                 QPointF(2000, 10),
+                                 QPointF(3000, 8),
+                                 QPointF(4000, 5),
+                                 QPointF(5000, 1),
+                                 QPointF(6000, 2),
+                                 QPointF(7000, 3),
+                                 QPointF(8000, 4),
+                                 QPointF(9000, 7),
+                                 QPointF(10000, 5),
+                                 QPointF(11000, 6),
+                                 QPointF(25000, 15),
+                                 ])
 
         chart = QChart()
         chart.setTitle("Evolución histórica (últimos 30 seg)")
@@ -38,14 +38,14 @@ class HistoricDataWidget(QWidget):
         axis_x.setReverse()
         chart.addAxis(axis_x, Qt.AlignBottom)
 
-        axis_y = QValueAxis()
-        axis_y.setTitleText("Vel. (m/s)")
-        axis_y.setLabelFormat("%i")
-        chart.addAxis(axis_y, Qt.AlignLeft)
+        self.axis_y = QValueAxis()
+        self.axis_y.setTitleText("Vel. (m/s)")
+        self.axis_y.setLabelFormat("%i")
+        chart.addAxis(self.axis_y, Qt.AlignLeft)
 
-        chart.addSeries(line_series)
-        line_series.attachAxis(axis_y)
-        line_series.attachAxis(axis_x)
+        chart.addSeries(self.line_series)
+        self.line_series.attachAxis(self.axis_y)
+        self.line_series.attachAxis(axis_x)
 
         view = QChartView(chart)
         view.setRenderHint(QPainter.Antialiasing)
@@ -57,4 +57,17 @@ class HistoricDataWidget(QWidget):
         self.button.clicked.connect(lambda: self.process_csv_click())
 
     def process_csv_click(self):
-        print("Clicked csv button heheeyy")
+        self.line_series.append(QPointF(30000, 35))
+        new_min, new_max = self.get_min_max_points()
+        self.axis_y.setRange(new_min, new_max)
+
+    def get_min_max_points(self):
+        max_y_value_in_chary = -9e25
+        min_y_value_in_chary = 9e25
+        for point in self.line_series.pointsVector():
+            if point.y() < min_y_value_in_chary:
+                min_y_value_in_chary = point.y()
+            if point.y() > max_y_value_in_chary:
+                max_y_value_in_chary = point.y()
+
+        return min_y_value_in_chary, max_y_value_in_chary
