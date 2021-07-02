@@ -61,7 +61,7 @@ class HistoricDataWidget(QWidget):
         self.button.clicked.connect(lambda: self.process_csv_click())
 
     def process_csv_click(self):
-        for i in range(1000):
+        for i in range(5):
             threading.Timer(i*0.5, self.update_chart).start()
 
     def update_chart(self):

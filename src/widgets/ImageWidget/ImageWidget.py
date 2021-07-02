@@ -3,16 +3,34 @@ from typing import Dict
 
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QGroupBox, QStyle
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
 
-class ImageWidget(QWidget):
+class ImageWidget(QGroupBox):
     # inspired by: https://stackoverflow.com/questions/45018926/how-to-properly-setpixmap-scaled-on-pyqt5
     # which also shows how to draw something on the img!
     def __init__(self, parent=None):
         super().__init__(parent=parent)
+        self.setTitle("Image")
+        # groupbox style: https://stackoverflow.com/questions/42655988/adjust-title-position-in-a-qgroupbox-using-style-sheets  # noqa: E501
+        # How to use groupbox style title and box separately: https://stackoverflow.com/questions/40043709/how-to-customise-qgroupbox-title-in-pyqt5    # noqa: E501
+        self.setStyleSheet("""
+        QGroupBox{
+            font: bold;
+            border: 1px solid silver;
+            border-radius: 6px;
+            margin-top: 6px;
+        }
+        QGroupBox:title{
+            subcontrol-origin: margin;
+            left: 7px;
+            padding: 0px 5px 0px 5px;
+        }
+        """)
+        # self.setStyleSheet("""subcontrol-origin: margin;left: 7px; padding: 0px 5px 0px 5px;""")
+        # self.setStyle(QStyle.)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
