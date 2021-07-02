@@ -3,7 +3,7 @@ from typing import Dict
 
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QGroupBox, QStyle
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QGroupBox
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
@@ -29,8 +29,6 @@ class ImageWidget(QGroupBox):
             padding: 0px 5px 0px 5px;
         }
         """)
-        # self.setStyleSheet("""subcontrol-origin: margin;left: 7px; padding: 0px 5px 0px 5px;""")
-        # self.setStyle(QStyle.)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
