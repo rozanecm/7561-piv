@@ -30,7 +30,7 @@ class ImageWidget(GroupBox):
 class Image(QWidget):
     def __init__(self, main_window, parent=None):
         super().__init__(parent=parent)
-        self.markers: Dict[int, CircleMarker] = {}
+        self.markers: Dict[id: int, CircleMarker] = {}
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
         self.imageLabel = QLabel()
         self.set_image(path)
