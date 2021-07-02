@@ -14,21 +14,37 @@ class HistoricDataWidget(GroupBox):
         super().__init__("Historic data", parent=parent)
         self.layout = QHBoxLayout()
 
-        self.line_series = QLineSeries()
-        self.line_series.append([QPointF(0, 6),
-                                 QPointF(1000, 4),
-                                 QPointF(2000, 10),
-                                 QPointF(3000, 8),
-                                 QPointF(4000, 5),
-                                 QPointF(5000, 1),
-                                 QPointF(6000, 2),
-                                 QPointF(7000, 3),
-                                 QPointF(8000, 4),
-                                 QPointF(9000, 7),
-                                 QPointF(10000, 5),
-                                 QPointF(11000, 6),
-                                 QPointF(25000, 15),
-                                 ])
+        self.line_series_1 = QLineSeries()
+        self.line_series_1.append([QPointF(0, 6),
+                                   QPointF(1000, 4),
+                                   QPointF(2000, 10),
+                                   QPointF(3000, 8),
+                                   QPointF(4000, 5),
+                                   QPointF(5000, 1),
+                                   QPointF(6000, 2),
+                                   QPointF(7000, 3),
+                                   QPointF(8000, 4),
+                                   QPointF(9000, 7),
+                                   QPointF(10000, 5),
+                                   QPointF(11000, 6),
+                                   QPointF(25000, 15),
+                                   ])
+
+        self.line_series_2 = QLineSeries()
+        self.line_series_2.append([QPointF(0, 6),
+                                   QPointF(1000, 1),
+                                   QPointF(2000, 0),
+                                   QPointF(3000, 3),
+                                   QPointF(4000, 2),
+                                   QPointF(5000, 5),
+                                   QPointF(6000, 6),
+                                   QPointF(7000, 6),
+                                   QPointF(8000, 5),
+                                   QPointF(9000, 2),
+                                   QPointF(10000, 15),
+                                   QPointF(11000, 1),
+                                   QPointF(25000, 5),
+                                   ])
 
         chart = QChart()
         chart.setTitle("Evolución histórica (últimos 30 seg)")
@@ -48,9 +64,13 @@ class HistoricDataWidget(GroupBox):
         self.axis_y.setLabelFormat("%i")
         chart.addAxis(self.axis_y, Qt.AlignLeft)
 
-        chart.addSeries(self.line_series)
-        self.line_series.attachAxis(self.axis_y)
-        self.line_series.attachAxis(axis_x)
+        chart.addSeries(self.line_series_1)
+        self.line_series_1.attachAxis(self.axis_y)
+        self.line_series_1.attachAxis(axis_x)
+
+        chart.addSeries(self.line_series_2)
+        self.line_series_2.attachAxis(self.axis_y)
+        self.line_series_2.attachAxis(axis_x)
 
         view = QChartView(chart)
         view.setRenderHint(QPainter.Antialiasing)
@@ -66,18 +86,26 @@ class HistoricDataWidget(GroupBox):
             threading.Timer(i*0.5, self.update_chart).start()
 
     def update_chart(self):
-        self.line_series.clear()
+        self.line_series_1.clear()
         points = []
         for i in range(30):
             points.append(QPointF(i * 1000, gauss(10, 2)))
-        self.line_series.append(points)
-        new_min, new_max = self.get_min_max_points()
+        self.line_series_1.append(points)
+        new_min, new_max = self.get_min_max_points(self.line_series_1)
         self.axis_y.setRange(new_min, new_max)
 
-    def get_min_max_points(self):
+        self.line_series_2.clear()
+        points = []
+        for i in range(30):
+            points.append(QPointF(i * 1000, gauss(10, 2)))
+        self.line_series_2.append(points)
+        new_min, new_max = self.get_min_max_points(self.line_series_2)
+        self.axis_y.setRange(new_min, new_max)
+
+    def get_min_max_points(self, line_series):
         max_y_value_in_chary = -9e25
         min_y_value_in_chary = 9e25
-        for point in self.line_series.pointsVector():
+        for point in line_series.pointsVector():
             if point.y() < min_y_value_in_chary:
                 min_y_value_in_chary = point.y()
             if point.y() > max_y_value_in_chary:
