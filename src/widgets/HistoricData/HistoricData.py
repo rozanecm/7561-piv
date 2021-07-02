@@ -1,4 +1,3 @@
-import threading
 from random import gauss
 from typing import Dict
 
@@ -45,7 +44,7 @@ class HistoricDataWidget(GroupBox):
     def add_line(self, marker_id: int):
         self.line_series[marker_id] = QSplineSeries()
         self.line_series[marker_id].setName(str(marker_id))
-        self.update_chart(1)
+        self.update_chart(marker_id)
         self.chart.addSeries(self.line_series[marker_id])
         self.line_series[marker_id].attachAxis(self.axis_y)
         self.line_series[marker_id].attachAxis(self.axis_x)

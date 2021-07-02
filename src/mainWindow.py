@@ -1,7 +1,7 @@
 import os
 
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
@@ -91,6 +91,7 @@ class MainWindow(QWidget):
         if len(self.points.keys()) >= 1:
             self.tab_widget.quitar_punto_button.setEnabled(True)
         self.table_widget.add_marker(str(new_point_id))
+        self.historic_data_widget.add_line(new_point_id)
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
