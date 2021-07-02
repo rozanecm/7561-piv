@@ -44,6 +44,7 @@ class HistoricDataWidget(GroupBox):
 
     def add_line(self, marker_id: int):
         self.line_series[marker_id] = QLineSeries()
+        self.line_series[marker_id].setName(str(marker_id))
         self.update_chart(1)
         self.chart.addSeries(self.line_series[marker_id])
         self.line_series[marker_id].attachAxis(self.axis_y)
