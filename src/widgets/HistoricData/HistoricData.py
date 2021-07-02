@@ -1,16 +1,17 @@
-from time import sleep
+import threading
+from random import gauss
 
 from PyQt5.QtChart import QLineSeries, QChart, QChartView, QValueAxis
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import QWidget, QPushButton, QHBoxLayout
-from random import gauss
-import threading
+from PyQt5.QtWidgets import QPushButton, QHBoxLayout
+
+from src.widgets.GroupBox.GroupBox import GroupBox
 
 
-class HistoricDataWidget(QWidget):
+class HistoricDataWidget(GroupBox):
     def __init__(self, parent=None):
-        super().__init__(parent=parent)
+        super().__init__("Historic data", parent=parent)
         self.layout = QHBoxLayout()
 
         self.line_series = QLineSeries()
