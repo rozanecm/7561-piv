@@ -1,2 +1,5 @@
 PyQt5
 PyQtChart
+
+# lint and type hints
+mypy

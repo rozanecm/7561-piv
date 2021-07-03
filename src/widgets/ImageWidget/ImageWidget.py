@@ -4,6 +4,7 @@ from typing import Dict
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
+from typing_extensions import TypedDict
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 from src.widgets.GroupBox.GroupBox import GroupBox
@@ -30,7 +31,7 @@ class ImageWidget(GroupBox):
 class Image(QWidget):
     def __init__(self, main_window, parent=None):
         super().__init__(parent=parent)
-        self.markers: Dict[id: int, CircleMarker] = {}
+        self.markers: Dict[int, CircleMarker] = {}
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
         self.imageLabel = QLabel()
         self.set_image(path)
