@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QLabel, QCheckBox
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QCheckBox
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 
@@ -27,4 +27,3 @@ class Modal(QDialog):
             current_marker.setText(str(marker))
             print(self.chart_settings_groupbox.layout())
             self.chart_settings_groupbox.layout().addWidget(current_marker)
-            # self.layout.addWidget(current_marker)

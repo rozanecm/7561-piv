@@ -1,13 +1,11 @@
 from random import gauss
 from typing import Dict
 
-from PyQt5 import QtGui
-from typing_extensions import TypedDict
-
-from PyQt5.QtChart import QLineSeries, QChart, QChartView, QValueAxis, QSplineSeries
-from PyQt5.QtCore import Qt, QPointF, QObject, QEvent
+from PyQt5.QtChart import QChart, QChartView, QValueAxis, QSplineSeries
+from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout
+from typing_extensions import TypedDict
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.HistoricData.Modal import Modal

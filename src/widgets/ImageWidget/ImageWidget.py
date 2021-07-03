@@ -4,7 +4,6 @@ from typing import Dict
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
-from typing_extensions import TypedDict
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 from src.widgets.GroupBox.GroupBox import GroupBox
