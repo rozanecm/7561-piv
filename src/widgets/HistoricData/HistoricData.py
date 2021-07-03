@@ -10,6 +10,7 @@ from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout
 
 from src.widgets.GroupBox.GroupBox import GroupBox
+from src.widgets.HistoricData.Modal import Modal
 
 
 class HistoricDataWidget(GroupBox):
@@ -56,7 +57,8 @@ class HistoricDataWidget(GroupBox):
         self.axis_x.setRange(min_value, max_value)
 
     def process_csv_click(self):
-        self.add_line(1)
+        modal = Modal(list(self.line_series.keys()))
+        modal.exec()
 
     def update_chart(self, line_id: int):
         self.line_series[line_id]['series'].clear()
