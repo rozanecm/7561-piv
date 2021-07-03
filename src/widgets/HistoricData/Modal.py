@@ -25,5 +25,4 @@ class Modal(QDialog):
         for marker in self.markers:
             current_marker = QCheckBox()
             current_marker.setText(str(marker))
-            print(self.chart_settings_groupbox.layout())
             self.chart_settings_groupbox.layout().addWidget(current_marker)

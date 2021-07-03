@@ -49,16 +49,12 @@ class Image(QWidget):
         self.imageLabel.setPixmap(
             QPixmap(path).scaled(self.imageLabel.size().width(), self.imageLabel.size().height(),
                                  QtCore.Qt.KeepAspectRatio))
-        print("img label size:", self.imageLabel.size())
-        print("pixmap size:", self.imageLabel.pixmap().size())
 
     def mouseDoubleClickEvent(self, event: QtGui.QMouseEvent) -> None:
         x = event.pos().x()
         y = event.pos().y()
         # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
         self.main_window.add_point(x, y)
-        print("img label size:", self.imageLabel.size())
-        print("pixmap size:", self.imageLabel.pixmap().size())
 
     def add_point(self, x, y, new_point_id: int):
         new_point = CircleMarker(new_point_id, parent=self)
