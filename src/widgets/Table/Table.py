@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, QWidget, QVBoxLayout, QLabel
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, QWidget, QVBoxLayout, QLabel, QHeaderView
 
 
 class Table(QWidget):
@@ -31,6 +31,7 @@ class Table(QWidget):
 
         self.table.verticalHeader().hide()
         self.table.setAlternatingRowColors(True)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def add_marker(self, marker_id: str):
         self.table.insertRow(self.table.rowCount())
