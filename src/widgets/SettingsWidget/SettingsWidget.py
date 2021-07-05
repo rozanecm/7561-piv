@@ -22,14 +22,14 @@ class SettingsWidget(GroupBox):
 
     def setup_ppm(self):
         ppm_layout = QHBoxLayout()
-        ppm_label = QLabel("ppm")
+        ppm_label = QLabel("ppm:")
         ppm_layout.addWidget(ppm_label)
         ppm_layout.addWidget(self.ppm_input)
         self.layout.addLayout(ppm_layout)
 
     def setup_delta_t(self):
         delta_t_layout = QHBoxLayout()
-        delta_t_label = QLabel("Delta t")
+        delta_t_label = QLabel("Δ t:")
         delta_t_layout.addWidget(delta_t_label)
         delta_t_layout.addWidget(self.delta_t_input)
         self.layout.addLayout(delta_t_layout)
