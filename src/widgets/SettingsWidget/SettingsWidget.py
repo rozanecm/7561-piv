@@ -11,7 +11,9 @@ class SettingsWidget(GroupBox):
         self.setLayout(self.layout)
 
         self.delta_t_input = QSpinBox()
+        self.delta_t_input.valueChanged.connect(lambda: self.delta_t_update())
         self.ppm_input = QSpinBox()
+        self.ppm_input.valueChanged.connect(lambda: self.ppm_update())
 
         self.layout.addStretch()
         self.setup_delta_t()
@@ -31,3 +33,9 @@ class SettingsWidget(GroupBox):
         delta_t_layout.addWidget(delta_t_label)
         delta_t_layout.addWidget(self.delta_t_input)
         self.layout.addLayout(delta_t_layout)
+
+    def delta_t_update(self):
+        print(self.delta_t_input.value())
+
+    def ppm_update(self):
+        print(self.ppm_input.value())
