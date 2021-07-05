@@ -5,7 +5,6 @@ from PyQt5.QtChart import QChart, QChartView, QValueAxis, QSplineSeries
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
-from typing_extensions import TypedDict
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.HistoricData.Modal import Modal
