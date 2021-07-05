@@ -1,10 +1,11 @@
 import os
 
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QSpinBox, QLabel
 
 from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
+from src.widgets.SettingsWidget.SettingsWidget import SettingsWidget
 from src.widgets.StatusBar.StatusBar import StatusBar
 from src.widgets.Table.Table import Table
 from src.widgets.tabs.tabs_widget import TabWidget
@@ -48,6 +49,8 @@ class MainWindow(QWidget):
 
         self.middle_layout.addStretch()
         self.middle_layout.addWidget(self.image_widget)
+
+        self.middle_layout.addWidget(SettingsWidget())
         self.middle_layout.addStretch()
         self.middle_layout.addLayout(self.side_layout)
 

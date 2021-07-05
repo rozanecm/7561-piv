@@ -21,22 +21,6 @@ class Modal(QDialog):
 
         self.chart_settings_groupbox = GroupBox("Chart Settings")
         self.layout.addWidget(self.chart_settings_groupbox)
-        self.right_side_layout = QVBoxLayout()
-        delta_t_layout = QHBoxLayout()
-        delta_t_label = QLabel("Delta t")
-        self.delta_t_input = QSpinBox()
-        delta_t_layout.addWidget(delta_t_label)
-        delta_t_layout.addWidget(self.delta_t_input)
-
-        ppm_layout = QHBoxLayout()
-        ppm_label = QLabel("ppm")
-        ppm_input = QSpinBox()
-        ppm_layout.addWidget(ppm_label)
-        ppm_layout.addWidget(ppm_input)
-
-        self.right_side_layout.addLayout(delta_t_layout)
-        self.right_side_layout.addLayout(ppm_layout)
-        self.layout.addLayout(self.right_side_layout)
 
         self.line_series = line_series
         self.line_buttons = {}
@@ -59,4 +43,3 @@ class Modal(QDialog):
 
     def finished_process(self):
         print("oh ok so we got hre. Cool.")
-        print(self.delta_t_input.value())
