@@ -18,10 +18,12 @@ class Table(QWidget):
 
     def init_table(self):
         # add row to table: https://stackoverflow.com/questions/6957943/how-to-add-new-row-to-existing-qtablewidget
-        self.table.setColumnCount(3)
+        self.table.setColumnCount(5)
         self.table.insertRow(0)
         self.table.setItem(0, 1, QTableWidgetItem("vel x"))
         self.table.setItem(0, 2, QTableWidgetItem("vel y"))
+        self.table.setItem(0, 3, QTableWidgetItem("pos x"))
+        self.table.setItem(0, 4, QTableWidgetItem("pos y"))
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self.table_title.setText("Velocidades instantáneas")
