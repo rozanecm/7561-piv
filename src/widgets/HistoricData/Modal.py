@@ -1,7 +1,7 @@
 from typing import Dict
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout, QSpinBox, QLabel
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QHBoxLayout
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.HistoricData.CheckBox import CheckBox
