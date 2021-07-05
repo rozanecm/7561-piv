@@ -4,7 +4,7 @@ from typing import Dict
 from PyQt5.QtChart import QChart, QChartView, QValueAxis, QSplineSeries
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter
-from PyQt5.QtWidgets import QPushButton, QHBoxLayout
+from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
 from typing_extensions import TypedDict
 
 from src.widgets.GroupBox.GroupBox import GroupBox
@@ -38,10 +38,16 @@ class HistoricDataWidget(GroupBox):
         self.view.setRenderHint(QPainter.Antialiasing)
         self.layout.addWidget(self.view)
 
-        self.button = QPushButton("Obtener CSV")
-        self.layout.addWidget(self.button)
+        self.settings_button = QPushButton("Configuración")
+        self.download_csv_button = QPushButton("Obtener CSV")
+        self.buttons_layout = QVBoxLayout()
+        self.buttons_layout.addStretch()
+        self.buttons_layout.addWidget(self.download_csv_button)
+        self.buttons_layout.addWidget(self.settings_button)
+        self.buttons_layout.addStretch()
+        self.layout.addLayout(self.buttons_layout)
         self.setLayout(self.layout)
-        self.button.clicked.connect(lambda: self.process_csv_click())
+        self.settings_button.clicked.connect(lambda: self.process_csv_click())
 
     def add_line(self, marker_id: int):
         self.line_series[marker_id] = {'is_visible': True, 'series': QSplineSeries()}
