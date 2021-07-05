@@ -16,29 +16,32 @@ class HistoricDataWidget(GroupBox):
         super().__init__("Historic data", parent=parent)
         self.layout = QHBoxLayout()
 
+        self.chart = QChart()
+        self.view = QChartView(self.chart)
+
+        self.buttons_layout = QVBoxLayout()
+        self.settings_button = QPushButton("Configuración")
+        self.settings_button.clicked.connect(lambda: self.process_csv_click())
+        self.download_csv_button = QPushButton("Obtener CSV")
+
         line = TypedDict('line', {'is_visible': bool, 'series': QSplineSeries})
         self.line_series: Dict[int, line] = {}
-
-        self.chart = QChart()
         self.setup_chart()
 
         self.axis_x = QValueAxis()
         self.axis_y = QValueAxis()
-        self.view = QChartView(self.chart)
         self.setup_axes()
 
-        self.layout.addWidget(self.view)
+        self.setup_layout()
 
-        self.settings_button = QPushButton("Configuración")
-        self.download_csv_button = QPushButton("Obtener CSV")
-        self.buttons_layout = QVBoxLayout()
+    def setup_layout(self):
+        self.layout.addWidget(self.view)
         self.buttons_layout.addStretch()
         self.buttons_layout.addWidget(self.download_csv_button)
         self.buttons_layout.addWidget(self.settings_button)
         self.buttons_layout.addStretch()
         self.layout.addLayout(self.buttons_layout)
         self.setLayout(self.layout)
-        self.settings_button.clicked.connect(lambda: self.process_csv_click())
 
     def setup_axes(self):
         self.axis_x.setLabelFormat("%i")
