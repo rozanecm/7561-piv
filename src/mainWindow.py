@@ -61,6 +61,7 @@ class MainWindow(QWidget):
     def set_size(self):
         minimum_size = self.get_minimum_size()
         self.setMinimumSize(minimum_size[0], minimum_size[1])
+        self.setMaximumSize(minimum_size[0], minimum_size[1])
 
     def get_minimum_size(self, width_fraction=0.9, height_fraction=0.8):
         """
