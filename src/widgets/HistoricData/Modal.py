@@ -17,14 +17,16 @@ class Modal(QDialog):
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
+        self.finished.connect(lambda: self.finished_process())
+
         self.chart_settings_groupbox = GroupBox("Chart Settings")
         self.layout.addWidget(self.chart_settings_groupbox)
         self.right_side_layout = QVBoxLayout()
         delta_t_layout = QHBoxLayout()
         delta_t_label = QLabel("Delta t")
-        delta_t_input = QSpinBox()
+        self.delta_t_input = QSpinBox()
         delta_t_layout.addWidget(delta_t_label)
-        delta_t_layout.addWidget(delta_t_input)
+        delta_t_layout.addWidget(self.delta_t_input)
 
         ppm_layout = QHBoxLayout()
         ppm_label = QLabel("ppm")
@@ -54,3 +56,7 @@ class Modal(QDialog):
 
     def toggle(self, marker: int, new_value: bool):
         self.parent().enable_line_toggle(marker, new_value)
+
+    def finished_process(self):
+        print("oh ok so we got hre. Cool.")
+        print(self.delta_t_input.value())
