@@ -26,6 +26,8 @@ class HistoricDataWidget(GroupBox):
         icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/settings.png"))
         self.settings_button.setIcon(QIcon(icon_path))
         self.download_csv_button = QPushButton("Obtener CSV")
+        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/save.png"))
+        self.download_csv_button.setIcon(QIcon(icon_path))
 
         self.line_series: Dict[int, line] = {}
         self.setup_chart()
