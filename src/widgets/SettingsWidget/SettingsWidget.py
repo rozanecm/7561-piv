@@ -26,3 +26,5 @@ class SettingsWidget(GroupBox):
         self.layout.addLayout(self.delta_t_layout)
         self.layout.addLayout(self.ppm_layout)
         self.layout.addStretch()
+
+        self.setMinimumWidth(150)

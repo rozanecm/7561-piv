@@ -50,7 +50,7 @@ class MainWindow(QWidget):
         self.middle_layout.addStretch()
         self.middle_layout.addWidget(self.image_widget)
 
-        self.middle_layout.addWidget(SettingsWidget())
+        # self.middle_layout.addWidget(SettingsWidget())
         self.middle_layout.addStretch()
         self.middle_layout.addLayout(self.side_layout)
 

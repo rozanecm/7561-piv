@@ -3,26 +3,32 @@ from typing import Dict
 
 from PyQt5 import QtGui, QtCore
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 from src.widgets.GroupBox.GroupBox import GroupBox
+from src.widgets.SettingsWidget.SettingsWidget import SettingsWidget
 
 
 class ImageWidget(GroupBox):
     # inspired by: https://stackoverflow.com/questions/45018926/how-to-properly-setpixmap-scaled-on-pyqt5
     # which also shows how to draw something on the img!
     def __init__(self, parent=None):
-        super().__init__("Image", parent=parent)
+        super().__init__("Imagen", parent=parent)
 
-        self.layout = QVBoxLayout()
+        self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
         self.image = Image(self.parent())
 
-        self.layout.addStretch()
+        # self.layout.addStretch()
         self.layout.addWidget(self.image)
-        self.layout.addStretch()
+        self.settings_layout = QVBoxLayout()
+        self.settings_layout.addStretch()
+        self.settings_layout.addWidget(SettingsWidget())
+        self.settings_layout.addStretch()
+        self.layout.addLayout(self.settings_layout)
+        # self.layout.addStretch()
 
         self.show()
 
