@@ -15,27 +15,18 @@ class HistoricDataWidget(GroupBox):
     def __init__(self, parent=None):
         super().__init__("Historic data", parent=parent)
         self.layout = QHBoxLayout()
+
         line = TypedDict('line', {'is_visible': bool, 'series': QSplineSeries})
         self.line_series: Dict[int, line] = {}
 
         self.chart = QChart()
-        self.chart.setTitle("Evolución histórica (últimos 30 seg)")
-        self.chart.setTheme(QChart.ChartThemeBlueIcy)
-        self.chart.setAnimationOptions(QChart.SeriesAnimations)
+        self.setup_chart()
 
         self.axis_x = QValueAxis()
-        self.axis_x.setLabelFormat("%i")
-        self.axis_x.setTitleText("Tiempo (ms)")
-        self.axis_x.setTickCount(13)
-        self.chart.addAxis(self.axis_x, Qt.AlignBottom)
-
         self.axis_y = QValueAxis()
-        self.axis_y.setTitleText("Vel. (m/s)")
-        self.axis_y.setLabelFormat("%i")
-        self.chart.addAxis(self.axis_y, Qt.AlignLeft)
-
         self.view = QChartView(self.chart)
-        self.view.setRenderHint(QPainter.Antialiasing)
+        self.setup_axes()
+
         self.layout.addWidget(self.view)
 
         self.settings_button = QPushButton("Configuración")
@@ -48,6 +39,21 @@ class HistoricDataWidget(GroupBox):
         self.layout.addLayout(self.buttons_layout)
         self.setLayout(self.layout)
         self.settings_button.clicked.connect(lambda: self.process_csv_click())
+
+    def setup_axes(self):
+        self.axis_x.setLabelFormat("%i")
+        self.axis_x.setTitleText("Tiempo (ms)")
+        self.axis_x.setTickCount(13)
+        self.chart.addAxis(self.axis_x, Qt.AlignBottom)
+        self.axis_y.setTitleText("Vel. (m/s)")
+        self.axis_y.setLabelFormat("%i")
+        self.chart.addAxis(self.axis_y, Qt.AlignLeft)
+
+    def setup_chart(self):
+        self.chart.setTitle("Evolución histórica (últimos 30 seg)")
+        self.chart.setTheme(QChart.ChartThemeBlueIcy)
+        self.chart.setAnimationOptions(QChart.SeriesAnimations)
+        self.view.setRenderHint(QPainter.Antialiasing)
 
     def add_line(self, marker_id: int):
         self.line_series[marker_id] = {'is_visible': True, 'series': QSplineSeries()}
