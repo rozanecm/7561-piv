@@ -30,6 +30,7 @@ class Table(QWidget):
         self.table_title.setAlignment(Qt.AlignCenter)
 
         self.table.verticalHeader().hide()
+        self.table.horizontalHeader().hide()
         self.table.setAlternatingRowColors(True)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
