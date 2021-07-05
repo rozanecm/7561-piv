@@ -55,8 +55,12 @@ class HistoricDataWidget(GroupBox):
         self.axis_x.setRange(min_value, max_value)
 
     def process_csv_click(self):
-        modal = Modal(list(self.line_series.keys()))
+        modal = Modal(self.line_series, self)
         modal.exec()
+
+    def enable_line_toggle(self, line_id: int, new_value: bool):
+        self.line_series[line_id]['is_visible'] = new_value
+        self.line_series[line_id]['series'].show() if new_value else self.line_series[line_id]['series'].hide()
 
     def update_chart(self, line_id: int):
         self.line_series[line_id]['series'].clear()
