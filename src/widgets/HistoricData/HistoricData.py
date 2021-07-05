@@ -9,6 +9,7 @@ from typing_extensions import TypedDict
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.HistoricData.Modal import Modal
+from src.widgets.HistoricData.typedef import line
 
 
 class HistoricDataWidget(GroupBox):
@@ -24,7 +25,6 @@ class HistoricDataWidget(GroupBox):
         self.settings_button.clicked.connect(lambda: self.process_csv_click())
         self.download_csv_button = QPushButton("Obtener CSV")
 
-        line = TypedDict('line', {'is_visible': bool, 'series': QSplineSeries})
         self.line_series: Dict[int, line] = {}
         self.setup_chart()
 

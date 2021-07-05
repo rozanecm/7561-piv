@@ -7,12 +7,12 @@ from typing_extensions import TypedDict
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.HistoricData.CheckBox import CheckBox
+from src.widgets.HistoricData.typedef import line
 
 
 class Modal(QDialog):
-    def __init__(self, markers: dict, parent=None):
+    def __init__(self, line_series: dict, parent=None):
         super(Modal, self).__init__(parent=parent)
-        line = TypedDict('line', {'is_visible': bool, 'series': QSplineSeries})
         self.line_series: Dict[int, line] = {}
 
         self.setWindowModality(Qt.ApplicationModal)
@@ -22,7 +22,7 @@ class Modal(QDialog):
         self.chart_settings_groupbox = GroupBox("Chart Settings")
         self.layout.addWidget(self.chart_settings_groupbox)
 
-        self.line_series = markers
+        self.line_series = line_series
         self.line_buttons = {}
 
         self.setMinimumWidth(250)
