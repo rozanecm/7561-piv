@@ -32,9 +32,9 @@ class HistoricDataWidget(GroupBox):
         self.axis_y = QValueAxis()
         self.setup_axes()
 
-        self.setup_layout()
+        self.setup_general_layout()
 
-    def setup_layout(self):
+    def setup_general_layout(self):
         self.layout.addWidget(self.view)
         self.buttons_layout.addStretch()
         self.buttons_layout.addWidget(self.download_csv_button)
