@@ -27,7 +27,8 @@ class Table(QWidget):
         self.table_title.setText("Velocidades instantáneas")
         self.table_title.setAlignment(Qt.AlignCenter)
 
-        self.table.verticalHeader().hide())
+        self.table.verticalHeader().hide()
+        self.table.setAlternatingRowColors(True)
 
     def add_marker(self, marker_id: str):
         self.table.insertRow(self.table.rowCount())
