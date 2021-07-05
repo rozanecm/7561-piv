@@ -1,9 +1,10 @@
+import os
 from random import gauss
 from typing import Dict
 
 from PyQt5.QtChart import QChart, QChartView, QValueAxis, QSplineSeries
 from PyQt5.QtCore import Qt, QPointF
-from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QPainter, QIcon
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
 
 from src.widgets.GroupBox.GroupBox import GroupBox
@@ -22,6 +23,8 @@ class HistoricDataWidget(GroupBox):
         self.buttons_layout = QVBoxLayout()
         self.settings_button = QPushButton("Configuración")
         self.settings_button.clicked.connect(lambda: self.process_csv_click())
+        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/settings.png"))
+        self.settings_button.setIcon(QIcon(icon_path))
         self.download_csv_button = QPushButton("Obtener CSV")
 
         self.line_series: Dict[int, line] = {}
@@ -36,8 +39,8 @@ class HistoricDataWidget(GroupBox):
     def setup_general_layout(self):
         self.layout.addWidget(self.view)
         self.buttons_layout.addStretch()
-        self.buttons_layout.addWidget(self.download_csv_button)
         self.buttons_layout.addWidget(self.settings_button)
+        self.buttons_layout.addWidget(self.download_csv_button)
         self.buttons_layout.addStretch()
         self.layout.addLayout(self.buttons_layout)
         self.setLayout(self.layout)
