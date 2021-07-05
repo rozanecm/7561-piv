@@ -17,8 +17,6 @@ class Modal(QDialog):
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
-        self.finished.connect(lambda: self.finished_process())
-
         self.chart_settings_groupbox = GroupBox("Chart Settings")
         self.layout.addWidget(self.chart_settings_groupbox)
 
@@ -40,6 +38,3 @@ class Modal(QDialog):
 
     def toggle(self, marker: int, new_value: bool):
         self.parent().enable_line_toggle(marker, new_value)
-
-    def finished_process(self):
-        print("oh ok so we got hre. Cool.")
