@@ -1,9 +1,11 @@
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QSpinBox
+from PyQt5.QtWidgets import QHBoxLayout, QLabel, QSpinBox
+
+from src.widgets.GroupBox.GroupBox import GroupBox
 
 
-class ChartScaleSettingsWidget(QWidget):
+class ChartScaleSettingsWidget(GroupBox):
     def __init__(self, parent=None):
-        super().__init__(parent=parent)
+        super().__init__("Escala eje Y", parent=parent)
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
