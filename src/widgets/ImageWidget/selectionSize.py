@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QVBoxLayout, QRadioButton
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
-class selectionSizeWidget(GroupBox):
+class SelectionSizeWidget(GroupBox):
     def __init__(self, parent=None):
         super().__init__("Tamaño de selección", parent=parent)
         self.layout = QVBoxLayout()

@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QHBoxLayout
 
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 from src.widgets.GroupBox.GroupBox import GroupBox
-from src.widgets.ImageWidget.selectionSize import selectionSizeWidget
+from src.widgets.ImageWidget.selectionSize import SelectionSizeWidget
 from src.widgets.SettingsWidget.SettingsWidget import SettingsWidget
 
 
@@ -22,15 +22,13 @@ class ImageWidget(GroupBox):
 
         self.image = Image(self.parent())
 
-        # self.layout.addStretch()
         self.layout.addWidget(self.image)
         self.settings_layout = QVBoxLayout()
         self.settings_layout.addStretch()
         self.settings_layout.addWidget(SettingsWidget())
-        self.settings_layout.addWidget(selectionSizeWidget())
+        self.settings_layout.addWidget(SelectionSizeWidget())
         self.settings_layout.addStretch()
         self.layout.addLayout(self.settings_layout)
-        # self.layout.addStretch()
 
         self.show()
 
