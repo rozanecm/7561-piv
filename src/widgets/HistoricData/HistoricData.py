@@ -22,12 +22,9 @@ class HistoricDataWidget(GroupBox):
 
         self.buttons_layout = QVBoxLayout()
         self.settings_button = QPushButton("Configuración")
-        self.settings_button.clicked.connect(lambda: self.process_csv_click())
-        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/settings.png"))
-        self.settings_button.setIcon(QIcon(icon_path))
+        self.setup_settings_button()
         self.download_csv_button = QPushButton("Obtener CSV")
-        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/save.png"))
-        self.download_csv_button.setIcon(QIcon(icon_path))
+        self.setup_download_button()
 
         self.line_series: Dict[int, line] = {}
         self.setup_chart()
@@ -37,6 +34,16 @@ class HistoricDataWidget(GroupBox):
         self.setup_axes()
 
         self.setup_general_layout()
+
+    def setup_download_button(self):
+        self.download_csv_button.clicked.connect(lambda: self.process_csv_click())
+        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/save.png"))
+        self.download_csv_button.setIcon(QIcon(icon_path))
+
+    def setup_settings_button(self):
+        self.settings_button.clicked.connect(lambda: self.process_settings_click())
+        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/settings.png"))
+        self.settings_button.setIcon(QIcon(icon_path))
 
     def setup_general_layout(self):
         self.layout.addWidget(self.view)
@@ -74,6 +81,9 @@ class HistoricDataWidget(GroupBox):
         self.axis_x.setRange(min_value, max_value)
 
     def process_csv_click(self):
+        print("clicked csv click")
+        
+    def process_settings_click(self):
         modal = Modal(self.line_series, self)
         modal.exec()
 
