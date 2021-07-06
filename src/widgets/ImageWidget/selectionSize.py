@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QVBoxLayout, QRadioButton
+from PyQt5.QtWidgets import QVBoxLayout, QRadioButton, QButtonGroup
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 
@@ -9,11 +9,30 @@ class SelectionSizeWidget(GroupBox):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
+        self.button_group = QButtonGroup()
+
         self.init_gui()
         self.setMinimumWidth(200)
 
     def init_gui(self):
-        self.layout.addWidget(QRadioButton("8x8"))
-        self.layout.addWidget(QRadioButton("16x16"))
-        self.layout.addWidget(QRadioButton("32x32"))
-        self.layout.addWidget(QRadioButton("otro"))
+        radio_button_8x8 = QRadioButton("8x8")
+        radio_button_16x16 = QRadioButton("16x16")
+        radio_button_32x32 = QRadioButton("32x32")
+        radio_button_other = QRadioButton("otro")
+        self.layout.addWidget(radio_button_8x8)
+        self.layout.addWidget(radio_button_16x16)
+        self.layout.addWidget(radio_button_32x32)
+        self.layout.addWidget(radio_button_other)
+
+        radio_button_8x8.setChecked(True)
+
+        self.button_group.addButton(radio_button_8x8)
+        self.button_group.addButton(radio_button_16x16)
+        self.button_group.addButton(radio_button_32x32)
+        self.button_group.addButton(radio_button_other)
+        self.button_group.buttonClicked.connect(lambda button: self.button_pressed(button))
+
+        print(self.button_group.checkedButton().text())
+
+    def button_pressed(self, button: QRadioButton):
+        print(button.text())
