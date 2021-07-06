@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QHBoxLayout, QComboBox
 
-from src.constants.constants import constants
+from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
@@ -14,13 +14,13 @@ class VelocitySelectionWidget(GroupBox):
 
     def set_gui(self):
         combo_box = QComboBox()
-        combo_box.addItem(constants.VELOCITY_MAGNITUDE)
-        combo_box.addItem(constants.VELOCITY_VECT_X)
-        combo_box.addItem(constants.VELOCITY_VECT_Y)
+        combo_box.addItem(Constants.VELOCITY_MAGNITUDE)
+        combo_box.addItem(Constants.VELOCITY_VECT_X)
+        combo_box.addItem(Constants.VELOCITY_VECT_Y)
 
         combo_box.textActivated.connect(lambda x: self.update_value(x))
-        
+
         self.layout.addWidget(combo_box)
 
     def update_value(self, val):
-        print(val)
+        self.parent().change_velocity_type(val)

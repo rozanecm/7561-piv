@@ -109,3 +109,6 @@ class HistoricDataWidget(GroupBox):
         for i in range(30):
             points.append(QPointF(i * 1000, gauss(10, 2)))
         self.line_series[line_id]['series'].append(points)
+
+    def change_velocity_type(self, velocity_type: str):
+        print("chart should now be showing", velocity_type)
