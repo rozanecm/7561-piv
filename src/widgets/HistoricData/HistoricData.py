@@ -10,6 +10,7 @@ from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.HistoricData.ChartScaleSettings import ChartScaleSettingsWidget
 from src.widgets.HistoricData.Modal import Modal
+from src.widgets.HistoricData.VelocitySelection import VelocitySelectionWidget
 from src.widgets.HistoricData.typedef import line
 
 
@@ -22,6 +23,7 @@ class HistoricDataWidget(GroupBox):
         self.view = QChartView(self.chart)
 
         self.chart_scale_settings = ChartScaleSettingsWidget(parent=self)
+        self.velocity_selection = VelocitySelectionWidget()
         self.side_layout = QVBoxLayout()
         self.settings_button = QPushButton("Configuración")
         self.setup_settings_button()
@@ -50,6 +52,7 @@ class HistoricDataWidget(GroupBox):
     def setup_general_layout(self):
         self.layout.addWidget(self.view)
         self.side_layout.addStretch()
+        self.side_layout.addWidget(self.velocity_selection)
         self.side_layout.addWidget(self.chart_scale_settings)
         self.side_layout.addWidget(self.settings_button)
         self.side_layout.addWidget(self.download_csv_button)
