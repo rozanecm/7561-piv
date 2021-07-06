@@ -85,11 +85,9 @@ class HistoricDataWidget(GroupBox):
 
     def set_y_max_value(self, max_value: int):
         self.axis_y.setMax(max_value)
-        # self.view.repaint()
 
     def set_y_min_value(self, min_value: int):
         self.axis_y.setMin(min_value)
-        # self.view.repaint()
 
     def process_csv_click(self):
         print("clicked csv click")
@@ -108,16 +106,3 @@ class HistoricDataWidget(GroupBox):
         for i in range(30):
             points.append(QPointF(i * 1000, gauss(10, 2)))
         self.line_series[line_id]['series'].append(points)
-        new_min, new_max = self.get_min_max_points(line_id)
-        self.axis_y.setRange(new_min, new_max)
-
-    def get_min_max_points(self, line_id: int):
-        max_y_value_in_chary = -9e25
-        min_y_value_in_chary = 9e25
-        for point in self.line_series[line_id]['series'].pointsVector():
-            if point.y() < min_y_value_in_chary:
-                min_y_value_in_chary = point.y()
-            if point.y() > max_y_value_in_chary:
-                max_y_value_in_chary = point.y()
-
-        return min_y_value_in_chary, max_y_value_in_chary

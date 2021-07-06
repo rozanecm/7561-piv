@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QLabel, QSpinBox
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QLabel, QSpinBox
 
 
 class ChartScaleSettingsWidget(QWidget):
