@@ -25,8 +25,6 @@ class ChartScaleSettingsWidget(QWidget):
 
     def max_spin_changed(self, value):
         self.parent().set_y_max_value(value)
-        print("max spin changed to", value)
 
     def min_spin_changed(self, value):
         self.parent().set_y_min_value(value)
-        print("min spin changed to", value)
