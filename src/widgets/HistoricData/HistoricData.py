@@ -21,7 +21,7 @@ class HistoricDataWidget(GroupBox):
         self.chart = QChart()
         self.view = QChartView(self.chart)
 
-        self.chart_scale_settings = ChartScaleSettingsWidget()
+        self.chart_scale_settings = ChartScaleSettingsWidget(parent=self)
         self.side_layout = QVBoxLayout()
         self.settings_button = QPushButton("Configuración")
         self.setup_settings_button()
@@ -82,6 +82,14 @@ class HistoricDataWidget(GroupBox):
 
     def set_y_range(self, min_value: int, max_value: int):
         self.axis_x.setRange(min_value, max_value)
+
+    def set_y_max_value(self, max_value: int):
+        self.axis_y.setMax(max_value)
+        # self.view.repaint()
+
+    def set_y_min_value(self, min_value: int):
+        self.axis_y.setMin(min_value)
+        # self.view.repaint()
 
     def process_csv_click(self):
         print("clicked csv click")
