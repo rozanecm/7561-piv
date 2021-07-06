@@ -8,6 +8,7 @@ from PyQt5.QtGui import QPainter, QIcon
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
 
 from src.widgets.GroupBox.GroupBox import GroupBox
+from src.widgets.HistoricData.ChartScaleSettings import ChartScaleSettingsWidget
 from src.widgets.HistoricData.Modal import Modal
 from src.widgets.HistoricData.typedef import line
 
@@ -20,7 +21,8 @@ class HistoricDataWidget(GroupBox):
         self.chart = QChart()
         self.view = QChartView(self.chart)
 
-        self.buttons_layout = QVBoxLayout()
+        self.chart_scale_settings = ChartScaleSettingsWidget()
+        self.side_layout = QVBoxLayout()
         self.settings_button = QPushButton("Configuración")
         self.setup_settings_button()
         self.download_csv_button = QPushButton("Obtener CSV")
@@ -47,11 +49,12 @@ class HistoricDataWidget(GroupBox):
 
     def setup_general_layout(self):
         self.layout.addWidget(self.view)
-        self.buttons_layout.addStretch()
-        self.buttons_layout.addWidget(self.settings_button)
-        self.buttons_layout.addWidget(self.download_csv_button)
-        self.buttons_layout.addStretch()
-        self.layout.addLayout(self.buttons_layout)
+        self.side_layout.addStretch()
+        self.side_layout.addWidget(self.chart_scale_settings)
+        self.side_layout.addWidget(self.settings_button)
+        self.side_layout.addWidget(self.download_csv_button)
+        self.side_layout.addStretch()
+        self.layout.addLayout(self.side_layout)
         self.setLayout(self.layout)
 
     def setup_axes(self):
@@ -82,7 +85,7 @@ class HistoricDataWidget(GroupBox):
 
     def process_csv_click(self):
         print("clicked csv click")
-        
+
     def process_settings_click(self):
         modal = Modal(self.line_series, self)
         modal.exec()
