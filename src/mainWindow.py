@@ -24,7 +24,6 @@ class MainWindow(QWidget):
         self.image_widget = ImageWidget(parent=self)
         self.tab_widget = TabWidget(parent=self)
         self.table_widget = Table()
-        self.status_bar = StatusBar()
         self.historic_data_widget = HistoricDataWidget()
 
         self.init_gui()
@@ -37,7 +36,6 @@ class MainWindow(QWidget):
         self.show()
 
     def set_main_layout(self):
-        self.layout.addWidget(self.status_bar)
         self.layout.addLayout(self.middle_layout)
         self.layout.addWidget(self.historic_data_widget)
 

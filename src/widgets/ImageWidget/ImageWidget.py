@@ -9,6 +9,7 @@ from src.widgets.CircleMarker.CircleMarker import CircleMarker
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.ImageWidget.selectionSize import SelectionSizeWidget
 from src.widgets.SettingsWidget.SettingsWidget import SettingsWidget
+from src.widgets.StatusBar.StatusBar import StatusBar
 
 
 class ImageWidget(GroupBox):
@@ -17,18 +18,23 @@ class ImageWidget(GroupBox):
     def __init__(self, parent=None):
         super().__init__("Imagen", parent=parent)
 
-        self.layout = QHBoxLayout()
+        self.layout = QVBoxLayout()
+        self.main_layout = QHBoxLayout()
         self.setLayout(self.layout)
 
         self.image = Image(self.parent())
 
-        self.layout.addWidget(self.image)
+        self.main_layout.addWidget(self.image)
         self.settings_layout = QVBoxLayout()
         self.settings_layout.addStretch()
         self.settings_layout.addWidget(SettingsWidget())
         self.settings_layout.addWidget(SelectionSizeWidget())
         self.settings_layout.addStretch()
-        self.layout.addLayout(self.settings_layout)
+        self.main_layout.addLayout(self.settings_layout)
+
+        self.status_bar = StatusBar()
+        self.layout.addWidget(self.status_bar)
+        self.layout.addLayout(self.main_layout)
 
         self.show()
 
