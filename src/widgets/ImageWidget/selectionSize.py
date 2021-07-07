@@ -32,7 +32,6 @@ class SelectionSizeWidget(GroupBox):
         self.button_group.addButton(radio_button_other)
         self.button_group.buttonClicked.connect(lambda button: self.button_pressed(button))
 
-        print(self.button_group.checkedButton().text())
 
     def button_pressed(self, button: QRadioButton):
         print(button.text())
