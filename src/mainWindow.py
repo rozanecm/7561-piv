@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
-from src.widgets.StatusBar.StatusBar import StatusBar
 from src.widgets.Table.Table import Table
 from src.widgets.tabs.tabs_widget import TabWidget
 from src.widgets.tabsContent.tab_content_widget import TabContent
