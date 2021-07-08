@@ -378,21 +378,81 @@
    '/home/rozanecm/Documents/Univerza/UBA/7561 '
    'taller3/tps/piv/src/widgets/tabs/tabs.py',
    'PYMODULE'),
+  ('src.widgets.Table.Table',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/Table/Table.py',
+   'PYMODULE'),
+  ('src.widgets.Table', '-', 'PYMODULE'),
+  ('src.widgets.ImageWidget.ImageWidget',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/ImageWidget/ImageWidget.py',
+   'PYMODULE'),
+  ('src.widgets.ImageWidget',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/ImageWidget/__init__.py',
+   'PYMODULE'),
   ('src.widgets.StatusBar.StatusBar',
    '/home/rozanecm/Documents/Univerza/UBA/7561 '
    'taller3/tps/piv/src/widgets/StatusBar/StatusBar.py',
    'PYMODULE'),
   ('src.widgets.StatusBar', '-', 'PYMODULE'),
-  ('src.widgets.ImageWidget.ImageWidget',
+  ('src.widgets.SettingsWidget.SettingsWidget',
    '/home/rozanecm/Documents/Univerza/UBA/7561 '
-   'taller3/tps/piv/src/widgets/ImageWidget/ImageWidget.py',
+   'taller3/tps/piv/src/widgets/SettingsWidget/SettingsWidget.py',
    'PYMODULE'),
-  ('src.widgets.ImageWidget', '-', 'PYMODULE'),
+  ('src.widgets.SettingsWidget', '-', 'PYMODULE'),
+  ('src.widgets.ImageWidget.selectionSize',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/ImageWidget/selectionSize.py',
+   'PYMODULE'),
+  ('src.widgets.ImageWidget.Image',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/ImageWidget/Image.py',
+   'PYMODULE'),
   ('src.widgets.CircleMarker.CircleMarker',
    '/home/rozanecm/Documents/Univerza/UBA/7561 '
    'taller3/tps/piv/src/widgets/CircleMarker/CircleMarker.py',
    'PYMODULE'),
   ('src.widgets.CircleMarker', '-', 'PYMODULE'),
+  ('src.widgets.GroupBox.GroupBox',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/GroupBox/GroupBox.py',
+   'PYMODULE'),
+  ('src.widgets.GroupBox', '-', 'PYMODULE'),
+  ('src.widgets.HistoricData.HistoricData',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/HistoricData/HistoricData.py',
+   'PYMODULE'),
+  ('src.widgets.HistoricData', '-', 'PYMODULE'),
+  ('src.widgets.HistoricData.typedef',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/HistoricData/typedef.py',
+   'PYMODULE'),
+  ('typing_extensions',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/venv/lib/python3.8/site-packages/typing_extensions.py',
+   'PYMODULE'),
+  ('src.widgets.HistoricData.VelocitySelection',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/HistoricData/VelocitySelection.py',
+   'PYMODULE'),
+  ('src.constants.constants',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/constants/constants.py',
+   'PYMODULE'),
+  ('src.constants', '-', 'PYMODULE'),
+  ('src.widgets.HistoricData.Modal',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/HistoricData/Modal.py',
+   'PYMODULE'),
+  ('src.widgets.HistoricData.CheckBox',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/HistoricData/CheckBox.py',
+   'PYMODULE'),
+  ('src.widgets.HistoricData.ChartScaleSettings',
+   '/home/rozanecm/Documents/Univerza/UBA/7561 '
+   'taller3/tps/piv/src/widgets/HistoricData/ChartScaleSettings.py',
+   'PYMODULE'),
   ('PyQt5',
    '/home/rozanecm/Documents/Univerza/UBA/7561 '
    'taller3/tps/piv/venv/lib/python3.8/site-packages/PyQt5/__init__.py',
