@@ -37,7 +37,10 @@ class Image(QWidget):
     def process_double_click_on_img(self, event: QtGui.QMouseEvent) -> None:
         pos_in_global = self.imageLabel.mapToGlobal(event.pos())
         # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
-        self.main_window.add_point(pos_in_global.x(), pos_in_global.y())
+        pos_in_image_label = self.imageLabel.mapFromGlobal(pos_in_global)
+        x_real_img = pos_in_image_label.x() * self._img_width / self.imageLabel.width()
+        y_real_img = pos_in_image_label.y() * self._img_height / self.imageLabel.height()
+        self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
 
     def add_point(self, x, y, new_point_id: int):
         # x, y are coords. taken with global reference.
