@@ -20,16 +20,11 @@ class Image(QWidget):
         self.imageLabel = QLabel()
         self.set_image(path)
         self.main_window = main_window
-        # self.imageLabel.setStyleSheet("""border-color:red;
-        #         border-style: solid;
-        #         border-width: 1px;""")
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.imageLabel)
         self.setLayout(self.layout)
 
-        self.imageLabel.mouseDoubleClickEvent = self.sarasa
-        # self.imageLabel.mouseDoubleClickEvent().connect(lambda event: self.sarasa(event))
-        # self.imageLabel.connectNotify()
+        self.imageLabel.mouseDoubleClickEvent = self.process_double_click_on_img
 
     def set_image(self, path):
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
@@ -39,24 +34,16 @@ class Image(QWidget):
                                                        self.imageLabel.size().height(),
                                                        QtCore.Qt.KeepAspectRatio))
 
-    def sarasa(self, event: QtGui.QMouseEvent) -> None:
-        pos = self.imageLabel.mapToGlobal(event.pos())
-        x = event.pos().x()
-        y = event.pos().y()
-        print(self.imageLabel.pixmap().size())
-        # print(self.imageLabel.pixmap().width(), self.imageLabel.pixmap().height())
-        # print(x, y)
-        print(pos.x(), pos.y())
+    def process_double_click_on_img(self, event: QtGui.QMouseEvent) -> None:
+        pos_in_global = self.imageLabel.mapToGlobal(event.pos())
         # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
-        self.main_window.add_point(pos.x(), pos.y())
-        # self.main_window.add_point(x, y)
+        self.main_window.add_point(pos_in_global.x(), pos_in_global.y())
 
     def add_point(self, x, y, new_point_id: int):
-        # x, y son las coords tomando como sist. de ref.: GLOBAL.
-        # ahora lo que necesito es pintar algo encima.
-        # O sea que si hago un move, deberia pasar de coord. de GLOBAL a self
+        # x, y are coords. taken with global reference.
+        # we now have to paint the markers on the img.
+        # so now we have to translate from global to self.
         new_pos = self.mapFromGlobal(QPoint(x, y))
-        print("new_pos:", new_pos)
         new_point = CircleMarker(new_point_id, parent=self)
         new_point.move(new_pos.x() - new_point.marker_size // 2,
                        new_pos.y() - new_point.marker_size // 2)
