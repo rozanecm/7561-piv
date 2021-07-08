@@ -74,10 +74,12 @@ class MainWindow(QWidget):
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
-    def add_point(self, position_x: int = 0, position_y: int = 0, position_x_real_image: int = 0, position_y_real_image: int = 0, selection_size: int = 32):
+    def add_point(self, position_x: int = 0, position_y: int = 0, position_x_real_image: int = 0,
+                  position_y_real_image: int = 0, selection_size: int = 32):
         new_point_id = self.get_new_point_id()
         self.tab_widget.tabWidget.addTab(
-            TabContent(main_window=self, point_id=new_point_id, position_x=position_x_real_image, position_y=position_y_real_image),
+            TabContent(main_window=self, point_id=new_point_id, position_x=position_x_real_image,
+                       position_y=position_y_real_image),
             str(new_point_id))
         self.image_widget.image.add_point(position_x,
                                           position_y,
