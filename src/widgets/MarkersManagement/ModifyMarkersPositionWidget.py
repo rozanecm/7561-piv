@@ -5,7 +5,7 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 
 class ModifyMarkersPositionWidget(GroupBox):
     def __init__(self, parent=None):
-        super().__init__("Actualizar posición", parent=parent)
+        super().__init__("Actualizar posición de puntos", parent=parent)
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
