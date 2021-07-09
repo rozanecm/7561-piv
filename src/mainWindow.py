@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
+from src.widgets.MarkersManagement.MarkersManagementWidget import MarkersManagementWidget
 from src.widgets.Table.Table import Table
 from src.widgets.tabs.tabs_widget import TabWidget
 from src.widgets.tabsContent.tab_content_widget import TabContent
@@ -21,7 +22,7 @@ class MainWindow(QWidget):
         self.points = {}
 
         self.image_widget = ImageWidget(parent=self)
-        self.tab_widget = TabWidget(parent=self)
+        self.tab_widget = MarkersManagementWidget()
         self.table_widget = Table()
         self.historic_data_widget = HistoricDataWidget()
 
@@ -40,10 +41,10 @@ class MainWindow(QWidget):
 
     def set_middle_layout(self):
         self.side_layout.addWidget(self.table_widget)
-        self.side_layout.addStretch()
+        # self.side_layout.addStretch()
         self.side_layout.addWidget(self.tab_widget)
 
-        self.middle_layout.addStretch()
+        # self.middle_layout.addStretch()
         self.middle_layout.addWidget(self.image_widget)
 
         self.middle_layout.addStretch()
