@@ -1,9 +1,8 @@
 import os
 
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import QLine
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QFrame
+from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.MarkersManagement.ModifyMarkersPositionWidget import ModifyMarkersPositionWidget

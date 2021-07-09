@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QComboBox, QLabel, QSpinBox, QStyle
+from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QSpinBox
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 
