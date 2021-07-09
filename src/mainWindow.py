@@ -82,7 +82,7 @@ class MainWindow(QWidget):
         self.points[new_point_id] = {"position_x": position_x_real_image,
                                      "position_y": position_y_real_image,
                                      "selection_size": selection_size}
-        self.table_widget.add_marker(str(new_point_id))
+        self.table_widget.add_marker(str(new_point_id), position_x_real_image, position_y_real_image)
         self.historic_data_widget.add_line(new_point_id)
         self.marker_position_update_widget.enable_spinboxes()
 

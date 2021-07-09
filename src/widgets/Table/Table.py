@@ -3,6 +3,12 @@ from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, Q
 
 
 class Table(QWidget):
+    _marker_id_column_index = 0
+    _vel_x_column_index = 1
+    _vel_y_column_index = 2
+    _pos_x_column_index = 3
+    _pos_y_column_index = 4
+
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.table_title = QLabel()
@@ -34,11 +40,16 @@ class Table(QWidget):
         self.table.setAlternatingRowColors(True)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-    def add_marker(self, marker_id: str):
+    def add_marker(self, marker_id: str, pos_x: int, pos_y: int):
         self.table.insertRow(self.table.rowCount())
-        self.table.setItem(self.table.rowCount() - 1, 0, QTableWidgetItem(marker_id))
+        self.table.setItem(self.get_last_row_index(), self._marker_id_column_index, QTableWidgetItem(marker_id))
+        self.table.setItem(self.get_last_row_index(), self._pos_x_column_index, QTableWidgetItem(str(pos_x)))
+        self.table.setItem(self.get_last_row_index(), self._pos_y_column_index, QTableWidgetItem(str(pos_y)))
+
+    def get_last_row_index(self):
+        return self.table.rowCount() - 1
 
     def remove_marker(self, marker_id: int):
         self.table.removeRow(marker_id)
         for row in range(1, self.table.rowCount()):
-            self.table.setItem(row, 0, QTableWidgetItem(str(row)))
+            self.table.setItem(row, self._marker_id_column_index, QTableWidgetItem(str(row)))
