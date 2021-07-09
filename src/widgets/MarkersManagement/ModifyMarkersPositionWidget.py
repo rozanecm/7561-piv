@@ -14,15 +14,13 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.set_gui()
 
     def set_gui(self):
-        marker_selector_label = QLabel("Punto:")
-        self.layout.addWidget(marker_selector_label)
-
-        marker_selector_combo_box = QComboBox()
-        marker_selector_combo_box.textActivated.connect(lambda x: self.update_combo_box_value(x))
-        self.layout.addWidget(marker_selector_combo_box)
+        self.setup_marker_selector()
 
         self.layout.addStretch()
 
+        self.setup_spinboxes()
+
+    def setup_spinboxes(self):
         pos_x_label = QLabel("pos x")
         pos_x_spinbox = QSpinBox()
         pos_x_spinbox.setEnabled(False)
@@ -31,11 +29,17 @@ class ModifyMarkersPositionWidget(GroupBox):
         pos_y_spinbox = QSpinBox()
         pos_y_spinbox.setEnabled(False)
         pos_y_spinbox.valueChanged.connect(lambda value: self.pos_y_spin_changed(value))
-
         self.layout.addWidget(pos_x_label)
         self.layout.addWidget(pos_x_spinbox)
         self.layout.addWidget(pos_y_label)
         self.layout.addWidget(pos_y_spinbox)
+
+    def setup_marker_selector(self):
+        marker_selector_label = QLabel("Punto:")
+        self.layout.addWidget(marker_selector_label)
+        marker_selector_combo_box = QComboBox()
+        marker_selector_combo_box.textActivated.connect(lambda x: self.update_combo_box_value(x))
+        self.layout.addWidget(marker_selector_combo_box)
 
     def update_combo_box_value(self, text):
         print(text)
