@@ -84,6 +84,7 @@ class MainWindow(QWidget):
                                      "selection_size": selection_size}
         self.table_widget.add_marker(str(new_point_id))
         self.historic_data_widget.add_line(new_point_id)
+        self.marker_position_update_widget.enable_spinboxes()
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
@@ -100,7 +101,6 @@ class MainWindow(QWidget):
 
     def remove_marker(self, marker_id):
         self.table_widget.remove_marker(marker_id)
-
         del self.points[marker_id]
         self.reorder_markers()
 

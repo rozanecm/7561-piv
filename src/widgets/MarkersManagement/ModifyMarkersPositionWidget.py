@@ -6,6 +6,8 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 class ModifyMarkersPositionWidget(GroupBox):
     def __init__(self, parent=None):
         super().__init__("Actualizar posición de puntos", parent=parent)
+        self.pos_y_spinbox = QSpinBox()
+        self.pos_x_spinbox = QSpinBox()
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
@@ -22,17 +24,15 @@ class ModifyMarkersPositionWidget(GroupBox):
 
     def setup_spinboxes(self):
         pos_x_label = QLabel("pos x")
-        pos_x_spinbox = QSpinBox()
-        pos_x_spinbox.setEnabled(False)
-        pos_x_spinbox.valueChanged.connect(lambda value: self.pos_x_spin_changed(value))
+        self.pos_x_spinbox.setEnabled(False)
+        self.pos_x_spinbox.valueChanged.connect(lambda value: self.pos_x_spin_changed(value))
         pos_y_label = QLabel("pos y")
-        pos_y_spinbox = QSpinBox()
-        pos_y_spinbox.setEnabled(False)
-        pos_y_spinbox.valueChanged.connect(lambda value: self.pos_y_spin_changed(value))
+        self.pos_y_spinbox.setEnabled(False)
+        self.pos_y_spinbox.valueChanged.connect(lambda value: self.pos_y_spin_changed(value))
         self.layout.addWidget(pos_x_label)
-        self.layout.addWidget(pos_x_spinbox)
+        self.layout.addWidget(self.pos_x_spinbox)
         self.layout.addWidget(pos_y_label)
-        self.layout.addWidget(pos_y_spinbox)
+        self.layout.addWidget(self.pos_y_spinbox)
 
     def setup_marker_selector(self):
         marker_selector_label = QLabel("Punto:")
@@ -49,3 +49,7 @@ class ModifyMarkersPositionWidget(GroupBox):
 
     def pos_y_spin_changed(self, new_value):
         print(new_value)
+
+    def enable_spinboxes(self):
+        self.pos_x_spinbox.setEnabled(True)
+        self.pos_y_spinbox.setEnabled(True)
