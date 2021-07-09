@@ -5,6 +5,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
 
 from src.widgets.GroupBox.GroupBox import GroupBox
+from src.widgets.MarkersManagement.ModifyMarkersPositionWidget import ModifyMarkersPositionWidget
 
 
 class MarkersManagementWidget(GroupBox):
@@ -19,7 +20,7 @@ class MarkersManagementWidget(GroupBox):
 
     def set_gui(self):
         self.set_markers_management_buttons()
-        # self.layout.addWidget(ModifyMarkersPositionWiget())
+        self.layout.addWidget(ModifyMarkersPositionWidget())
 
     def set_markers_management_buttons(self):
         buttons_layout = QHBoxLayout()
