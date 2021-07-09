@@ -14,6 +14,7 @@ class MarkersManagementWidget(GroupBox):
         super().__init__("Configuración de puntos", parent=parent)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
+        self.layout.setSpacing(15)
 
         self.setMinimumHeight(75)
 
@@ -21,10 +22,6 @@ class MarkersManagementWidget(GroupBox):
 
     def set_gui(self):
         self.set_markers_management_buttons()
-        frame = QFrame()
-        frame.setFrameShape(QFrame.HLine)
-        frame.setFrameShadow(QFrame.Sunken)
-        self.layout.addWidget(frame)
         self.layout.addWidget(ModifyMarkersPositionWidget())
 
     def set_markers_management_buttons(self):

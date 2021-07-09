@@ -1,11 +1,15 @@
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QComboBox, QLabel, QSpinBox, QStyle
 
+from src.widgets.GroupBox.GroupBox import GroupBox
 
-class ModifyMarkersPositionWidget(QWidget):
+
+class ModifyMarkersPositionWidget(GroupBox):
     def __init__(self, parent=None):
-        super().__init__(parent=parent)
+        super().__init__("Actualizar posición", parent=parent)
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
+
+        self.setMinimumHeight(75)
 
         self.set_gui()
 
