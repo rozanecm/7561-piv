@@ -38,8 +38,8 @@ class Image(QWidget):
         pos_in_global = self.imageLabel.mapToGlobal(event.pos())
         # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
         pos_in_image_label = self.imageLabel.mapFromGlobal(pos_in_global)
-        x_real_img = pos_in_image_label.x() * self._img_width / self.imageLabel.width()
-        y_real_img = pos_in_image_label.y() * self._img_height / self.imageLabel.height()
+        x_real_img = round(pos_in_image_label.x() * self._img_width / self.imageLabel.width())
+        y_real_img = round(pos_in_image_label.y() * self._img_height / self.imageLabel.height())
         self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
 
     def add_point(self, x, y, new_point_id: int):
@@ -63,8 +63,8 @@ class Image(QWidget):
         new_y = translated_coords.y() - current_marker.marker_size // 2
         if self.point_on_image(new_x, new_y):
             current_marker.move(new_x, new_y)
-            x_real_img = new_x * self._img_width / self.imageLabel.width()
-            y_real_img = new_y * self._img_height / self.imageLabel.height()
+            x_real_img = round(new_x * self._img_width // self.imageLabel.width())
+            y_real_img = round(new_y * self._img_height // self.imageLabel.height())
             # self.parentWidget().parent().update_position_from_image(point_id, x_real_img, y_real_img)
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
