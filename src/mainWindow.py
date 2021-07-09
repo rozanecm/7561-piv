@@ -7,7 +7,6 @@ from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.MarkersManagement.MarkersManagementWidget import MarkersManagementWidget
 from src.widgets.Table.Table import Table
-from src.widgets.tabs.tabs_widget import TabWidget
 from src.widgets.tabsContent.tab_content_widget import TabContent
 
 

@@ -24,13 +24,14 @@ class MarkersManagementWidget(GroupBox):
 
     def set_markers_management_buttons(self):
         buttons_layout = QHBoxLayout()
-        quitar_punto_button = QtWidgets.QPushButton("Agregar punto")
-        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/remove_marker.png"))
-        quitar_punto_button.setIcon(QIcon(icon_path))
 
-        agregar_punto_button = QtWidgets.QPushButton("Quitar punto")
+        agregar_punto_button = QtWidgets.QPushButton("Agregar punto")
         icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/add_marker.png"))
         agregar_punto_button.setIcon(QIcon(icon_path))
+
+        quitar_punto_button = QtWidgets.QPushButton("Quitar punto")
+        icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/remove_marker.png"))
+        quitar_punto_button.setIcon(QIcon(icon_path))
 
         buttons_layout.addWidget(agregar_punto_button)
         buttons_layout.addWidget(quitar_punto_button)
