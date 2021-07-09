@@ -53,3 +53,7 @@ class ModifyMarkersPositionWidget(GroupBox):
     def enable_spinboxes(self):
         self.pos_x_spinbox.setEnabled(True)
         self.pos_y_spinbox.setEnabled(True)
+
+    def disable_spinboxes(self):
+        self.pos_x_spinbox.setEnabled(False)
+        self.pos_y_spinbox.setEnabled(False)

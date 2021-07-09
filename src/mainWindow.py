@@ -103,6 +103,8 @@ class MainWindow(QWidget):
         self.table_widget.remove_marker(marker_id)
         del self.points[marker_id]
         self.reorder_markers()
+        if len(self.points.keys()) == 0:
+            self.marker_position_update_widget.disable_spinboxes()
 
     def reorder_markers(self):
         l1 = [x + 1 for x in range(len(self.points.keys()))]
