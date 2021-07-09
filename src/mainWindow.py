@@ -21,7 +21,7 @@ class MainWindow(QWidget):
         self.points = {}
 
         self.image_widget = ImageWidget(parent=self)
-        self.tab_widget = MarkersManagementWidget()
+        self.tab_widget = MarkersManagementWidget(parent=self)
         self.table_widget = Table()
         self.historic_data_widget = HistoricDataWidget()
 
@@ -77,10 +77,6 @@ class MainWindow(QWidget):
     def add_point(self, position_x: int = 0, position_y: int = 0, position_x_real_image: int = 0,
                   position_y_real_image: int = 0, selection_size: int = 32):
         new_point_id = self.get_new_point_id()
-        self.tab_widget.tabWidget.addTab(
-            TabContent(main_window=self, point_id=new_point_id, position_x=position_x_real_image,
-                       position_y=position_y_real_image),
-            str(new_point_id))
         self.image_widget.image.add_point(position_x,
                                           position_y,
                                           new_point_id)
@@ -88,7 +84,6 @@ class MainWindow(QWidget):
                                      "position_y": position_y_real_image,
                                      "selection_size": selection_size}
         # focus on the last created tab.
-        self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.count() - 1)
         if len(self.points.keys()) >= 1:
             self.tab_widget.quitar_punto_button.setEnabled(True)
         self.table_widget.add_marker(str(new_point_id))
@@ -105,13 +100,8 @@ class MainWindow(QWidget):
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         self.image_widget.update_position_from_tab(point_id, new_x, new_y)
 
-    def remove_marker(self):
-        current_tab_index = self.tab_widget.tabWidget.currentIndex()
-        marker_id = current_tab_index + 1
-
-        self.image_widget.remove_marker(marker_id)
+    def remove_marker(self, marker_id):
         self.table_widget.remove_marker(marker_id)
-        self.tab_widget.remove_tab(current_tab_index)
 
         del self.points[marker_id]
         self.reorder_markers()

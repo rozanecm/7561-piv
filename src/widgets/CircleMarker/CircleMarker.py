@@ -29,7 +29,10 @@ class CircleMarker(QLabel):
         self.setAlignment(QtCore.Qt.AlignCenter)
 
     def mousePressEvent(self, ev: QtGui.QMouseEvent) -> None:
-        self.setMouseTracking(True)
+        if ev.button() == 1:
+            self.setMouseTracking(True)
+        if ev.button() == 2:
+            self.parent().remove_marker(self.id)
 
     def mouseMoveEvent(self, ev: QtGui.QMouseEvent) -> None:
         mapped_to_global = self.mapToGlobal(ev.pos())

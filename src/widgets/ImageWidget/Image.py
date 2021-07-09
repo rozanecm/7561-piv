@@ -78,6 +78,10 @@ class Image(QWidget):
     def remove_marker(self, marker_id: int):
         self.markers[marker_id].hide()
         del self.markers[marker_id]
+        self.reorder_markers()
+        self.main_window.remove_marker(marker_id)
+
+    def reorder_markers(self):
         l1 = [x + 1 for x in range(len(self.markers.keys()))]
         l2 = list(self.markers.values())
         self.markers = dict(zip(l1, l2))
