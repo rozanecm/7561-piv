@@ -83,9 +83,6 @@ class MainWindow(QWidget):
         self.points[new_point_id] = {"position_x": position_x_real_image,
                                      "position_y": position_y_real_image,
                                      "selection_size": selection_size}
-        # focus on the last created tab.
-        if len(self.points.keys()) >= 1:
-            self.tab_widget.quitar_punto_button.setEnabled(True)
         self.table_widget.add_marker(str(new_point_id))
         self.historic_data_widget.add_line(new_point_id)
 
@@ -93,9 +90,11 @@ class MainWindow(QWidget):
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
 
     def update_position_from_image(self, point_id: int, new_x: int, new_y: int):
+        # TODO delete if it stays unused
+        pass
         # focus on updating tab.
-        self.tab_widget.tabWidget.setCurrentIndex(point_id - 1)
-        self.tab_widget.tabWidget.widget(point_id - 1).update_position(new_x, new_y)
+        # self.tab_widget.tabWidget.setCurrentIndex(point_id - 1)
+        # self.tab_widget.tabWidget.widget(point_id - 1).update_position(new_x, new_y)
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         self.image_widget.update_position_from_tab(point_id, new_x, new_y)

@@ -65,7 +65,7 @@ class Image(QWidget):
             current_marker.move(new_x, new_y)
             x_real_img = new_x * self._img_width / self.imageLabel.width()
             y_real_img = new_y * self._img_height / self.imageLabel.height()
-            self.parentWidget().parent().update_position_from_image(point_id, x_real_img, y_real_img)
+            # self.parentWidget().parent().update_position_from_image(point_id, x_real_img, y_real_img)
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         current_marker = self.markers.get(point_id)
