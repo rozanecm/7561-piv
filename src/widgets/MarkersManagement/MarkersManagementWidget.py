@@ -1,8 +1,9 @@
 import os
 
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import QLine
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QFrame
 
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.MarkersManagement.ModifyMarkersPositionWidget import ModifyMarkersPositionWidget
@@ -20,6 +21,10 @@ class MarkersManagementWidget(GroupBox):
 
     def set_gui(self):
         self.set_markers_management_buttons()
+        frame = QFrame()
+        frame.setFrameShape(QFrame.HLine)
+        frame.setFrameShadow(QFrame.Sunken)
+        self.layout.addWidget(frame)
         self.layout.addWidget(ModifyMarkersPositionWidget())
 
     def set_markers_management_buttons(self):
