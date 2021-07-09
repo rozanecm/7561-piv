@@ -10,13 +10,17 @@ class ModifyMarkersPositionWidget(QWidget):
         self.set_gui()
 
     def set_gui(self):
-        combo_box = QComboBox()
-        combo_box.addItem("1")
-        combo_box.addItem("2")
-        combo_box.addItem("3")
-        combo_box.addItem("4")
+        marker_selector_label = QLabel("Punto:")
+        self.layout.addWidget(marker_selector_label)
 
-        self.layout.addWidget(combo_box)
+        marker_selector_combo_box = QComboBox()
+        marker_selector_combo_box.addItem("1")
+        marker_selector_combo_box.addItem("2")
+        marker_selector_combo_box.addItem("3")
+        marker_selector_combo_box.addItem("4")
+        self.layout.addWidget(marker_selector_combo_box)
+
+        self.layout.addStretch()
 
         pos_x_label = QLabel("pos x")
         pos_x_spinbox = QSpinBox()
