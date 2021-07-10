@@ -1,11 +1,14 @@
 from PyQt5.QtWidgets import QVBoxLayout, QRadioButton, QButtonGroup
 
+from src.InfoOutputter import InfoOutputter
+from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class SelectionSizeWidget(GroupBox):
-    def __init__(self, parent=None):
+    def __init__(self, outputter: InfoOutputter, parent=None):
         super().__init__("Tamaño de selección", parent=parent)
+        self.outputter = outputter
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
@@ -32,6 +35,5 @@ class SelectionSizeWidget(GroupBox):
         self.button_group.addButton(radio_button_other)
         self.button_group.buttonClicked.connect(lambda button: self.button_pressed(button))
 
-
     def button_pressed(self, button: QRadioButton):
-        print(button.text())
+        self.outputter.transmit_message(Constants.MSG_TYPE_SELECTION_SIZE_UPDATE, button.text())

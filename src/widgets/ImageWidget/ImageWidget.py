@@ -25,7 +25,7 @@ class ImageWidget(GroupBox):
         self.settings_layout = QVBoxLayout()
         self.settings_layout.addStretch()
         self.settings_layout.addWidget(SettingsWidget(self.outputter))
-        self.settings_layout.addWidget(SelectionSizeWidget())
+        self.settings_layout.addWidget(SelectionSizeWidget(self.outputter))
         self.settings_layout.addStretch()
         self.main_layout.addLayout(self.settings_layout)
 
