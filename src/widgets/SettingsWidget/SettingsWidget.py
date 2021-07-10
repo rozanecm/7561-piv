@@ -1,11 +1,14 @@
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QSpinBox, QLabel
 
+from src.InfoOutputter import InfoOutputter
+from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class SettingsWidget(GroupBox):
-    def __init__(self, parent=None):
+    def __init__(self, outputter: InfoOutputter, parent=None):
         super().__init__("Configuración", parent=parent)
+        self.outputter = outputter
         self.setMinimumWidth(150)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -35,7 +38,7 @@ class SettingsWidget(GroupBox):
         self.layout.addLayout(delta_t_layout)
 
     def delta_t_update(self):
-        print(self.delta_t_input.value())
+        self.outputter.transmit_message(Constants.MSG_TYPE_DELTA_T_UPDATE, self.delta_t_input.value())
 
     def ppm_update(self):
-        print(self.ppm_input.value())
+        self.outputter.transmit_message(Constants.MSG_TYPE_PPM_UPDATE, self.ppm_input.value())

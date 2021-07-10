@@ -3,6 +3,7 @@ import os
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
+from src.InfoOutputter import InfoOutputter
 from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.MarkersManagement.ModifyMarkersPositionWidget import ModifyMarkersPositionWidget
@@ -12,6 +13,7 @@ from src.widgets.Table.Table import Table
 class MainWindow(QWidget):
     def __init__(self, app, parent=None):
         super().__init__(parent)
+        self.outputter = InfoOutputter()
         self.middle_layout = QHBoxLayout()
         self.side_layout = QVBoxLayout()
         self.app = app
@@ -19,8 +21,8 @@ class MainWindow(QWidget):
         self.setLayout(self.layout)
         self.points = {}
 
-        self.image_widget = ImageWidget(parent=self)
-        self.marker_position_update_widget = ModifyMarkersPositionWidget()
+        self.image_widget = ImageWidget(self.outputter, parent=self)
+        self.marker_position_update_widget = ModifyMarkersPositionWidget(self.outputter)
         self.table_widget = Table()
         self.historic_data_widget = HistoricDataWidget()
 

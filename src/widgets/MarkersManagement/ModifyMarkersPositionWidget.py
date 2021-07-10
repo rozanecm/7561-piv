@@ -1,11 +1,13 @@
 from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QSpinBox
 
+from src.InfoOutputter import InfoOutputter
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class ModifyMarkersPositionWidget(GroupBox):
-    def __init__(self, parent=None):
+    def __init__(self, outputter: InfoOutputter, parent=None):
         super().__init__("Actualizar posición de puntos", parent=parent)
+        self.outputter = outputter
         self.pos_y_spinbox = QSpinBox()
         self.pos_x_spinbox = QSpinBox()
         self.layout = QHBoxLayout()
