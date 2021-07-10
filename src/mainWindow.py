@@ -1,9 +1,11 @@
+import json
 import os
 
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
 from src.InfoOutputter import InfoOutputter
+from src.constants.constants import Constants
 from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.MarkersManagement.ModifyMarkersPositionWidget import ModifyMarkersPositionWidget
@@ -87,6 +89,10 @@ class MainWindow(QWidget):
         self.table_widget.add_marker(str(new_point_id), position_x_real_image, position_y_real_image)
         self.historic_data_widget.add_line(new_point_id)
         self.marker_position_update_widget.enable_spinboxes()
+        self.outputter.transmit_message_dict(Constants.MSG_TYPE_NEW_MARKER,
+                                        {"marker_id": new_point_id,
+                                                    "pos_x": position_x_real_image,
+                                                    "pos_y": position_y_real_image})
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1

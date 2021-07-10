@@ -6,3 +6,4 @@ class Constants():
     MSG_TYPE_DELTA_T_UPDATE = "delta_t_update"
     MSG_TYPE_PPM_UPDATE = "ppm_update"
     MSG_TYPE_SELECTION_SIZE_UPDATE = "selection_size"
+    MSG_TYPE_NEW_MARKER = "new_marker"

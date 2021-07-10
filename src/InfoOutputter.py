@@ -16,3 +16,7 @@ class InfoOutputter():
     def transmit_message(self, msg_type: Constants, body: str):
         msg = {msg_type: body}
         self.logger.info(json.dumps(msg, indent=4))
+
+    def transmit_message_dict(self, msg_type: Constants, body: dict):
+        msg = {msg_type: body}
+        self.logger.info(json.dumps(msg, indent=4))
