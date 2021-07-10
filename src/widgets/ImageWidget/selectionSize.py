@@ -8,19 +8,21 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 class SelectionSizeWidget(GroupBox):
     def __init__(self, outputter: InfoOutputter, parent=None):
         super().__init__("Tamaño de selección", parent=parent)
+        self.setMinimumWidth(200)
+        self.outputter = outputter
+
+        self.layout = QVBoxLayout()
+        self.setLayout(self.layout)
+
         self.radio_button_other = QRadioButton("otro")
         self.radio_button_32x32 = QRadioButton("32x32")
         self.radio_button_16x16 = QRadioButton("16x16")
         self.radio_button_8x8 = QRadioButton("8x8")
         self.other_value_spinner = QSpinBox()
-        self.outputter = outputter
-        self.layout = QVBoxLayout()
-        self.setLayout(self.layout)
 
         self.button_group = QButtonGroup()
 
         self.init_gui()
-        self.setMinimumWidth(200)
 
     def init_gui(self):
         self.set_numeric_radio_buttons()
