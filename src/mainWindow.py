@@ -43,10 +43,8 @@ class MainWindow(QWidget):
 
     def set_middle_layout(self):
         self.side_layout.addWidget(self.table_widget)
-        # self.side_layout.addStretch()
         self.side_layout.addWidget(self.marker_position_update_widget)
 
-        # self.middle_layout.addStretch()
         self.middle_layout.addWidget(self.image_widget)
 
         self.middle_layout.addStretch()
