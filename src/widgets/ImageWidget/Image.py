@@ -50,10 +50,14 @@ class Image(QWidget):
         # we now have to paint the markers on the img.
         # so now we have to translate from global to self.
         new_pos = self.mapFromGlobal(QPoint(x, y))
-        new_point = CircleMarker(new_point_id, self.map_from_self_to_real_image_coordinates((new_pos.x(), new_pos.y())), parent=self)
+        new_point = CircleMarker(new_point_id,
+                                 self.map_from_self_to_real_image_coordinates((new_pos.x(), new_pos.y())),
+                                 parent=self)
         new_point.move(new_pos.x() - new_point.marker_size // 2,
                        new_pos.y() - new_point.marker_size // 2)
-        new_point.update_position(self.map_from_self_to_real_image_coordinates((new_pos.x() - new_point.marker_size // 2, new_pos.y() - new_point.marker_size // 2)))
+        new_point.update_position(self.map_from_self_to_real_image_coordinates(
+            (new_pos.x() - new_point.marker_size // 2,
+             new_pos.y() - new_point.marker_size // 2)))
         new_point.show()
         self.markers[new_point_id] = new_point
         self.update()
@@ -71,10 +75,14 @@ class Image(QWidget):
         new_y = translated_coords.y() - current_marker.marker_size // 2
         if self.point_on_image(new_x, new_y):
             current_marker.move(new_x, new_y)
-            current_marker.update_position(self.map_from_self_to_real_image_coordinates((translated_coords.x() - current_marker.marker_size // 2, translated_coords.y() - current_marker.marker_size // 2)))
+            current_marker.update_position(self.map_from_self_to_real_image_coordinates((
+                translated_coords.x() - current_marker.marker_size // 2,
+                translated_coords.y() - current_marker.marker_size // 2)))
 
     def finish_position_update(self, point_id: int):
-        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER, {"marker_id": point_id, "pox_x": self.markers[point_id].pos[0], "pos_y": self.markers[point_id].pos[1]})
+        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
+                                             {"marker_id": point_id, "pox_x": self.markers[point_id].pos[0],
+                                              "pos_y": self.markers[point_id].pos[1]})
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         current_marker = self.markers.get(point_id)

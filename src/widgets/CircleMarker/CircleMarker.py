@@ -19,7 +19,7 @@ class CircleMarker(QLabel):
                 border-radius: {0};
                 """
 
-    def __init__(self, new_point_id: int, position: tuple,  size: int = 20, parent=None):
+    def __init__(self, new_point_id: int, position: tuple, size: int = 20, parent=None):
         super().__init__(parent=parent)
         self.id = new_point_id
         self.setText(str(self.id))
