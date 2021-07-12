@@ -7,6 +7,7 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 class ModifyMarkersPositionWidget(GroupBox):
     def __init__(self, outputter: InfoOutputter, parent=None):
         super().__init__("Actualizar posición de puntos", parent=parent)
+        self.marker_selector_combo_box = QComboBox()
         self.outputter = outputter
         self.pos_y_spinbox = QSpinBox()
         self.pos_x_spinbox = QSpinBox()
@@ -39,9 +40,8 @@ class ModifyMarkersPositionWidget(GroupBox):
     def setup_marker_selector(self):
         marker_selector_label = QLabel("Punto:")
         self.layout.addWidget(marker_selector_label)
-        marker_selector_combo_box = QComboBox()
-        marker_selector_combo_box.textActivated.connect(lambda x: self.update_combo_box_value(x))
-        self.layout.addWidget(marker_selector_combo_box)
+        self.marker_selector_combo_box.textActivated.connect(lambda x: self.update_combo_box_value(x))
+        self.layout.addWidget(self.marker_selector_combo_box)
 
     def update_combo_box_value(self, text):
         print(text)
@@ -59,3 +59,6 @@ class ModifyMarkersPositionWidget(GroupBox):
     def disable_spinboxes(self):
         self.pos_x_spinbox.setEnabled(False)
         self.pos_y_spinbox.setEnabled(False)
+
+    def add_marker(self, marker_id: int):
+        self.marker_selector_combo_box.addItem(str(marker_id))
