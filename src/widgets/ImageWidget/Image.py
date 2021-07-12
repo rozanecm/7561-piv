@@ -45,19 +45,14 @@ class Image(QWidget):
         y_real_img = round(pos_in_image_label.y() * self._img_height / self.imageLabel.height())
         self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
 
-    def add_point(self, x, y, new_point_id: int):
+    def add_point(self, x, y, x_img, y_img, new_point_id: int):
         # x, y are coords. taken with global reference.
         # we now have to paint the markers on the img.
         # so now we have to translate from global to self.
         new_pos = self.mapFromGlobal(QPoint(x, y))
-        new_point = CircleMarker(new_point_id,
-                                 self.map_from_self_to_real_image_coordinates((new_pos.x(), new_pos.y())),
-                                 parent=self)
+        new_point = CircleMarker(new_point_id, (x_img, y_img), parent=self)
         new_point.move(new_pos.x() - new_point.marker_size // 2,
                        new_pos.y() - new_point.marker_size // 2)
-        new_point.update_position(self.map_from_self_to_real_image_coordinates(
-            (new_pos.x() - new_point.marker_size // 2,
-             new_pos.y() - new_point.marker_size // 2)))
         new_point.show()
         self.markers[new_point_id] = new_point
         self.update()

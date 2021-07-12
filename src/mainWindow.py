@@ -77,11 +77,21 @@ class MainWindow(QWidget):
 
         return int(available_width * width_fraction), int(available_height * height_fraction)
 
-    def add_point(self, position_x: int = 0, position_y: int = 0, position_x_real_image: int = 0,
-                  position_y_real_image: int = 0, selection_size: int = 32):
+    def add_point(self, position_x: int = 0, position_y: int = 0,
+                  position_x_real_image: int = 0, position_y_real_image: int = 0,
+                  selection_size: int = 32):
+        """
+        position_x: global position for click's x coordinate
+        position_y: global position for click's y coordinate
+        position_x_real_image: global position for click's x coordinate, considering image's real size coordinates
+        position_y_real_image: global position for click's y coordinate, considering image's real size coordinates
+        selection_size: selection size for current marker.
+        """
         new_point_id = self.get_new_point_id()
         self.image_widget.image.add_point(position_x,
                                           position_y,
+                                          position_x_real_image,
+                                          position_y_real_image,
                                           new_point_id)
         self.points[new_point_id] = {"position_x": position_x_real_image,
                                      "position_y": position_y_real_image,
@@ -90,9 +100,9 @@ class MainWindow(QWidget):
         self.historic_data_widget.add_line(new_point_id)
         self.marker_position_update_widget.enable_spinboxes()
         self.outputter.transmit_message_dict(Constants.MSG_TYPE_NEW_MARKER,
-                                        {"marker_id": new_point_id,
-                                                    "pos_x": position_x_real_image,
-                                                    "pos_y": position_y_real_image})
+                                             {"marker_id": new_point_id,
+                                              "pos_x": position_x_real_image,
+                                              "pos_y": position_y_real_image})
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
