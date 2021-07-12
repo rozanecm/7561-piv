@@ -69,3 +69,22 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.marker_selector_combo_box.addItem(str(marker_id))
         self.markers[str(marker_id)] = position
         self.update_combo_box_value()
+
+    def remove_marker(self, marker_id: int):
+        self.empty_combobox()
+        del self.markers[str(marker_id)]
+        self.reorder_markers()
+        self.repopulate_combobox()
+
+    def empty_combobox(self):
+        for key in self.markers.keys():
+            self.marker_selector_combo_box.removeItem(self.marker_selector_combo_box.findText(key))
+
+    def repopulate_combobox(self):
+        for key in self.markers.keys():
+            self.marker_selector_combo_box.addItem(str(key))
+
+    def reorder_markers(self):
+        l1 = [str(x + 1) for x in range(len(self.markers.keys()))]
+        l2 = list(self.markers.values())
+        self.markers = dict(zip(l1, l2))

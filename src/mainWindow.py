@@ -118,6 +118,7 @@ class MainWindow(QWidget):
 
     def remove_marker(self, marker_id):
         self.table_widget.remove_marker(marker_id)
+        self.marker_position_update_widget.remove_marker(marker_id)
         del self.points[marker_id]
         self.reorder_markers()
         if len(self.points.keys()) == 0:
