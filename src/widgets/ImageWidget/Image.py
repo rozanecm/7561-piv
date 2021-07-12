@@ -93,6 +93,9 @@ class Image(QWidget):
         return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
 
     def remove_marker(self, marker_id: int):
+        self.outputter.transmit_message_dict(Constants.MSG_TYPE_DELETE_MARKER,
+                                             {"marker_id": marker_id,
+                                              "pos": self.markers[marker_id].pos})
         self.markers[marker_id].hide()
         del self.markers[marker_id]
         self.reorder_markers()
