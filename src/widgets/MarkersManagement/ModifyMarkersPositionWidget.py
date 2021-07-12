@@ -14,6 +14,8 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
+        self.markers = {}
+
         self.setMinimumHeight(75)
 
         self.set_gui()
@@ -28,9 +30,11 @@ class ModifyMarkersPositionWidget(GroupBox):
     def setup_spinboxes(self):
         pos_x_label = QLabel("pos x")
         self.pos_x_spinbox.setEnabled(False)
+        self.pos_x_spinbox.setMaximum(9999)
         self.pos_x_spinbox.valueChanged.connect(lambda value: self.pos_x_spin_changed(value))
         pos_y_label = QLabel("pos y")
         self.pos_y_spinbox.setEnabled(False)
+        self.pos_y_spinbox.setMaximum(9999)
         self.pos_y_spinbox.valueChanged.connect(lambda value: self.pos_y_spin_changed(value))
         self.layout.addWidget(pos_x_label)
         self.layout.addWidget(self.pos_x_spinbox)
@@ -44,7 +48,8 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.layout.addWidget(self.marker_selector_combo_box)
 
     def update_combo_box_value(self, text):
-        print(text)
+        self.pos_x_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][0])
+        self.pos_y_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][1])
 
     def pos_x_spin_changed(self, new_value):
         print(new_value)
@@ -60,5 +65,8 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.pos_x_spinbox.setEnabled(False)
         self.pos_y_spinbox.setEnabled(False)
 
-    def add_marker(self, marker_id: int):
+    def add_marker(self, marker_id: int, position: tuple):
         self.marker_selector_combo_box.addItem(str(marker_id))
+        self.markers[str(marker_id)] = position
+        self.pos_x_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][0])
+        self.pos_y_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][1])
