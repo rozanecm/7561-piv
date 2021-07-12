@@ -19,7 +19,7 @@ class ImageWidget(GroupBox):
         self.main_layout = QHBoxLayout()
         self.setLayout(self.layout)
 
-        self.image = Image(self.parent())
+        self.image = Image(self.outputter, self.parent())
 
         self.main_layout.addWidget(self.image)
         self.settings_layout = QVBoxLayout()

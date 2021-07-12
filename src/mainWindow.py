@@ -98,11 +98,11 @@ class MainWindow(QWidget):
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
 
     def update_position_from_image(self, point_id: int, new_x: int, new_y: int):
-        # TODO delete if it stays unused
-        pass
-        # focus on updating tab.
-        # self.tab_widget.tabWidget.setCurrentIndex(point_id - 1)
-        # self.tab_widget.tabWidget.widget(point_id - 1).update_position(new_x, new_y)
+        """COORDS come in real img coords."""
+        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
+                                             {"marker_id": point_id,
+                                              "pos_x": new_x,
+                                              "pos_y": new_y})
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         self.image_widget.update_position_from_tab(point_id, new_x, new_y)

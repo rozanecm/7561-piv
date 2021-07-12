@@ -6,6 +6,8 @@ from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 
+from src.InfoOutputter import InfoOutputter
+from src.constants.constants import Constants
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
 
@@ -13,8 +15,9 @@ class Image(QWidget):
     _img_width = 1344
     _img_height = 1024
 
-    def __init__(self, main_window, parent=None):
+    def __init__(self, outputter: InfoOutputter, main_window, parent=None):
         super().__init__(parent=parent)
+        self.outputter = outputter
         self.markers: Dict[int, CircleMarker] = {}
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
         self.imageLabel = QLabel()
@@ -47,12 +50,17 @@ class Image(QWidget):
         # we now have to paint the markers on the img.
         # so now we have to translate from global to self.
         new_pos = self.mapFromGlobal(QPoint(x, y))
-        new_point = CircleMarker(new_point_id, parent=self)
+        new_point = CircleMarker(new_point_id, self.map_from_self_to_real_image_coordinates((new_pos.x(), new_pos.y())), parent=self)
         new_point.move(new_pos.x() - new_point.marker_size // 2,
                        new_pos.y() - new_point.marker_size // 2)
+        new_point.update_position(self.map_from_self_to_real_image_coordinates((new_pos.x() - new_point.marker_size // 2, new_pos.y() - new_point.marker_size // 2)))
         new_point.show()
         self.markers[new_point_id] = new_point
         self.update()
+
+    def map_from_self_to_real_image_coordinates(self, coords_in_image_widget: tuple):
+        return (round(coords_in_image_widget[0] * self._img_width / self.imageLabel.width()),
+                round(coords_in_image_widget[1] * self._img_height / self.imageLabel.height()))
 
     def update_position(self, point_id: int, new_x: int, new_y: int):
         # new_x and new_y are expressed in global coords.
@@ -63,9 +71,10 @@ class Image(QWidget):
         new_y = translated_coords.y() - current_marker.marker_size // 2
         if self.point_on_image(new_x, new_y):
             current_marker.move(new_x, new_y)
-            x_real_img = round(new_x * self._img_width // self.imageLabel.width())
-            y_real_img = round(new_y * self._img_height // self.imageLabel.height())
-            # self.parentWidget().parent().update_position_from_image(point_id, x_real_img, y_real_img)
+            current_marker.update_position(self.map_from_self_to_real_image_coordinates((translated_coords.x() - current_marker.marker_size // 2, translated_coords.y() - current_marker.marker_size // 2)))
+
+    def finish_position_update(self, point_id: int):
+        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER, {"marker_id": point_id, "pox_x": self.markers[point_id].pos[0], "pos_y": self.markers[point_id].pos[1]})
 
     def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
         current_marker = self.markers.get(point_id)
