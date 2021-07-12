@@ -65,8 +65,11 @@ class Image(QWidget):
                 round(coords_in_image_widget[1] * self._img_height / self.imageLabel.height()))
 
     def update_position(self, point_id: int, new_x: int, new_y: int):
-        # new_x and new_y are expressed in global coords.
-        # we should translate to self.imageLabel coords.
+        """
+        point_id: id of the marker whose position will be updated
+        new_x, new_y: new marker position expressed in global coordinates.
+        """
+        # we should translate new_x and new_y to self.imageLabel coords.
         current_marker = self.markers.get(point_id)
         translated_coords = self.mapFromGlobal(QPoint(new_x, new_y))
         new_x = translated_coords.x() - current_marker.marker_size // 2
