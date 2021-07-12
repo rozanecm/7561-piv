@@ -47,7 +47,7 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.marker_selector_combo_box.textActivated.connect(lambda x: self.update_combo_box_value(x))
         self.layout.addWidget(self.marker_selector_combo_box)
 
-    def update_combo_box_value(self, text):
+    def update_combo_box_value(self, text=""):
         self.pos_x_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][0])
         self.pos_y_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][1])
 
@@ -68,5 +68,4 @@ class ModifyMarkersPositionWidget(GroupBox):
     def add_marker(self, marker_id: int, position: tuple):
         self.marker_selector_combo_box.addItem(str(marker_id))
         self.markers[str(marker_id)] = position
-        self.pos_x_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][0])
-        self.pos_y_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][1])
+        self.update_combo_box_value()
