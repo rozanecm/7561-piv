@@ -24,6 +24,7 @@ class SettingsWidget(GroupBox):
         self.layout.addStretch()
 
     def setup_ppm(self):
+        self.ppm_input.setValue(1)
         ppm_layout = QHBoxLayout()
         ppm_label = QLabel("ppm:")
         ppm_layout.addWidget(ppm_label)
@@ -31,6 +32,7 @@ class SettingsWidget(GroupBox):
         self.layout.addLayout(ppm_layout)
 
     def setup_delta_t(self):
+        self.delta_t_input.setValue(1)
         delta_t_layout = QHBoxLayout()
         delta_t_label = QLabel("Δ t:")
         delta_t_layout.addWidget(delta_t_label)
