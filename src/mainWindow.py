@@ -117,6 +117,7 @@ class MainWindow(QWidget):
         self.image_widget.update_position_from_tab(point_id, new_x, new_y)
 
     def remove_marker(self, marker_id):
+        self.historic_data_widget.remove_line(marker_id)
         self.table_widget.remove_marker(marker_id)
         self.marker_position_update_widget.remove_marker(marker_id)
         del self.points[marker_id]

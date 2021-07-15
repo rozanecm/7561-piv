@@ -31,11 +31,11 @@ class HistoricDataWidget(GroupBox):
         self.setup_download_button()
 
         self.line_series: Dict[int, line] = {}
-        self.setup_chart()
 
         self.axis_x = QValueAxis()
         self.axis_y = QValueAxis()
         self.setup_axes()
+        self.setup_chart()
 
         self.setup_general_layout()
 
@@ -64,16 +64,16 @@ class HistoricDataWidget(GroupBox):
         self.axis_x.setLabelFormat("%i")
         self.axis_x.setTitleText("Tiempo (ms)")
         self.axis_x.setTickCount(13)
-        self.chart.addAxis(self.axis_x, Qt.AlignBottom)
         self.axis_y.setTitleText("Vel. (m/s)")
         self.axis_y.setLabelFormat("%i")
-        self.chart.addAxis(self.axis_y, Qt.AlignLeft)
 
     def setup_chart(self):
         self.chart.setTitle("Evolución histórica (últimos 30 seg)")
         self.chart.setTheme(QChart.ChartThemeBlueIcy)
         self.chart.setAnimationOptions(QChart.SeriesAnimations)
         self.view.setRenderHint(QPainter.Antialiasing)
+        self.chart.addAxis(self.axis_x, Qt.AlignBottom)
+        self.chart.addAxis(self.axis_y, Qt.AlignLeft)
 
     def add_line(self, marker_id: int):
         self.line_series[marker_id] = {'is_visible': True, 'series': QSplineSeries()}
@@ -82,6 +82,22 @@ class HistoricDataWidget(GroupBox):
         self.chart.addSeries(self.line_series[marker_id]['series'])
         self.line_series[marker_id]['series'].attachAxis(self.axis_y)
         self.line_series[marker_id]['series'].attachAxis(self.axis_x)
+
+    def remove_line(self, marker_id: int):
+        print(self.line_series)
+        self.chart.removeSeries(self.line_series[marker_id]['series'])
+        del self.line_series[marker_id]
+        self.reorder_line_series()
+        print(self.line_series)
+
+        for current_marker_id, serie in zip(self.line_series.keys(), self.line_series.values()):
+            print("adding serie: {}, id: {}".format(serie, current_marker_id))
+            serie['series'].setName(str(current_marker_id))
+
+    def reorder_line_series(self):
+        l1 = [x + 1 for x in range(len(self.line_series.keys()))]
+        l2 = list(self.line_series.values())
+        self.line_series = dict(zip(l1, l2))
 
     def set_y_range(self, min_value: int, max_value: int):
         self.axis_x.setRange(min_value, max_value)
