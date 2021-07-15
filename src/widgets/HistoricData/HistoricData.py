@@ -84,14 +84,11 @@ class HistoricDataWidget(GroupBox):
         self.line_series[marker_id]['series'].attachAxis(self.axis_x)
 
     def remove_line(self, marker_id: int):
-        print(self.line_series)
         self.chart.removeSeries(self.line_series[marker_id]['series'])
         del self.line_series[marker_id]
         self.reorder_line_series()
-        print(self.line_series)
 
         for current_marker_id, serie in zip(self.line_series.keys(), self.line_series.values()):
-            print("adding serie: {}, id: {}".format(serie, current_marker_id))
             serie['series'].setName(str(current_marker_id))
 
     def reorder_line_series(self):
