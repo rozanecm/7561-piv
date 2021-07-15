@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSpinBox
+from PyQt5.QtWidgets import QVBoxLayout, QSpinBox
 
 from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
