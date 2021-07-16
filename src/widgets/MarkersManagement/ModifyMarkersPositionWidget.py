@@ -99,3 +99,9 @@ class ModifyMarkersPositionWidget(GroupBox):
         l1 = [str(x + 1) for x in range(len(self.markers.keys()))]
         l2 = list(self.markers.values())
         self.markers = dict(zip(l1, l2))
+
+    def update_marker_position_from_main_window(self, marker_id: int, pos: tuple):
+        """receive x, y in img coordinates"""
+        self.markers[str(marker_id)] = pos
+        if self.marker_selector_combo_box.currentText() == str(marker_id):
+            self.update_combo_box_value()

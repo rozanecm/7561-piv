@@ -81,9 +81,15 @@ class Image(QWidget):
                 translated_coords.y() - current_marker.marker_size // 2)))
 
     def finish_position_update(self, point_id: int):
-        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
-                                             {"marker_id": point_id, "pox_x": self.markers[point_id].pos[0],
-                                              "pos_y": self.markers[point_id].pos[1]})
+        x = self.markers[point_id].pos[0]
+        y = self.markers[point_id].pos[1]
+        self.main_window.update_position_from_image(point_id, x, y)
+        # todo decide if this msg is transmitted by this widget or by main window. This is commented because main window is sending this info, too.
+        # self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
+        #                                      {"marker_id": point_id,
+        #                                       "pox_x": x,
+        #                                       "pos_y": y
+        #                                       })
 
     def update_position_from_marker_position_update_widget(self, point_id: int, new_x: int, new_y: int):
         """coords are expressed in img coords"""

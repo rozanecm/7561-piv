@@ -105,10 +105,12 @@ class MainWindow(QWidget):
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
 
-    def update_position_from_image(self, point_id: int, new_x: int, new_y: int):
+    def update_position_from_image(self, marker_id: int, new_x: int, new_y: int):
         """COORDS come in real img coords."""
+        self.table_widget.update_marker_position(marker_id, new_x, new_y)
+        self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (new_x, new_y))
         self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
-                                             {"marker_id": point_id,
+                                             {"marker_id": marker_id,
                                               "pos_x": new_x,
                                               "pos_y": new_y})
 
