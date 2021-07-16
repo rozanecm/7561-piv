@@ -75,7 +75,11 @@ class ModifyMarkersPositionWidget(GroupBox):
         del self.markers[str(marker_id)]
         self.reorder_markers()
         self.repopulate_combobox()
-        self.update_combo_box_value()
+        if self.markers:
+            self.update_combo_box_value()
+        else:
+            self.pos_x_spinbox.setValue(0)
+            self.pos_y_spinbox.setValue(0)
 
     def empty_combobox(self):
         for key in self.markers.keys():
