@@ -40,7 +40,7 @@ class CircleMarker(QLabel):
 
     def mouseMoveEvent(self, ev: QtGui.QMouseEvent) -> None:
         mapped_to_global = self.mapToGlobal(ev.pos())
-        self.parent().update_position(self.id, mapped_to_global.x(), mapped_to_global.y())
+        self.parent().update_position_from_marker(self.id, mapped_to_global.x(), mapped_to_global.y())
 
     def mouseReleaseEvent(self, ev: QtGui.QMouseEvent) -> None:
         self.setMouseTracking(False)

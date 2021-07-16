@@ -64,7 +64,7 @@ class Image(QWidget):
         return (round(coords_in_image_widget[0] * self._img_width / self.imageLabel.width()),
                 round(coords_in_image_widget[1] * self._img_height / self.imageLabel.height()))
 
-    def update_position(self, point_id: int, new_x: int, new_y: int):
+    def update_position_from_marker(self, point_id: int, new_x: int, new_y: int):
         """
         point_id: id of the marker whose position will be updated
         new_x, new_y: new marker position expressed in global coordinates.
@@ -85,10 +85,12 @@ class Image(QWidget):
                                              {"marker_id": point_id, "pox_x": self.markers[point_id].pos[0],
                                               "pos_y": self.markers[point_id].pos[1]})
 
-    def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
+    def update_position_from_marker_position_update_widget(self, point_id: int, new_x: int, new_y: int):
+        """coords are expressed in img coords"""
         current_marker = self.markers.get(point_id)
-        if self.point_on_image(new_x, new_y):
-            current_marker.move(new_x, new_y)
+        x_on_widget = round(new_x * self.imageLabel.width() / self._img_width)
+        y_on_widget = round(new_y * self.imageLabel.height() / self._img_height)
+        current_marker.move(x_on_widget, y_on_widget)
 
     def point_on_image(self, x: int, y: int):
         return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0

@@ -1,4 +1,3 @@
-import json
 import os
 
 from PyQt5 import QtGui
@@ -115,12 +114,8 @@ class MainWindow(QWidget):
 
     def update_position_from_marker_position_update_widget(self, marker_id: int, new_x: int, new_y: int):
         """coord come in img coords."""
-        # TODO propagate coords to table
         self.table_widget.update_marker_position(marker_id, new_x, new_y)
-        # TODO propagate coords to imag widget -> redraw marker position
-        # self.image_widget.update_position_from_tab(point_id, new_x, new_y)
-        print("in main window ")
-        pass
+        self.image_widget.image.update_position_from_marker_position_update_widget(marker_id, new_x, new_y)
 
     def remove_marker(self, marker_id):
         self.historic_data_widget.remove_line(marker_id)
