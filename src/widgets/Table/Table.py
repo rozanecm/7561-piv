@@ -53,3 +53,7 @@ class Table(QWidget):
         self.table.removeRow(marker_id)
         for row in range(1, self.table.rowCount()):
             self.table.setItem(row, self._marker_id_column_index, QTableWidgetItem(str(row)))
+
+    def update_marker_position(self, marker_id: int, x: int, y: int):
+        self.table.setItem(marker_id, self._pos_x_column_index, QTableWidgetItem(str(x)))
+        self.table.setItem(marker_id, self._pos_y_column_index, QTableWidgetItem(str(y)))

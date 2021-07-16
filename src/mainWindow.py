@@ -24,7 +24,7 @@ class MainWindow(QWidget):
         self.points = {}
 
         self.image_widget = ImageWidget(self.outputter, parent=self)
-        self.marker_position_update_widget = ModifyMarkersPositionWidget(self.outputter)
+        self.marker_position_update_widget = ModifyMarkersPositionWidget(self.outputter, parent=self)
         self.table_widget = Table()
         self.historic_data_widget = HistoricDataWidget()
 
@@ -113,8 +113,14 @@ class MainWindow(QWidget):
                                               "pos_x": new_x,
                                               "pos_y": new_y})
 
-    def update_position_from_tab(self, point_id: int, new_x: int, new_y: int):
-        self.image_widget.update_position_from_tab(point_id, new_x, new_y)
+    def update_position_from_marker_position_update_widget(self, marker_id: int, new_x: int, new_y: int):
+        """coord come in img coords."""
+        # TODO propagate coords to table
+        self.table_widget.update_marker_position(marker_id, new_x, new_y)
+        # TODO propagate coords to imag widget -> redraw marker position
+        # self.image_widget.update_position_from_tab(point_id, new_x, new_y)
+        print("in main window ")
+        pass
 
     def remove_marker(self, marker_id):
         self.historic_data_widget.remove_line(marker_id)

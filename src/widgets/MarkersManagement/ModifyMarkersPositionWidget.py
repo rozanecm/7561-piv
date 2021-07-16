@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QSpinBox
 
 from src.InfoOutputter import InfoOutputter
+from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
@@ -31,11 +32,11 @@ class ModifyMarkersPositionWidget(GroupBox):
         pos_x_label = QLabel("pos x")
         self.pos_x_spinbox.setEnabled(False)
         self.pos_x_spinbox.setMaximum(9999)
-        self.pos_x_spinbox.valueChanged.connect(lambda value: self.pos_x_spin_changed(value))
+        self.pos_x_spinbox.editingFinished.connect(lambda: self.spinbox_value_changed())
         pos_y_label = QLabel("pos y")
         self.pos_y_spinbox.setEnabled(False)
         self.pos_y_spinbox.setMaximum(9999)
-        self.pos_y_spinbox.valueChanged.connect(lambda value: self.pos_y_spin_changed(value))
+        self.pos_y_spinbox.editingFinished.connect(lambda: self.spinbox_value_changed())
         self.layout.addWidget(pos_x_label)
         self.layout.addWidget(self.pos_x_spinbox)
         self.layout.addWidget(pos_y_label)
@@ -51,11 +52,16 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.pos_x_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][0])
         self.pos_y_spinbox.setValue(self.markers[self.marker_selector_combo_box.currentText()][1])
 
-    def pos_x_spin_changed(self, new_value):
-        print(new_value)
-
-    def pos_y_spin_changed(self, new_value):
-        print(new_value)
+    def spinbox_value_changed(self):
+        marker_id = self.marker_selector_combo_box.currentText()
+        x = self.pos_x_spinbox.value()
+        y = self.pos_y_spinbox.value()
+        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
+                                             {"marker_id": marker_id,
+                                              "new_x": x,
+                                              "new_y": y
+                                              })
+        self.parent().update_position_from_marker_position_update_widget(int(marker_id), x, y)
 
     def enable_spinboxes(self):
         self.pos_x_spinbox.setEnabled(True)
