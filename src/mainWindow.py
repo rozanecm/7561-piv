@@ -132,3 +132,6 @@ class MainWindow(QWidget):
         l1 = [x + 1 for x in range(len(self.points.keys()))]
         l2 = list(self.points.values())
         self.points = dict(zip(l1, l2))
+
+    def receive_img_from_imag_reader(self, img):
+        print("oh received a new img from img reader! {}".format(img))
