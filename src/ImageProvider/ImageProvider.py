@@ -29,5 +29,5 @@ class ImageProvider(threading.Thread):
 
     def send_image_to_backend(self, new_img):
         if not self.markers_info:
-            print("in the print")
+            print("sending img to backend", new_img)
             # self.main_window.get_markers_info()
