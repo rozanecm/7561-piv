@@ -1,4 +1,6 @@
 class Constants:
+    INIT_ROI_VALUE = 32
+
     VELOCITY_MAGNITUDE = "Módulo"
     VELOCITY_VECT_X = "Vector x"
     VELOCITY_VECT_Y = "Vector y"

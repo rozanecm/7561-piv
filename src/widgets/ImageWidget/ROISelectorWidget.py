@@ -13,6 +13,7 @@ class ROISelectorWidget(GroupBox):
 
         self.roi_input = QSpinBox()
         self.roi_input.valueChanged.connect(lambda: self.roi_update())
+        self.roi_input.setValue(Constants.INIT_ROI_VALUE)
 
         self.set_gui()
 
