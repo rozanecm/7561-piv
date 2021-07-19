@@ -134,4 +134,4 @@ class MainWindow(QWidget):
         self.points = dict(zip(l1, l2))
 
     def receive_img_from_imag_reader(self, img):
-        print("oh received a new img from img reader! {}".format(img))
+        self.image_widget.image.set_image_from_PIL(img)

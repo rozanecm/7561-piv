@@ -5,6 +5,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PIL.ImageQt import ImageQt
 
 from src.InfoOutputter import InfoOutputter
 from src.constants.constants import Constants
@@ -21,7 +22,7 @@ class Image(QWidget):
         self.markers: Dict[int, CircleMarker] = {}
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
         self.imageLabel = QLabel()
-        self.set_image(path)
+        self.set_image_from_path(path)
         self.main_window = main_window
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.imageLabel)
@@ -29,13 +30,17 @@ class Image(QWidget):
 
         self.imageLabel.mouseDoubleClickEvent = self.process_double_click_on_img
 
-    def set_image(self, path):
+    def set_image_from_path(self, path):
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
-        self.imageLabel.pixmap()
-        self.imageLabel.logicalDpiX()
         self.imageLabel.setPixmap(QPixmap(path).scaled(self.imageLabel.size().width(),
                                                        self.imageLabel.size().height(),
                                                        QtCore.Qt.KeepAspectRatio))
+
+    def set_image_from_PIL(self, img):
+        # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
+        self.imageLabel.setPixmap(QPixmap.fromImage(ImageQt(img)).scaled(self.imageLabel.size().width(),
+                                                                         self.imageLabel.size().height(),
+                                                                         QtCore.Qt.KeepAspectRatio))
 
     def process_double_click_on_img(self, event: QtGui.QMouseEvent) -> None:
         pos_in_global = self.imageLabel.mapToGlobal(event.pos())
