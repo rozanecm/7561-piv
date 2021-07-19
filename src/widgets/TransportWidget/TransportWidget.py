@@ -15,14 +15,20 @@ class TransportWidget(GroupBox):
         self.set_gui()
 
     def set_gui(self):
-        play_button = self.make_button("Iniciar", os.path.join(os.path.dirname(__file__), "../../../res/play_icon.png"), self.process_play_button_click)
-        stop_button = self.make_button("Detener", os.path.join(os.path.dirname(__file__), "../../../res/pause_icon.png"), self.process_stop_button_click)
-        get_preview_button = self.make_button("Obtener previsualizacion", os.path.join(os.path.dirname(__file__), "../../../res/get_preview_icon.png"), self.process_get_preview_button_click)
-        self.layout.addWidget(get_preview_button)
         play_stop_layout = QHBoxLayout()
         self.layout.addLayout(play_stop_layout)
-        play_stop_layout.addWidget(play_button)
-        play_stop_layout.addWidget(stop_button)
+        self.layout.addWidget(self.make_button("Obtener previsualizacion",
+                                               os.path.join(os.path.dirname(__file__),
+                                                            "../../../res/get_preview_icon.png"),
+                                               self.process_get_preview_button_click))
+        play_stop_layout.addWidget(self.make_button("Iniciar",
+                                                    os.path.join(os.path.dirname(__file__),
+                                                                 "../../../res/play_icon.png"),
+                                                    self.process_play_button_click))
+        play_stop_layout.addWidget(self.make_button("Detener",
+                                                    os.path.join(os.path.dirname(__file__),
+                                                                 "../../../res/pause_icon.png"),
+                                                    self.process_stop_button_click))
 
     @staticmethod
     def make_button(label: str, path: str, func: Callable) -> QPushButton:
