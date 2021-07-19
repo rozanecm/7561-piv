@@ -23,6 +23,7 @@ class MainWindow(QWidget):
         self.setLayout(self.layout)
         self.points = {}
         self.accept_imgs = False
+        self.get_img_sample = False
 
         self.image_widget = ImageWidget(self.outputter, parent=self)
         self.marker_position_update_widget = ModifyMarkersPositionWidget(self.outputter, parent=self)
@@ -140,5 +141,6 @@ class MainWindow(QWidget):
         self.points = dict(zip(l1, l2))
 
     def receive_img_from_img_reader(self, img):
-        if self.accept_imgs:
+        if self.accept_imgs or self.get_img_sample:
             self.image_widget.image.set_image_from_PIL(img)
+            self.get_img_sample = False

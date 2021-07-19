@@ -40,12 +40,10 @@ class TransportWidget(GroupBox):
         return new_button
 
     def process_play_button_click(self):
-        print("play button pressed")
         self.main_window.accept_imgs = True
 
     def process_stop_button_click(self):
-        print("stop button pressed")
         self.main_window.accept_imgs = False
 
     def process_get_preview_button_click(self):
-        print("get_preview_button pressed")
+        self.main_window.get_img_sample = True
