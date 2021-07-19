@@ -22,11 +22,12 @@ class MainWindow(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         self.points = {}
+        self.accept_imgs = False
 
         self.image_widget = ImageWidget(self.outputter, parent=self)
         self.marker_position_update_widget = ModifyMarkersPositionWidget(self.outputter, parent=self)
         self.table_widget = Table()
-        self.transport_widget = TransportWidget()
+        self.transport_widget = TransportWidget(main_window=self)
         self.historic_data_widget = HistoricDataWidget()
 
         self.init_gui()
@@ -139,4 +140,5 @@ class MainWindow(QWidget):
         self.points = dict(zip(l1, l2))
 
     def receive_img_from_img_reader(self, img):
-        self.image_widget.image.set_image_from_PIL(img)
+        if self.accept_imgs:
+            self.image_widget.image.set_image_from_PIL(img)

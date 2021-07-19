@@ -8,8 +8,9 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class TransportWidget(GroupBox):
-    def __init__(self, parent=None):
+    def __init__(self, main_window, parent=None):
         super().__init__("Control", parent=parent)
+        self.main_window = main_window
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         self.set_gui()
@@ -40,9 +41,11 @@ class TransportWidget(GroupBox):
 
     def process_play_button_click(self):
         print("play button pressed")
+        self.main_window.accept_imgs = True
 
     def process_stop_button_click(self):
         print("stop button pressed")
+        self.main_window.accept_imgs = False
 
     def process_get_preview_button_click(self):
         print("get_preview_button pressed")
