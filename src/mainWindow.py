@@ -9,6 +9,7 @@ from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
 from src.widgets.MarkersManagement.ModifyMarkersPositionWidget import ModifyMarkersPositionWidget
 from src.widgets.Table.Table import Table
+from src.widgets.TransportWidget.TransportWidget import TransportWidget
 
 
 class MainWindow(QWidget):
@@ -25,6 +26,7 @@ class MainWindow(QWidget):
         self.image_widget = ImageWidget(self.outputter, parent=self)
         self.marker_position_update_widget = ModifyMarkersPositionWidget(self.outputter, parent=self)
         self.table_widget = Table()
+        self.transport_widget = TransportWidget()
         self.historic_data_widget = HistoricDataWidget()
 
         self.init_gui()
@@ -42,6 +44,9 @@ class MainWindow(QWidget):
 
     def set_middle_layout(self):
         self.side_layout.addWidget(self.table_widget)
+        self.side_layout.addStretch()
+        self.side_layout.addWidget(self.transport_widget)
+        self.side_layout.addStretch()
         self.side_layout.addWidget(self.marker_position_update_widget)
 
         self.middle_layout.addWidget(self.image_widget)
