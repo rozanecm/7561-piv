@@ -1,6 +1,7 @@
 import os
 from typing import Dict
 
+import PIL.Image
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QPixmap
@@ -36,7 +37,7 @@ class Image(QWidget):
                                                        self.imageLabel.size().height(),
                                                        QtCore.Qt.KeepAspectRatio))
 
-    def set_image_from_PIL(self, img):
+    def set_image_from_PIL(self, img: PIL.Image.Image):
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
         self.imageLabel.setPixmap(QPixmap.fromImage(ImageQt(img)).scaled(self.imageLabel.size().width(),
                                                                          self.imageLabel.size().height(),

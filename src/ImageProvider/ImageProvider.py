@@ -1,6 +1,8 @@
 import os
 import threading
 import time
+
+import PIL.TiffImagePlugin
 from PIL import Image
 
 from src.mainWindow import MainWindow
@@ -28,16 +30,19 @@ class ImageProvider(threading.Thread):
                 self.send_image_to_backend(new_img)
 
     def read_image(self, img_number):
-        print("read img", img_number)
+        print("📖 read img", img_number)
         im = Image.open(img_number)
-        print(im.format, im.size, im.mode)
         return im
-        # return "img {}".format(img_number)
 
-    def send_image_to_GUI(self, new_img):
-        self.main_window.receive_img_from_imag_reader(new_img)
+    def send_image_to_GUI(self, new_img: PIL.TiffImagePlugin.TiffImageFile):
+        left = 0
+        top = 0
+        right = new_img.width // 2
+        bottom = new_img.height
+        half_img = new_img.crop((left, top, right, bottom))     # PIL.Image.Image
+        self.main_window.receive_img_from_imag_reader(half_img)
 
     def send_image_to_backend(self, new_img):
         if not self.markers_info:
-            print("sending img to backend", new_img)
+            print("📤 sending img to backend", new_img)
             # self.main_window.get_markers_info()
