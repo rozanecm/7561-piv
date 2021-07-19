@@ -133,5 +133,5 @@ class MainWindow(QWidget):
         l2 = list(self.points.values())
         self.points = dict(zip(l1, l2))
 
-    def receive_img_from_imag_reader(self, img):
+    def receive_img_from_img_reader(self, img):
         self.image_widget.image.set_image_from_PIL(img)

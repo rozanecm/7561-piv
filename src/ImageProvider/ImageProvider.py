@@ -40,7 +40,7 @@ class ImageProvider(threading.Thread):
         right = new_img.width // 2
         bottom = new_img.height
         half_img = new_img.crop((left, top, right, bottom))     # PIL.Image.Image
-        self.main_window.receive_img_from_imag_reader(half_img)
+        self.main_window.receive_img_from_img_reader(half_img)
 
     def send_image_to_backend(self, new_img):
         if not self.markers_info:
