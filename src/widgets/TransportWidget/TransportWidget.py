@@ -7,7 +7,7 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 
 class TransportWidget(GroupBox):
     def __init__(self, parent=None):
-        super().__init__("Transporte", parent=parent)
+        super().__init__("Control", parent=parent)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         self.set_gui()
@@ -16,9 +16,11 @@ class TransportWidget(GroupBox):
         play_button = self.make_button("Iniciar", self.process_play_button_click)
         stop_button = self.make_button("Detener", self.process_stop_button_click)
         get_preview_button = self.make_button("Obtener previsualizacion", self.process_get_preview_button_click)
-        self.layout.addWidget(play_button)
-        self.layout.addWidget(stop_button)
         self.layout.addWidget(get_preview_button)
+        play_stop_layout = QHBoxLayout()
+        self.layout.addLayout(play_stop_layout)
+        play_stop_layout.addWidget(play_button)
+        play_stop_layout.addWidget(stop_button)
 
     def make_button(self, label: str, func: Callable) -> QPushButton:
         new_button = QPushButton(label)
