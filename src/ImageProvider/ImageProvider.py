@@ -23,7 +23,7 @@ class ImageProvider(threading.Thread):
     def run(self):
         while True:
             for current_img_path in self.images_paths:
-                time.sleep(1)
+                time.sleep(0.1)
                 new_img = self.read_image(current_img_path)
 
                 self.send_image_to_GUI(new_img)
@@ -45,4 +45,4 @@ class ImageProvider(threading.Thread):
     def send_image_to_backend(self, new_img):
         if not self.markers_info:
             print("📤 sending img to backend", new_img)
-            # self.main_window.get_markers_info()
+            # TODO self.main_window.get_markers_info()
