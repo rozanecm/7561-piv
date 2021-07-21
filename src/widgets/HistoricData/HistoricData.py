@@ -2,7 +2,7 @@ import os
 from random import gauss
 from typing import Dict
 
-from PyQt5.QtChart import QChart, QChartView, QValueAxis, QSplineSeries
+from PyQt5.QtChart import QChart, QChartView, QValueAxis, QLineSeries
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter, QIcon
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
@@ -76,7 +76,7 @@ class HistoricDataWidget(GroupBox):
         self.chart.addAxis(self.axis_y, Qt.AlignLeft)
 
     def add_line(self, marker_id: int):
-        self.line_series[marker_id] = {'is_visible': True, 'series': QSplineSeries()}
+        self.line_series[marker_id] = {'is_visible': True, 'series': QLineSeries()}
         self.line_series[marker_id]['series'].setName(str(marker_id))
         self.update_chart(marker_id)
         self.chart.addSeries(self.line_series[marker_id]['series'])
