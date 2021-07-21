@@ -62,9 +62,9 @@ class HistoricDataWidget(GroupBox):
 
     def setup_axes(self):
         self.axis_x.setLabelFormat("%i")
-        self.axis_x.setTitleText("Tiempo (ms)")
+        self.axis_x.setTitleText("t(s)")
         self.axis_x.setTickCount(13)
-        self.axis_y.setTitleText("Vel. (m/s)")
+        self.axis_y.setTitleText("v(mm/s)")
         self.axis_y.setLabelFormat("%i")
 
     def setup_chart(self):
