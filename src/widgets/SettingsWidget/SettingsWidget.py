@@ -26,7 +26,7 @@ class SettingsWidget(GroupBox):
     def setup_ppm(self):
         self.ppm_input.setValue(1)
         ppm_layout = QHBoxLayout()
-        ppm_label = QLabel("ppm:")
+        ppm_label = QLabel("px/mm:")
         ppm_layout.addWidget(ppm_label)
         ppm_layout.addWidget(self.ppm_input)
         self.layout.addLayout(ppm_layout)
