@@ -21,7 +21,7 @@ class Image(QWidget):
         super().__init__(parent=parent)
         self.outputter = outputter
         self.markers: Dict[int, CircleMarker] = {}
-        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/sample_cropped.png"))
+        path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/preview.png"))
         self.imageLabel = QLabel()
         self.set_image_from_path(path)
         self.main_window = main_window
@@ -35,7 +35,8 @@ class Image(QWidget):
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
         self.imageLabel.setPixmap(QPixmap(path).scaled(self.imageLabel.size().width(),
                                                        self.imageLabel.size().height(),
-                                                       QtCore.Qt.KeepAspectRatio))
+                                                       QtCore.Qt.KeepAspectRatio,
+                                                       QtCore.Qt.SmoothTransformation))
 
     def set_image_from_PIL(self, img: PIL.Image.Image):
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
