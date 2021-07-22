@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout
 
-from src.InfoOutputter import InfoOutputter
+from src.SettingsBearer import SettingsBearer
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.ImageWidget.Image import Image
 from src.widgets.ImageWidget.ROISelectorWidget import ROISelectorWidget
@@ -12,7 +12,7 @@ from src.widgets.StatusBar.StatusBar import StatusBar
 class ImageWidget(GroupBox):
     # inspired by: https://stackoverflow.com/questions/45018926/how-to-properly-setpixmap-scaled-on-pyqt5
     # which also shows how to draw something on the img!
-    def __init__(self, outputter: InfoOutputter, parent=None):
+    def __init__(self, outputter: SettingsBearer, parent=None):
         super().__init__("Imagen", parent=parent)
 
         self.outputter = outputter

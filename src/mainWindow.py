@@ -3,7 +3,7 @@ import os
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
-from src.InfoOutputter import InfoOutputter
+from src.SettingsBearer import SettingsBearer
 from src.constants.constants import Constants
 from src.widgets.HistoricData.HistoricData import HistoricDataWidget
 from src.widgets.ImageWidget.ImageWidget import ImageWidget
@@ -15,7 +15,7 @@ from src.widgets.TransportWidget.TransportWidget import TransportWidget
 class MainWindow(QWidget):
     def __init__(self, app, parent=None):
         super().__init__(parent)
-        self.outputter = InfoOutputter()
+        self.outputter = SettingsBearer()
         self.middle_layout = QHBoxLayout()
         self.side_layout = QVBoxLayout()
         self.app = app
@@ -26,7 +26,7 @@ class MainWindow(QWidget):
         self.get_img_sample = False
 
         self.image_widget = ImageWidget(self.outputter, parent=self)
-        self.marker_position_update_widget = ModifyMarkersPositionWidget(self.outputter, parent=self)
+        self.marker_position_update_widget = ModifyMarkersPositionWidget(parent=self)
         self.table_widget = Table()
         self.transport_widget = TransportWidget(main_window=self)
         self.historic_data_widget = HistoricDataWidget()
@@ -62,14 +62,12 @@ class MainWindow(QWidget):
         self.setWindowIcon(QtGui.QIcon(icon_path))
 
     def add_point(self, position_x: int = 0, position_y: int = 0,
-                  position_x_real_image: int = 0, position_y_real_image: int = 0,
-                  selection_size: int = 32):
+                  position_x_real_image: int = 0, position_y_real_image: int = 0):
         """
         position_x: global position for click's x coordinate
         position_y: global position for click's y coordinate
         position_x_real_image: global position for click's x coordinate, considering image's real size coordinates
         position_y_real_image: global position for click's y coordinate, considering image's real size coordinates
-        selection_size: selection size for current marker.
         """
         new_point_id = self.get_new_point_id()
         self.image_widget.image.add_point(position_x,
@@ -78,16 +76,12 @@ class MainWindow(QWidget):
                                           position_y_real_image,
                                           new_point_id)
         self.points[new_point_id] = {"position_x": position_x_real_image,
-                                     "position_y": position_y_real_image,
-                                     "selection_size": selection_size}
+                                     "position_y": position_y_real_image}
         self.table_widget.add_marker(str(new_point_id), position_x_real_image, position_y_real_image)
         self.historic_data_widget.add_line(new_point_id)
         self.marker_position_update_widget.enable_spinboxes()
         self.marker_position_update_widget.add_marker(new_point_id, (position_x_real_image, position_y_real_image))
-        self.outputter.transmit_message_dict(Constants.MSG_TYPE_NEW_MARKER,
-                                             {"marker_id": new_point_id,
-                                              "pos_x": position_x_real_image,
-                                              "pos_y": position_y_real_image})
+        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
@@ -96,15 +90,15 @@ class MainWindow(QWidget):
         """COORDS come in real img coords."""
         self.table_widget.update_marker_position(marker_id, new_x, new_y)
         self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (new_x, new_y))
-        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
-                                             {"marker_id": marker_id,
-                                              "pos_x": new_x,
-                                              "pos_y": new_y})
+        self.points[marker_id] = {"position_x": new_x, "position_y": new_y}
+        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def update_position_from_marker_position_update_widget(self, marker_id: int, new_x: int, new_y: int):
         """coord come in img coords."""
         self.table_widget.update_marker_position(marker_id, new_x, new_y)
         self.image_widget.image.update_position_from_marker_position_update_widget(marker_id, new_x, new_y)
+        self.points[marker_id] = {"position_x": new_x, "position_y": new_y}
+        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def remove_marker(self, marker_id):
         self.historic_data_widget.remove_line(marker_id)
@@ -114,6 +108,7 @@ class MainWindow(QWidget):
         self.reorder_markers()
         if len(self.points.keys()) == 0:
             self.marker_position_update_widget.disable_spinboxes()
+        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def reorder_markers(self):
         l1 = [x + 1 for x in range(len(self.points.keys()))]

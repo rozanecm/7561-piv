@@ -23,7 +23,7 @@ class ImageProvider(threading.Thread):
     def run(self):
         while True:
             for current_img_path in self.images_paths:
-                time.sleep(0.1)
+                time.sleep(1)
                 new_img = self.read_image(current_img_path)
 
                 self.send_image_to_GUI(new_img)

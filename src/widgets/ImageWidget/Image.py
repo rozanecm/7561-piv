@@ -8,7 +8,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
 from PIL.ImageQt import ImageQt
 
-from src.InfoOutputter import InfoOutputter
+from src.SettingsBearer import SettingsBearer
 from src.constants.constants import Constants
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
@@ -17,7 +17,7 @@ class Image(QWidget):
     _img_width = 1344
     _img_height = 1024
 
-    def __init__(self, outputter: InfoOutputter, main_window, parent=None):
+    def __init__(self, outputter: SettingsBearer, main_window, parent=None):
         super().__init__(parent=parent)
         self.outputter = outputter
         self.markers: Dict[int, CircleMarker] = {}
@@ -42,7 +42,8 @@ class Image(QWidget):
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
         self.imageLabel.setPixmap(QPixmap.fromImage(ImageQt(img)).scaled(self.imageLabel.size().width(),
                                                                          self.imageLabel.size().height(),
-                                                                         QtCore.Qt.KeepAspectRatio))
+                                                                         QtCore.Qt.KeepAspectRatio,
+                                                                         QtCore.Qt.SmoothTransformation))
 
     def process_double_click_on_img(self, event: QtGui.QMouseEvent) -> None:
         pos_in_global = self.imageLabel.mapToGlobal(event.pos())
@@ -92,7 +93,7 @@ class Image(QWidget):
         y = self.markers[point_id].pos[1]
         self.main_window.update_position_from_image(point_id, x, y)
         # todo decide if this msg is transmitted by this widget or by main window. This is commented because main window is sending this info, too.
-        # self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
+        # self.outputter.update_settings(Constants.MSG_TYPE_UPDATE_MARKER,
         #                                      {"marker_id": point_id,
         #                                       "pox_x": x,
         #                                       "pos_y": y
@@ -109,9 +110,6 @@ class Image(QWidget):
         return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
 
     def remove_marker(self, marker_id: int):
-        self.outputter.transmit_message_dict(Constants.MSG_TYPE_DELETE_MARKER,
-                                             {"marker_id": marker_id,
-                                              "pos": self.markers[marker_id].pos})
         self.markers[marker_id].hide()
         del self.markers[marker_id]
         self.reorder_markers()

@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import QVBoxLayout, QRadioButton, QButtonGroup, QHBoxLayout, QSpinBox
 
-from src.InfoOutputter import InfoOutputter
+from src.SettingsBearer import SettingsBearer
 from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class SelectionSizeWidget(GroupBox):
-    def __init__(self, outputter: InfoOutputter, parent=None):
+    def __init__(self, outputter: SettingsBearer, parent=None):
         super().__init__("Tamaño de selección", parent=parent)
         self.setMinimumWidth(200)
         self.outputter = outputter
@@ -39,7 +39,7 @@ class SelectionSizeWidget(GroupBox):
 
     def initial_radio_button_check(self):
         self.radio_button_8x8.setChecked(True)
-        self.outputter.transmit_message(Constants.MSG_TYPE_SELECTION_SIZE_UPDATE, self.radio_button_8x8.text())
+        self.outputter.update_settings(Constants.SETTINGS_SELECTION_SIZE, self.radio_button_8x8.text())
 
     def set_other_size_radio_button(self):
         other_option_layout = QHBoxLayout()
@@ -57,9 +57,9 @@ class SelectionSizeWidget(GroupBox):
     def button_pressed(self, button: QRadioButton):
         if button.text() == "otro":
             value = self.other_value_spinner.value()
-            self.outputter.transmit_message(Constants.MSG_TYPE_SELECTION_SIZE_UPDATE, f"{value}x{value}")
+            self.outputter.update_settings(Constants.SETTINGS_SELECTION_SIZE, f"{value}x{value}")
         else:
-            self.outputter.transmit_message(Constants.MSG_TYPE_SELECTION_SIZE_UPDATE, button.text())
+            self.outputter.update_settings(Constants.SETTINGS_SELECTION_SIZE, button.text())
 
     def other_value_spinner_changed(self, val):
         self.radio_button_other.click()

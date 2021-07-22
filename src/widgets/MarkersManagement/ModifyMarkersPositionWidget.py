@@ -1,15 +1,14 @@
 from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QSpinBox
 
-from src.InfoOutputter import InfoOutputter
+from src.SettingsBearer import SettingsBearer
 from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class ModifyMarkersPositionWidget(GroupBox):
-    def __init__(self, outputter: InfoOutputter, parent=None):
+    def __init__(self, parent=None):
         super().__init__("Actualizar posición de puntos", parent=parent)
         self.marker_selector_combo_box = QComboBox()
-        self.outputter = outputter
         self.pos_y_spinbox = QSpinBox()
         self.pos_x_spinbox = QSpinBox()
         self.layout = QHBoxLayout()
@@ -54,14 +53,10 @@ class ModifyMarkersPositionWidget(GroupBox):
 
     def spinbox_value_changed(self):
         marker_id = self.marker_selector_combo_box.currentText()
-        x = self.pos_x_spinbox.value()
-        y = self.pos_y_spinbox.value()
-        self.outputter.transmit_message_dict(Constants.MSG_TYPE_UPDATE_MARKER,
-                                             {"marker_id": marker_id,
-                                              "new_x": x,
-                                              "new_y": y
-                                              })
-        self.parent().update_position_from_marker_position_update_widget(int(marker_id), x, y)
+        if marker_id:
+            x = self.pos_x_spinbox.value()
+            y = self.pos_y_spinbox.value()
+            self.parent().update_position_from_marker_position_update_widget(int(marker_id), x, y)
 
     def enable_spinboxes(self):
         self.pos_x_spinbox.setEnabled(True)

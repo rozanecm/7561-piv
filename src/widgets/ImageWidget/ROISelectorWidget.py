@@ -21,4 +21,4 @@ class ROISelectorWidget(GroupBox):
         self.layout.addWidget(self.roi_input)
 
     def roi_update(self):
-        self.outputter.transmit_message(Constants.MSG_TYPE_ROI_UPDATE, self.roi_input.value())
+        self.outputter.update_settings(Constants.SETTINGS_ROI, self.roi_input.value())
