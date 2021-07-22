@@ -7,6 +7,6 @@ class SettingsBearer:
     def __init__(self):
         self.settings = {}
 
-    def update_settings(self, msg_type: Constants, body: Union[str, dict]):
+    def update_settings(self, msg_type: Constants, body: Union[str, dict, int]):
         self.settings[msg_type] = body
         print("settings updated - new settings: {}".format(self.settings))

@@ -108,6 +108,9 @@ class Image(QWidget):
 
     def point_on_image(self, x: int, y: int):
         return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
+        # margin = int(self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE]) // 2
+        # return (self.imageLabel.pixmap().width() - margin) >= x >= margin and \
+        #        (self.imageLabel.pixmap().height() - margin) >= y >= margin
 
     def remove_marker(self, marker_id: int):
         self.markers[marker_id].hide()
