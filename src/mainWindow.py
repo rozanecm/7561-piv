@@ -57,29 +57,9 @@ class MainWindow(QWidget):
         self.middle_layout.addLayout(self.side_layout)
 
     def init_main_window_properties(self):
-        self.set_size()
         self.setWindowTitle('PIV')
         icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../res/icon.png"))
         self.setWindowIcon(QtGui.QIcon(icon_path))
-
-    def set_size(self):
-        minimum_size = self.get_minimum_size()
-        self.setMinimumSize(minimum_size[0], minimum_size[1])
-        self.setMaximumSize(minimum_size[0], minimum_size[1])
-
-    def get_minimum_size(self, width_fraction=0.9, height_fraction=0.8):
-        """
-        :return min_width, min_height of the window.
-        :argument width_fraction: the amount of the available width the actual screen will take
-        :argument height_fraction: the amount of the available height the actual screen will take
-        """
-        screen = self.app.primaryScreen()
-
-        # for more screen properties available: https://doc.qt.io/qt-5/qscreen.html
-        available_width = screen.availableGeometry().width()
-        available_height = screen.availableGeometry().height()
-
-        return int(available_width * width_fraction), int(available_height * height_fraction)
 
     def add_point(self, position_x: int = 0, position_y: int = 0,
                   position_x_real_image: int = 0, position_y_real_image: int = 0,
