@@ -5,9 +5,9 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class ROISelectorWidget(GroupBox):
-    def __init__(self, outputter, parent=None):
+    def __init__(self, settings_bearer, parent=None):
         super().__init__("ROI", parent=parent)
-        self.outputter = outputter
+        self.settings_bearer = settings_bearer
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
@@ -21,4 +21,4 @@ class ROISelectorWidget(GroupBox):
         self.layout.addWidget(self.roi_input)
 
     def roi_update(self):
-        self.outputter.update_settings(Constants.SETTINGS_ROI, self.roi_input.value())
+        self.settings_bearer.update_settings(Constants.SETTINGS_ROI, self.roi_input.value())

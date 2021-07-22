@@ -6,9 +6,9 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class SettingsWidget(GroupBox):
-    def __init__(self, outputter: SettingsBearer, parent=None):
+    def __init__(self, settings_bearer: SettingsBearer, parent=None):
         super().__init__("Configuración", parent=parent)
-        self.outputter = outputter
+        self.settings_bearer = settings_bearer
         self.setMinimumWidth(150)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -40,7 +40,7 @@ class SettingsWidget(GroupBox):
         self.layout.addLayout(delta_t_layout)
 
     def delta_t_update(self):
-        self.outputter.update_settings(Constants.SETTINGS_DELTA_T, self.delta_t_input.value())
+        self.settings_bearer.update_settings(Constants.SETTINGS_DELTA_T, self.delta_t_input.value())
 
     def ppm_update(self):
-        self.outputter.update_settings(Constants.SETTINGS_PPM, self.ppm_input.value())
+        self.settings_bearer.update_settings(Constants.SETTINGS_PPM, self.ppm_input.value())

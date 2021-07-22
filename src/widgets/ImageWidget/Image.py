@@ -17,9 +17,9 @@ class Image(QWidget):
     _img_width = 1344
     _img_height = 1024
 
-    def __init__(self, outputter: SettingsBearer, main_window, parent=None):
+    def __init__(self, settings_bearer: SettingsBearer, main_window, parent=None):
         super().__init__(parent=parent)
-        self.outputter = outputter
+        self.settings_bearer = settings_bearer
         self.markers: Dict[int, CircleMarker] = {}
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/preview.png"))
         self.imageLabel = QLabel()
@@ -93,7 +93,7 @@ class Image(QWidget):
         y = self.markers[point_id].pos[1]
         self.main_window.update_position_from_image(point_id, x, y)
         # todo decide if this msg is transmitted by this widget or by main window. This is commented because main window is sending this info, too.
-        # self.outputter.update_settings(Constants.MSG_TYPE_UPDATE_MARKER,
+        # self.settings_bearer.update_settings(Constants.MSG_TYPE_UPDATE_MARKER,
         #                                      {"marker_id": point_id,
         #                                       "pox_x": x,
         #                                       "pos_y": y

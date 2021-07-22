@@ -15,7 +15,7 @@ from src.widgets.TransportWidget.TransportWidget import TransportWidget
 class MainWindow(QWidget):
     def __init__(self, app, parent=None):
         super().__init__(parent)
-        self.outputter = SettingsBearer()
+        self.settings_bearer = SettingsBearer()
         self.middle_layout = QHBoxLayout()
         self.side_layout = QVBoxLayout()
         self.app = app
@@ -25,7 +25,7 @@ class MainWindow(QWidget):
         self.accept_imgs = False
         self.get_img_sample = False
 
-        self.image_widget = ImageWidget(self.outputter, parent=self)
+        self.image_widget = ImageWidget(self.settings_bearer, parent=self)
         self.marker_position_update_widget = ModifyMarkersPositionWidget(parent=self)
         self.table_widget = Table()
         self.transport_widget = TransportWidget(main_window=self)
@@ -81,7 +81,7 @@ class MainWindow(QWidget):
         self.historic_data_widget.add_line(new_point_id)
         self.marker_position_update_widget.enable_spinboxes()
         self.marker_position_update_widget.add_marker(new_point_id, (position_x_real_image, position_y_real_image))
-        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
@@ -91,14 +91,14 @@ class MainWindow(QWidget):
         self.table_widget.update_marker_position(marker_id, new_x, new_y)
         self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (new_x, new_y))
         self.points[marker_id] = {"position_x": new_x, "position_y": new_y}
-        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def update_position_from_marker_position_update_widget(self, marker_id: int, new_x: int, new_y: int):
         """coord come in img coords."""
         self.table_widget.update_marker_position(marker_id, new_x, new_y)
         self.image_widget.image.update_position_from_marker_position_update_widget(marker_id, new_x, new_y)
         self.points[marker_id] = {"position_x": new_x, "position_y": new_y}
-        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def remove_marker(self, marker_id):
         self.historic_data_widget.remove_line(marker_id)
@@ -108,7 +108,7 @@ class MainWindow(QWidget):
         self.reorder_markers()
         if len(self.points.keys()) == 0:
             self.marker_position_update_widget.disable_spinboxes()
-        self.outputter.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def reorder_markers(self):
         l1 = [x + 1 for x in range(len(self.points.keys()))]
