@@ -92,12 +92,6 @@ class Image(QWidget):
         x = self.markers[point_id].pos[0]
         y = self.markers[point_id].pos[1]
         self.main_window.update_position_from_image(point_id, x, y)
-        # todo decide if this msg is transmitted by this widget or by main window. This is commented because main window is sending this info, too.
-        # self.settings_bearer.update_settings(Constants.MSG_TYPE_UPDATE_MARKER,
-        #                                      {"marker_id": point_id,
-        #                                       "pox_x": x,
-        #                                       "pos_y": y
-        #                                       })
 
     def update_position_from_marker_position_update_widget(self, point_id: int, new_x: int, new_y: int):
         """coords are expressed in img coords"""
@@ -107,10 +101,7 @@ class Image(QWidget):
         current_marker.move(x_on_widget, y_on_widget)
 
     def point_on_image(self, x: int, y: int):
-        # return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
-        margin = self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] // 2
-        return (self.imageLabel.pixmap().width() - margin) >= x >= margin and \
-               (self.imageLabel.pixmap().height() - margin) >= y >= margin
+        return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
 
     def remove_marker(self, marker_id: int):
         self.markers[marker_id].hide()
