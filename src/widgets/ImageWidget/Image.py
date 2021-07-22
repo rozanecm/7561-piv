@@ -69,8 +69,19 @@ class Image(QWidget):
         self.update()
 
     def map_from_self_to_real_image_coordinates(self, coords_in_image_widget: tuple):
-        return (round(coords_in_image_widget[0] * self._img_width / self.imageLabel.width()),
-                round(coords_in_image_widget[1] * self._img_height / self.imageLabel.height()))
+        """map to real img. coordinates, taking into account the margin needed so the """
+        x = round(coords_in_image_widget[0] * self._img_width / self.imageLabel.width())
+        y = round(coords_in_image_widget[1] * self._img_height / self.imageLabel.height())
+        margin = self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] // 2
+        if x > self._img_width - margin:
+            x = self._img_width - margin
+        if x < margin:
+            x = margin
+        if y > self._img_height - margin:
+            y = self._img_height - margin
+        if y < margin:
+            y = margin
+        return x, y
 
     def update_position_from_marker(self, point_id: int, new_x: int, new_y: int):
         """
@@ -80,6 +91,7 @@ class Image(QWidget):
         # we should translate new_x and new_y to self.imageLabel coords.
         current_marker = self.markers.get(point_id)
         translated_coords = self.mapFromGlobal(QPoint(new_x, new_y))
+        # take position so that marker stays centered on mouse pos.
         new_x = translated_coords.x() - current_marker.marker_size // 2
         new_y = translated_coords.y() - current_marker.marker_size // 2
         if self.point_on_image(new_x, new_y):
