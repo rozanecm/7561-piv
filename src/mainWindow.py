@@ -85,7 +85,7 @@ class MainWindow(QWidget):
         self.marker_position_update_widget.enable_spinboxes()
         self.marker_position_update_widget.add_marker(new_point_id, (position_x_real_image, position_y_real_image))
         self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
-        self.transport_widget.enable_start_stop_buttons()
+        self.transport_widget.enable_start_button()
 
     def get_new_point_id(self) -> int:
         return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
@@ -112,7 +112,7 @@ class MainWindow(QWidget):
         self.reorder_markers()
         if len(self.points.keys()) == 0:
             self.marker_position_update_widget.disable_spinboxes()
-            self.transport_widget.disable_start_stop_buttons()
+            self.transport_widget.disable_start_button()
         self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
 
     def reorder_markers(self):

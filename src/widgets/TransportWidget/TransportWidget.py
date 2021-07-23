@@ -26,7 +26,8 @@ class TransportWidget(GroupBox):
         self.set_gui()
 
     def set_gui(self):
-        self.disable_start_stop_buttons()
+        self.disable_start_button()
+        self.disable_stop_button()
         play_stop_layout = QHBoxLayout()
         self.layout.addLayout(play_stop_layout)
         self.layout.addWidget(self.preview_button)
@@ -43,18 +44,28 @@ class TransportWidget(GroupBox):
 
     def process_play_button_click(self):
         self.main_window.accept_imgs = True
+        self.main_window.image_widget.image.can_manipulate_markers = False
+        self.disable_start_button()
+        self.enable_stop_button()
 
     def process_stop_button_click(self):
         self.main_window.accept_imgs = False
+        self.main_window.image_widget.image.can_manipulate_markers = True
+        self.disable_stop_button()
+        self.enable_start_button()
 
     def process_get_preview_button_click(self):
         self.main_window.get_img_sample = True
         self.main_window.image_widget.image.can_manipulate_markers = True
 
-    def enable_start_stop_buttons(self):
+    def enable_start_button(self):
         self.start_button.setDisabled(False)
+
+    def disable_start_button(self):
+        self.start_button.setDisabled(True)
+
+    def enable_stop_button(self):
         self.stop_button.setDisabled(False)
 
-    def disable_start_stop_buttons(self):
-        self.start_button.setDisabled(True)
+    def disable_stop_button(self):
         self.stop_button.setDisabled(True)
