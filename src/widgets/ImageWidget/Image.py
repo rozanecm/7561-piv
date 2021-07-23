@@ -14,8 +14,8 @@ from src.widgets.CircleMarker.CircleMarker import CircleMarker
 
 
 class Image(QWidget):
-    _img_width = 1344
-    _img_height = 1024
+    img_width = 1344
+    img_height = 1024
 
     def __init__(self, settings_bearer: SettingsBearer, main_window, parent=None):
         super().__init__(parent=parent)
@@ -49,8 +49,8 @@ class Image(QWidget):
         pos_in_global = self.imageLabel.mapToGlobal(event.pos())
         # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
         pos_in_image_label = self.imageLabel.mapFromGlobal(pos_in_global)
-        x_real_img = round(pos_in_image_label.x() * self._img_width / self.imageLabel.width())
-        y_real_img = round(pos_in_image_label.y() * self._img_height / self.imageLabel.height())
+        x_real_img = round(pos_in_image_label.x() * self.img_width / self.imageLabel.width())
+        y_real_img = round(pos_in_image_label.y() * self.img_height / self.imageLabel.height())
         self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
 
     def add_point(self, x, y, x_img, y_img, new_point_id: int):
@@ -70,15 +70,15 @@ class Image(QWidget):
 
     def map_from_self_to_real_image_coordinates(self, coords_in_image_widget: tuple):
         """map to real img. coordinates, taking into account the margin needed so the """
-        x = round(coords_in_image_widget[0] * self._img_width / self.imageLabel.width())
-        y = round(coords_in_image_widget[1] * self._img_height / self.imageLabel.height())
-        margin = self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] // 2
-        if x > self._img_width - margin:
-            x = self._img_width - margin
+        x = round(coords_in_image_widget[0] * self.img_width / self.imageLabel.width())
+        y = round(coords_in_image_widget[1] * self.img_height / self.imageLabel.height())
+        margin = self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI] // 2
+        if x > self.img_width - margin:
+            x = self.img_width - margin
         if x < margin:
             x = margin
-        if y > self._img_height - margin:
-            y = self._img_height - margin
+        if y > self.img_height - margin:
+            y = self.img_height - margin
         if y < margin:
             y = margin
         return x, y
@@ -108,8 +108,8 @@ class Image(QWidget):
     def update_position_from_marker_position_update_widget(self, point_id: int, new_x: int, new_y: int):
         """coords are expressed in img coords"""
         current_marker = self.markers.get(point_id)
-        x_on_widget = round(new_x * self.imageLabel.width() / self._img_width)
-        y_on_widget = round(new_y * self.imageLabel.height() / self._img_height)
+        x_on_widget = round(new_x * self.imageLabel.width() / self.img_width)
+        y_on_widget = round(new_y * self.imageLabel.height() / self.img_height)
         current_marker.move(x_on_widget, y_on_widget)
 
     def point_on_image(self, x: int, y: int):

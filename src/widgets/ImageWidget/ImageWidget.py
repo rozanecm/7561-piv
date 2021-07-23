@@ -13,6 +13,7 @@ class ImageWidget(GroupBox):
     # inspired by: https://stackoverflow.com/questions/45018926/how-to-properly-setpixmap-scaled-on-pyqt5
     # which also shows how to draw something on the img!
     def __init__(self, settings_bearer: SettingsBearer, parent=None):
+        # parent: main window
         super().__init__("Imagen", parent=parent)
 
         self.settings_bearer = settings_bearer
@@ -20,14 +21,14 @@ class ImageWidget(GroupBox):
         self.main_layout = QHBoxLayout()
         self.setLayout(self.layout)
 
-        self.image = Image(self.settings_bearer, self.parent())
+        self.image = Image(self.settings_bearer, self.parent(), parent=self)
 
         self.main_layout.addWidget(self.image)
         self.settings_layout = QVBoxLayout()
         self.settings_layout.addStretch()
-        self.settings_layout.addWidget(SettingsWidget(self.settings_bearer))
-        self.settings_layout.addWidget(SelectionSizeWidget(self.settings_bearer))
-        self.settings_layout.addWidget(ROISelectorWidget(self.settings_bearer))
+        self.settings_layout.addWidget(SettingsWidget(self.settings_bearer, main_window=self.parent()))
+        self.settings_layout.addWidget(SelectionSizeWidget(self.settings_bearer, main_window=self.parent()))
+        self.settings_layout.addWidget(ROISelectorWidget(self.settings_bearer, main_window=self.parent()))
         self.settings_layout.addStretch()
         self.main_layout.addLayout(self.settings_layout)
 

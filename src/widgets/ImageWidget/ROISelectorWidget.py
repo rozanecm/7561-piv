@@ -5,9 +5,10 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class ROISelectorWidget(GroupBox):
-    def __init__(self, settings_bearer, parent=None):
+    def __init__(self, settings_bearer, main_window, parent=None):
         super().__init__("ROI", parent=parent)
         self.settings_bearer = settings_bearer
+        self.main_window = main_window
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
 
@@ -22,3 +23,4 @@ class ROISelectorWidget(GroupBox):
 
     def roi_update(self):
         self.settings_bearer.update_settings(Constants.SETTINGS_ROI, self.roi_input.value())
+        self.main_window.check_if_markers_margin_is_not_exceeding_imgs_limits()

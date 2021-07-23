@@ -6,9 +6,10 @@ from src.widgets.GroupBox.GroupBox import GroupBox
 
 
 class SettingsWidget(GroupBox):
-    def __init__(self, settings_bearer: SettingsBearer, parent=None):
+    def __init__(self, settings_bearer: SettingsBearer, main_window, parent=None):
         super().__init__("Configuración", parent=parent)
         self.settings_bearer = settings_bearer
+        self.main_window = main_window
         self.setMinimumWidth(150)
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)

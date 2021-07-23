@@ -119,3 +119,27 @@ class MainWindow(QWidget):
         if self.accept_imgs or self.get_img_sample:
             self.image_widget.image.set_image_from_PIL(img)
             self.get_img_sample = False
+
+    def check_if_markers_margin_is_not_exceeding_imgs_limits(self):
+        for marker_id in self.points:
+            margin = self.settings_bearer.settings[Constants.SETTINGS_ROI] // 2
+            x = self.points[marker_id]["position_x"]
+            y = self.points[marker_id]["position_y"]
+            if x > self.image_widget.image.img_width - margin:
+                x = self.image_widget.image.img_width - margin
+                self.table_widget.update_marker_position(marker_id, x, y)
+                self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
+            if x < margin:
+                x = margin
+                self.table_widget.update_marker_position(marker_id, x, y)
+                self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
+            if y > self.image_widget.image.img_height - margin:
+                y = self.image_widget.image.img_height - margin
+                self.table_widget.update_marker_position(marker_id, x, y)
+                self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
+            if y < margin:
+                y = margin
+                self.table_widget.update_marker_position(marker_id, x, y)
+                self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
+            self.points[marker_id]["position_x"] = x
+            self.points[marker_id]["position_y"] = y

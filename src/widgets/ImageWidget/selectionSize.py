@@ -10,8 +10,10 @@ def selection_size_as_int(selection_size_text: str) -> int:
 
 
 class SelectionSizeWidget(GroupBox):
-    def __init__(self, settings_bearer: SettingsBearer, parent=None):
+    def __init__(self, settings_bearer: SettingsBearer, main_window, parent=None):
+        # parent: settings_bearer
         super().__init__("Tamaño de selección", parent=parent)
+        self.main_window = main_window
         self.setMinimumWidth(200)
         self.settings_bearer = settings_bearer
 
