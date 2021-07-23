@@ -17,8 +17,10 @@ def show_marker_manipulation_disabled_warning():
     msg = QMessageBox()
     msg.setIcon(QMessageBox.Information)
     msg.setWindowTitle("Marcadores")
-    msg.setText("No se puedo insertar el marcador.")
-    msg.setInformativeText("Antes de poder insertar marcadores, asegúrese de haber obtenido una previsualiazción")
+    text = "No se puedo insertar el marcador."
+    informative_text = "Por favor, asegúrese de haber obtenido una previsualiazción y que el algoritmo no esté " \
+                       "corriendo. "
+    msg.setText("%s\n\n%s" % (text, informative_text))
     msg.exec()
 
 
