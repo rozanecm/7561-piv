@@ -23,4 +23,3 @@ class ROISelectorWidget(GroupBox):
 
     def roi_update(self):
         self.settings_bearer.update_settings(Constants.SETTINGS_ROI, self.roi_input.value())
-        self.main_window.check_if_markers_margin_is_not_exceeding_imgs_limits()

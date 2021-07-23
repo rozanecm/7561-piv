@@ -30,11 +30,9 @@ class ModifyMarkersPositionWidget(GroupBox):
     def setup_spinboxes(self):
         pos_x_label = QLabel("pos x")
         self.pos_x_spinbox.setEnabled(False)
-        self.pos_x_spinbox.setMaximum(9999)
         self.pos_x_spinbox.editingFinished.connect(lambda: self.spinbox_value_changed())
         pos_y_label = QLabel("pos y")
         self.pos_y_spinbox.setEnabled(False)
-        self.pos_y_spinbox.setMaximum(9999)
         self.pos_y_spinbox.editingFinished.connect(lambda: self.spinbox_value_changed())
         self.layout.addWidget(pos_x_label)
         self.layout.addWidget(self.pos_x_spinbox)
@@ -101,10 +99,10 @@ class ModifyMarkersPositionWidget(GroupBox):
         if self.marker_selector_combo_box.currentText() == str(marker_id):
             self.update_combo_box_value()
 
-    def set_min_max_x_value(self, min: int, max: int):
-        self.pos_x_spinbox.setMinimum(min)
-        self.pos_x_spinbox.setMaximum(max)
+    def set_min_max_x_value(self, min_value: int, max_value: int):
+        self.pos_x_spinbox.setMinimum(min_value)
+        self.pos_x_spinbox.setMaximum(max_value)
 
-    def set_min_max_y_value(self, min: int, max: int):
-        self.pos_y_spinbox.setMinimum(min)
-        self.pos_y_spinbox.setMaximum(max)
+    def set_min_max_y_value(self, min_value: int, max_value: int):
+        self.pos_y_spinbox.setMinimum(min_value)
+        self.pos_y_spinbox.setMaximum(max_value)

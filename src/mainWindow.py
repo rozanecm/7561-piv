@@ -79,6 +79,9 @@ class MainWindow(QWidget):
                                      "position_y": position_y_real_image}
         self.table_widget.add_marker(str(new_point_id), position_x_real_image, position_y_real_image)
         self.historic_data_widget.add_line(new_point_id)
+        margin = round(self.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] / 2)
+        self.marker_position_update_widget.set_min_max_x_value(margin, self.image_widget.image.img_width - margin)
+        self.marker_position_update_widget.set_min_max_y_value(margin, self.image_widget.image.img_height - margin)
         self.marker_position_update_widget.enable_spinboxes()
         self.marker_position_update_widget.add_marker(new_point_id, (position_x_real_image, position_y_real_image))
         self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
@@ -122,7 +125,7 @@ class MainWindow(QWidget):
 
     def check_if_markers_margin_is_not_exceeding_imgs_limits(self):
         for marker_id in self.points:
-            margin = round(self.settings_bearer.settings[Constants.SETTINGS_ROI] / 2)
+            margin = round(self.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] / 2)
             x = self.points[marker_id]["position_x"]
             y = self.points[marker_id]["position_y"]
             img_width = self.image_widget.image.img_width

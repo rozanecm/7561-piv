@@ -69,6 +69,7 @@ class SelectionSizeWidget(GroupBox):
         else:
             self.settings_bearer.update_settings(Constants.SETTINGS_SELECTION_SIZE,
                                                  selection_size_as_int(button.text()))
+        self.main_window.check_if_markers_margin_is_not_exceeding_imgs_limits()
 
     def other_value_spinner_changed(self, val):
         self.radio_button_other.click()

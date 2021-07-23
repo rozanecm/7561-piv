@@ -72,7 +72,7 @@ class Image(QWidget):
         """map to real img. coordinates, taking into account the margin needed so the """
         x = round(coords_in_image_widget[0] * self.img_width / self.imageLabel.width())
         y = round(coords_in_image_widget[1] * self.img_height / self.imageLabel.height())
-        margin = round(self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI] / 2)
+        margin = round(self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] / 2)
         if x > self.img_width - margin:
             x = self.img_width - margin
         if x < margin:
@@ -113,7 +113,14 @@ class Image(QWidget):
         current_marker.move(x_on_widget, y_on_widget)
 
     def point_on_image(self, x: int, y: int):
-        return self.imageLabel.pixmap().width() >= x >= 0 and self.imageLabel.pixmap().height() >= y >= 0
+        pixmap__width = self.imageLabel.pixmap().width()
+        pixmap__height = self.imageLabel.pixmap().height()
+        x_img_vs_widget_px_relation = self.img_width / pixmap__width
+        y_img_vs_widget_px_relation = self.img_height / pixmap__height
+        margin = round(self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] / 2)
+        x_margin = margin / x_img_vs_widget_px_relation
+        y_margin = margin / y_img_vs_widget_px_relation
+        return pixmap__width - x_margin >= x >= x_margin and pixmap__height - y_margin >= y >= y_margin
 
     def remove_marker(self, marker_id: int):
         self.markers[marker_id].hide()
