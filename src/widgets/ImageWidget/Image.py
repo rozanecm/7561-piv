@@ -72,7 +72,7 @@ class Image(QWidget):
         """map to real img. coordinates, taking into account the margin needed so the """
         x = round(coords_in_image_widget[0] * self.img_width / self.imageLabel.width())
         y = round(coords_in_image_widget[1] * self.img_height / self.imageLabel.height())
-        margin = self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI] // 2
+        margin = round(self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI] / 2)
         if x > self.img_width - margin:
             x = self.img_width - margin
         if x < margin:

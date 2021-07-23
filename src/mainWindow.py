@@ -122,19 +122,23 @@ class MainWindow(QWidget):
 
     def check_if_markers_margin_is_not_exceeding_imgs_limits(self):
         for marker_id in self.points:
-            margin = self.settings_bearer.settings[Constants.SETTINGS_ROI] // 2
+            margin = round(self.settings_bearer.settings[Constants.SETTINGS_ROI] / 2)
             x = self.points[marker_id]["position_x"]
             y = self.points[marker_id]["position_y"]
-            if x > self.image_widget.image.img_width - margin:
-                x = self.image_widget.image.img_width - margin
+            img_width = self.image_widget.image.img_width
+            img_height = self.image_widget.image.img_height
+            self.marker_position_update_widget.set_min_max_x_value(margin, img_width - margin)
+            self.marker_position_update_widget.set_min_max_y_value(margin, img_height - margin)
+            if x > img_width - margin:
+                x = img_width - margin
                 self.table_widget.update_marker_position(marker_id, x, y)
                 self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
             if x < margin:
                 x = margin
                 self.table_widget.update_marker_position(marker_id, x, y)
                 self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
-            if y > self.image_widget.image.img_height - margin:
-                y = self.image_widget.image.img_height - margin
+            if y > img_height - margin:
+                y = img_height - margin
                 self.table_widget.update_marker_position(marker_id, x, y)
                 self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
             if y < margin:

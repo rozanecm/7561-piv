@@ -100,3 +100,11 @@ class ModifyMarkersPositionWidget(GroupBox):
         self.markers[str(marker_id)] = pos
         if self.marker_selector_combo_box.currentText() == str(marker_id):
             self.update_combo_box_value()
+
+    def set_min_max_x_value(self, min: int, max: int):
+        self.pos_x_spinbox.setMinimum(min)
+        self.pos_x_spinbox.setMaximum(max)
+
+    def set_min_max_y_value(self, min: int, max: int):
+        self.pos_y_spinbox.setMinimum(min)
+        self.pos_y_spinbox.setMaximum(max)
