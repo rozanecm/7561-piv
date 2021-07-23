@@ -2,11 +2,11 @@ import os
 from typing import Dict
 
 import PIL.Image
+from PIL.ImageQt import ImageQt
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
-from PIL.ImageQt import ImageQt
 
 from src.SettingsBearer import SettingsBearer
 from src.constants.constants import Constants

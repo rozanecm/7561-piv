@@ -1,7 +1,5 @@
 from PyQt5.QtWidgets import QHBoxLayout, QComboBox, QLabel, QSpinBox
 
-from src.SettingsBearer import SettingsBearer
-from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
