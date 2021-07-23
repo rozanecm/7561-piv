@@ -6,11 +6,20 @@ from PIL.ImageQt import ImageQt
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QVBoxLayout, QMessageBox
 
 from src.SettingsBearer import SettingsBearer
 from src.constants.constants import Constants
 from src.widgets.CircleMarker.CircleMarker import CircleMarker
+
+
+def show_marker_manipulation_disabled_warning():
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Information)
+    msg.setWindowTitle("Marcadores")
+    msg.setText("No se puedo insertar el marcador.")
+    msg.setInformativeText("Antes de poder insertar marcadores, asegúrese de haber obtenido una previsualiazción")
+    msg.exec()
 
 
 class Image(QWidget):
@@ -21,6 +30,7 @@ class Image(QWidget):
         super().__init__(parent=parent)
         self.settings_bearer = settings_bearer
         self.markers: Dict[int, CircleMarker] = {}
+        self.can_manipulate_markers = False
         path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/preview.png"))
         self.imageLabel = QLabel()
         self.set_image_from_path(path)
@@ -46,12 +56,15 @@ class Image(QWidget):
                                                                          QtCore.Qt.SmoothTransformation))
 
     def process_double_click_on_img(self, event: QtGui.QMouseEvent) -> None:
-        pos_in_global = self.imageLabel.mapToGlobal(event.pos())
-        # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
-        pos_in_image_label = self.imageLabel.mapFromGlobal(pos_in_global)
-        x_real_img = round(pos_in_image_label.x() * self.img_width / self.imageLabel.width())
-        y_real_img = round(pos_in_image_label.y() * self.img_height / self.imageLabel.height())
-        self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
+        if self.can_manipulate_markers:
+            pos_in_global = self.imageLabel.mapToGlobal(event.pos())
+            # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
+            pos_in_image_label = self.imageLabel.mapFromGlobal(pos_in_global)
+            x_real_img = round(pos_in_image_label.x() * self.img_width / self.imageLabel.width())
+            y_real_img = round(pos_in_image_label.y() * self.img_height / self.imageLabel.height())
+            self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
+        else:
+            show_marker_manipulation_disabled_warning()
 
     def add_point(self, x, y, x_img, y_img, new_point_id: int):
         """

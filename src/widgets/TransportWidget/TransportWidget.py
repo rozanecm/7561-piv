@@ -47,3 +47,4 @@ class TransportWidget(GroupBox):
 
     def process_get_preview_button_click(self):
         self.main_window.get_img_sample = True
+        self.main_window.image_widget.image.can_manipulate_markers = True
