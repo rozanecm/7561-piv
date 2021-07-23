@@ -17,7 +17,7 @@ class Modal(QDialog):
         self.layout = QHBoxLayout()
         self.setLayout(self.layout)
 
-        self.chart_settings_groupbox = GroupBox("Chart Settings")
+        self.chart_settings_groupbox = GroupBox("Elija qué líneas mostrar")
         self.layout.addWidget(self.chart_settings_groupbox)
 
         self.line_series = line_series
