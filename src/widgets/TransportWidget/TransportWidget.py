@@ -4,6 +4,8 @@ from typing import Callable
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QHBoxLayout, QPushButton, QVBoxLayout
 
+from PyQt5.QtWidgets import QFileDialog
+
 from src.widgets.GroupBox.GroupBox import GroupBox
 
 
@@ -53,6 +55,19 @@ class TransportWidget(GroupBox):
         self.main_window.image_widget.image.can_manipulate_markers = True
         self.disable_stop_button()
         self.enable_start_button()
+        # TODO DOWNLOAD CSV
+        # TODO clear table
+        # TODO clear chart
+        self.save_file()
+
+    def save_file(self):
+        name, _ = QFileDialog.getSaveFileName(self, 'Guardar archivo')
+        if not name:
+            return
+        file = open(name, 'w')
+        text = "self.textEdit.toPlainText()"
+        file.write(text)
+        file.close()
 
     def process_get_preview_button_click(self):
         self.main_window.get_img_sample = True
