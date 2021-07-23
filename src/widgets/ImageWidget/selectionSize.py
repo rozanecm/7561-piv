@@ -11,11 +11,12 @@ def selection_size_as_int(selection_size_text: str) -> int:
 
 class SelectionSizeWidget(GroupBox):
     def __init__(self, settings_bearer: SettingsBearer, main_window, parent=None):
-        # parent: settings_bearer
+        # parent: imageWidget
         super().__init__("Tamaño de selección", parent=parent)
         self.main_window = main_window
         self.setMinimumWidth(200)
         self.settings_bearer = settings_bearer
+        self.parent = parent
 
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
@@ -47,6 +48,7 @@ class SelectionSizeWidget(GroupBox):
         self.radio_button_8x8.setChecked(True)
         self.settings_bearer.update_settings(Constants.SETTINGS_SELECTION_SIZE,
                                              selection_size_as_int(self.radio_button_8x8.text().split("x")[0]))
+        self.parent.roi_selector_widget.set_min_value()
 
     def set_other_size_radio_button(self):
         other_option_layout = QHBoxLayout()
@@ -69,6 +71,7 @@ class SelectionSizeWidget(GroupBox):
         else:
             self.settings_bearer.update_settings(Constants.SETTINGS_SELECTION_SIZE,
                                                  selection_size_as_int(button.text()))
+        self.parent.roi_selector_widget.set_min_value()
         self.main_window.check_if_markers_margin_is_not_exceeding_imgs_limits()
 
     def other_value_spinner_changed(self, val):

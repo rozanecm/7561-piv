@@ -16,6 +16,7 @@ class ImageWidget(GroupBox):
         # parent: main window
         super().__init__("Imagen", parent=parent)
 
+        self.settings_layout = QVBoxLayout()
         self.settings_bearer = settings_bearer
         self.layout = QVBoxLayout()
         self.main_layout = QHBoxLayout()
@@ -23,17 +24,23 @@ class ImageWidget(GroupBox):
 
         self.image = Image(self.settings_bearer, self.parent(), parent=self)
 
-        self.main_layout.addWidget(self.image)
-        self.settings_layout = QVBoxLayout()
-        self.settings_layout.addStretch()
-        self.settings_layout.addWidget(SettingsWidget(self.settings_bearer, main_window=self.parent()))
-        self.settings_layout.addWidget(SelectionSizeWidget(self.settings_bearer, main_window=self.parent()))
-        self.settings_layout.addWidget(ROISelectorWidget(self.settings_bearer, main_window=self.parent()))
-        self.settings_layout.addStretch()
-        self.main_layout.addLayout(self.settings_layout)
+        self.settings_widget = SettingsWidget(self.settings_bearer, main_window=self.parent())
+        self.roi_selector_widget = ROISelectorWidget(self.settings_bearer, main_window=self.parent())
+        self.selection_size_widget = SelectionSizeWidget(self.settings_bearer, main_window=self.parent(), parent=self)
 
         self.status_bar = StatusBar()
-        self.layout.addWidget(self.status_bar)
-        self.layout.addLayout(self.main_layout)
+
+        self.setup_gui()
 
         self.show()
+
+    def setup_gui(self):
+        self.main_layout.addWidget(self.image)
+        self.settings_layout.addStretch()
+        self.settings_layout.addWidget(self.settings_widget)
+        self.settings_layout.addWidget(self.selection_size_widget)
+        self.settings_layout.addWidget(self.roi_selector_widget)
+        self.settings_layout.addStretch()
+        self.main_layout.addLayout(self.settings_layout)
+        self.layout.addWidget(self.status_bar)
+        self.layout.addLayout(self.main_layout)
