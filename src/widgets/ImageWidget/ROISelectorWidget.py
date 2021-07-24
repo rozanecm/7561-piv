@@ -14,6 +14,7 @@ class ROISelectorWidget(GroupBox):
         self.setLayout(self.layout)
 
         self.roi_input = QSpinBox()
+        self.roi_input.setMaximum(Constants.ROI_MAX_VALUE)
         self.roi_input.valueChanged.connect(lambda: self.roi_update())
         self.roi_input.setValue(Constants.INIT_ROI_VALUE)
 

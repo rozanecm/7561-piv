@@ -1,4 +1,5 @@
 class Constants:
+    ROI_MAX_VALUE = 9999
     INIT_ROI_VALUE = 512
 
     VELOCITY_MAGNITUDE = "Módulo"
