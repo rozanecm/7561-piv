@@ -33,6 +33,16 @@ class MockedFiubaPIV:
                 3: {'position_x': 559, 'position_y': 119}}
             }
         }
+        
+        return value: the return value is a dict with velocities for all markers.
+        Velocities come expressed in vectorial decomposition and their magnitudes.
+        result: dict with k=marker_id, v=dict with keys 'vel_x', 'vel_y', vel_magnitude'
+        sample result:
+        {
+            1: {'vel_x': 10.919442112521295, 'vel_y': 11.024498299102545, 'vel_magnitude': 13.15307101517097},
+            2: {'vel_x': 9.327311460265268, 'vel_y': 10.102254321525308, 'vel_magnitude': 13.859931914939187},
+            3: {'vel_x': 13.146793839557047, 'vel_y': 7.310334773247977, 'vel_magnitude': 10.263030664829332}
+        }
         """
         result = {}
         for key, value in data['imgs'].items():
