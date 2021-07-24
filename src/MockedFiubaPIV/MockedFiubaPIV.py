@@ -1,8 +1,13 @@
+from random import gauss
+
+import PIL.Image
+
+
 class MockedFiubaPIV:
     def __init__(self):
         print('initin fiuba piv')
 
-    def piv(self, data: dict):
+    def piv(self, data: dict) -> dict:
         """
         data: { 'imgs': dict with k: marker_id, v: tuple of (left, right) imgs,
                 'settings': {
@@ -14,9 +19,9 @@ class MockedFiubaPIV:
             }
         sample data:
         {'imgs': {
-            1: (<PIL.Image.Image image mode=P size=512x512 at 0x7F6397AF1FA0>, <PIL.Image.Image image mode=P size=512x512 at 0x7F6397AF1F70>),
-            2: (<PIL.Image.Image image mode=P size=512x512 at 0x7F63B031C820>, <PIL.Image.Image image mode=P size=512x512 at 0x7F6397AE8F40>),
-            3: (<PIL.Image.Image image mode=P size=512x512 at 0x7F6397AE8820>, <PIL.Image.Image image mode=P size=512x512 at 0x7F6397AE8400>)},
+            1: (<PIL.Image.Image image mode=P size=512x512 at 0x7F6397AF1FA0>, <PIL.Image.Image image mode=P size=512x512 at 0x7F6397AF1F70>),  # noqa: E501
+            2: (<PIL.Image.Image image mode=P size=512x512 at 0x7F63B031C820>, <PIL.Image.Image image mode=P size=512x512 at 0x7F6397AE8F40>),  # noqa: E501
+            3: (<PIL.Image.Image image mode=P size=512x512 at 0x7F6397AE8820>, <PIL.Image.Image image mode=P size=512x512 at 0x7F6397AE8400>)}, # noqa: E501
         'settings': {
             'delta_t': 1,
             'ppm': 1,
@@ -29,4 +34,13 @@ class MockedFiubaPIV:
             }
         }
         """
-        print(data)
+        result = {}
+        for key, value in data['imgs'].items():
+            result[key] = self.get_piv_for(value[0], value[1])
+        return result
+
+    def get_piv_for(self, img1: PIL.Image.Image, img2: PIL.Image.Image) -> dict:
+        vel_x = gauss(10, 2)
+        vel_y = gauss(10, 2)
+        vel_magnitude = gauss(10, 2)
+        return {"vel_x": vel_x, "vel_y": vel_y, "vel_magnitude": vel_magnitude}

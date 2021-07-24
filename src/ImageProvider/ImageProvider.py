@@ -74,7 +74,7 @@ class ImageProvider(threading.Thread):
             print("📤 sending img to backend", left_half, right_half)
             data = {'imgs': self.get_cropped_imgs(left_half, right_half, self.main_window.markers),
                     'settings': self.main_window.settings_bearer.settings}
-            self.fiuba_piv.piv(data)
+            print(self.fiuba_piv.piv(data))
 
     def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
         """crop imgs of size of ROI, with marker centered in the area"""
