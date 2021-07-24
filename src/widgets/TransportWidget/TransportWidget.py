@@ -45,13 +45,13 @@ class TransportWidget(GroupBox):
         return new_button
 
     def process_play_button_click(self):
-        self.main_window.accept_imgs = True
+        self.main_window.alg_running = True
         self.main_window.image_widget.image.can_manipulate_markers = False
         self.disable_start_button()
         self.enable_stop_button()
 
     def process_stop_button_click(self):
-        self.main_window.accept_imgs = False
+        self.main_window.alg_running = False
         self.main_window.image_widget.image.can_manipulate_markers = True
         self.disable_stop_button()
         self.enable_start_button()

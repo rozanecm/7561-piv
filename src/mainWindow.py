@@ -1,5 +1,6 @@
 import os
 
+import PIL.Image
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
 
@@ -21,8 +22,8 @@ class MainWindow(QWidget):
         self.app = app
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
-        self.points = {}
-        self.accept_imgs = False
+        self.markers = {}
+        self.alg_running = False
         self.get_img_sample = False
 
         self.image_widget = ImageWidget(self.settings_bearer, parent=self)
@@ -75,8 +76,8 @@ class MainWindow(QWidget):
                                           position_x_real_image,
                                           position_y_real_image,
                                           new_point_id)
-        self.points[new_point_id] = {"position_x": position_x_real_image,
-                                     "position_y": position_y_real_image}
+        self.markers[new_point_id] = {"position_x": position_x_real_image,
+                                      "position_y": position_y_real_image}
         self.table_widget.add_marker(str(new_point_id), position_x_real_image, position_y_real_image)
         self.historic_data_widget.add_line(new_point_id)
         margin = round(self.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] / 2)
@@ -84,52 +85,52 @@ class MainWindow(QWidget):
         self.marker_position_update_widget.set_min_max_y_value(margin, self.image_widget.image.img_height - margin)
         self.marker_position_update_widget.enable_spinboxes()
         self.marker_position_update_widget.add_marker(new_point_id, (position_x_real_image, position_y_real_image))
-        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.markers)
         self.transport_widget.enable_start_button()
 
     def get_new_point_id(self) -> int:
-        return 1 if len(self.points.keys()) == 0 else max(self.points.keys()) + 1
+        return 1 if len(self.markers.keys()) == 0 else max(self.markers.keys()) + 1
 
     def update_position_from_image(self, marker_id: int, new_x: int, new_y: int):
         """COORDS come in real img coords."""
         self.table_widget.update_marker_position(marker_id, new_x, new_y)
         self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (new_x, new_y))
-        self.points[marker_id] = {"position_x": new_x, "position_y": new_y}
-        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.markers[marker_id] = {"position_x": new_x, "position_y": new_y}
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.markers)
 
     def update_position_from_marker_position_update_widget(self, marker_id: int, new_x: int, new_y: int):
         """coord come in img coords."""
         self.table_widget.update_marker_position(marker_id, new_x, new_y)
         self.image_widget.image.update_position_from_marker_position_update_widget(marker_id, new_x, new_y)
-        self.points[marker_id] = {"position_x": new_x, "position_y": new_y}
-        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.markers[marker_id] = {"position_x": new_x, "position_y": new_y}
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.markers)
 
     def remove_marker(self, marker_id):
         self.historic_data_widget.remove_line(marker_id)
         self.table_widget.remove_marker(marker_id)
         self.marker_position_update_widget.remove_marker(marker_id)
-        del self.points[marker_id]
+        del self.markers[marker_id]
         self.reorder_markers()
-        if len(self.points.keys()) == 0:
+        if len(self.markers.keys()) == 0:
             self.marker_position_update_widget.disable_spinboxes()
             self.transport_widget.disable_start_button()
-        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.points)
+        self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.markers)
 
     def reorder_markers(self):
-        l1 = [x + 1 for x in range(len(self.points.keys()))]
-        l2 = list(self.points.values())
-        self.points = dict(zip(l1, l2))
+        l1 = [x + 1 for x in range(len(self.markers.keys()))]
+        l2 = list(self.markers.values())
+        self.markers = dict(zip(l1, l2))
 
-    def receive_img_from_img_reader(self, img):
-        if self.accept_imgs or self.get_img_sample:
+    def receive_img_from_img_reader(self, img: PIL.Image.Image) -> None:
+        if self.alg_running or self.get_img_sample:
             self.image_widget.image.set_image_from_PIL(img)
             self.get_img_sample = False
 
     def check_if_markers_margin_is_not_exceeding_imgs_limits(self):
-        for marker_id in self.points:
+        for marker_id in self.markers:
             margin = round(self.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] / 2)
-            x = self.points[marker_id]["position_x"]
-            y = self.points[marker_id]["position_y"]
+            x = self.markers[marker_id]["position_x"]
+            y = self.markers[marker_id]["position_y"]
             img_width = self.image_widget.image.img_width
             img_height = self.image_widget.image.img_height
             self.marker_position_update_widget.set_min_max_x_value(margin, img_width - margin)
@@ -150,5 +151,5 @@ class MainWindow(QWidget):
                 y = margin
                 self.table_widget.update_marker_position(marker_id, x, y)
                 self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
-            self.points[marker_id]["position_x"] = x
-            self.points[marker_id]["position_y"] = y
+            self.markers[marker_id]["position_x"] = x
+            self.markers[marker_id]["position_y"] = y
