@@ -72,9 +72,8 @@ class ImageProvider(threading.Thread):
         """
         if self.main_window.alg_running:
             print("📤 sending img to backend", left_half, right_half)
-            data = {}
-            data['imgs'] = self.get_cropped_imgs(left_half, right_half, self.main_window.markers)
-            data['settings'] = self.main_window.settings_bearer.settings
+            data = {'imgs': self.get_cropped_imgs(left_half, right_half, self.main_window.markers),
+                    'settings': self.main_window.settings_bearer.settings}
             self.fiuba_piv.piv(data)
 
     def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
