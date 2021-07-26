@@ -7,6 +7,7 @@ from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtGui import QPainter, QIcon
 from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
 
+from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
 from src.widgets.HistoricData.ChartScaleSettings import ChartScaleSettingsWidget
 from src.widgets.HistoricData.Modal import Modal
@@ -102,16 +103,16 @@ class HistoricDataWidget(GroupBox):
 
     def init_chart_data(self, num_of_markers: int) -> None:
         for i in range(num_of_markers):
-            self.data[i+1] = {}
-            self.data[i+1]['vel_x'] = []
-            self.data[i+1]['vel_y'] = []
-            self.data[i+1]['vel_magnitude'] = []
+            self.data[i + 1] = {}
+            self.data[i + 1]['vel_x'] = []
+            self.data[i + 1]['vel_y'] = []
+            self.data[i + 1]['vel_magnitude'] = []
 
-            self.line_series[i+1] = {'is_visible': True, 'series': QLineSeries()}
-            self.line_series[i+1]['series'].setName(str(i+1))
-            self.chart.addSeries(self.line_series[i+1]['series'])
-            self.line_series[i+1]['series'].attachAxis(self.axis_y)
-            self.line_series[i+1]['series'].attachAxis(self.axis_x)
+            self.line_series[i + 1] = {'is_visible': True, 'series': QLineSeries()}
+            self.line_series[i + 1]['series'].setName(str(i + 1))
+            self.chart.addSeries(self.line_series[i + 1]['series'])
+            self.line_series[i + 1]['series'].attachAxis(self.axis_y)
+            self.line_series[i + 1]['series'].attachAxis(self.axis_x)
         # self.axis_x.setRange(0, 30)
 
     def set_y_max_value(self, max_value: int):
@@ -140,20 +141,27 @@ class HistoricDataWidget(GroupBox):
             self.data[identifier]['vel_magnitude'].append(velocities['vel_magnitude'])
             self.line_series[identifier]['series'].clear()
             points = []
-            for i, e in enumerate(self.data[identifier]['vel_x']):
+            vel_to_show = self.get_velocity_to_show_key()
+            for i, e in enumerate(self.data[identifier][vel_to_show]):
                 points.append(QPointF(i, e))
             self.line_series[identifier]['series'].append(points)
 
-        # self.chart.update()
-        print(len(self.data[1]['vel_x']))
-        self.axis_x.setMax(len(self.data[1]['vel_x']))
+        self.axis_x.setMax(len(self.data[1][vel_to_show]))
 
+    def get_velocity_to_show_key(self) -> str:
+        current_option = self.velocity_selection.combo_box.currentText()
+        if current_option == Constants.VELOCITY_MAGNITUDE:
+            return 'vel_magnitude'
+        if current_option == Constants.VELOCITY_VECT_X:
+            return 'vel_x'
+        if current_option == Constants.VELOCITY_VECT_Y:
+            return 'vel_y'
+        return 'vel_magnitude'
 
-
-            # self.chart.addSeries(self.line_series[identifier]['series'])
+        # self.chart.addSeries(self.line_series[identifier]['series'])
         # self.axis_y.setMax(len(self.data))
         # self.chart.axisY().setMax(len(self.data))
-            # self.line_series[identifier]['series'].attachAxis(self.axis_x)
+        # self.line_series[identifier]['series'].attachAxis(self.axis_x)
         # print("data after chart update:", self.data)
 
     def change_velocity_type(self, velocity_type: str):
