@@ -33,7 +33,7 @@ class MockedFiubaPIV:
                 3: {'position_x': 559, 'position_y': 119}}
             }
         }
-        
+
         return value: the return value is a dict with velocities for all markers.
         Velocities come expressed in vectorial decomposition and their magnitudes.
         result: dict with k=marker_id, v=dict with keys 'vel_x', 'vel_y', vel_magnitude'

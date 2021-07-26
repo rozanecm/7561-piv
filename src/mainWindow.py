@@ -30,6 +30,7 @@ class MainWindow(QWidget):
         self.marker_position_update_widget = ModifyMarkersPositionWidget(parent=self)
         self.table_widget = Table()
         self.transport_widget = TransportWidget(main_window=self)
+        # TODO rename historic data widget
         self.historic_data_widget = HistoricDataWidget()
 
         self.init_gui()
@@ -79,7 +80,6 @@ class MainWindow(QWidget):
         self.markers[new_point_id] = {"position_x": position_x_real_image,
                                       "position_y": position_y_real_image}
         self.table_widget.add_marker(str(new_point_id), position_x_real_image, position_y_real_image)
-        self.historic_data_widget.add_line(new_point_id)
         margin = round(self.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE] / 2)
         self.marker_position_update_widget.set_min_max_x_value(margin, self.image_widget.image.img_width - margin)
         self.marker_position_update_widget.set_min_max_y_value(margin, self.image_widget.image.img_height - margin)
@@ -106,7 +106,6 @@ class MainWindow(QWidget):
         self.settings_bearer.update_settings(Constants.SETTINGS_MARKERS, self.markers)
 
     def remove_marker(self, marker_id):
-        self.historic_data_widget.remove_line(marker_id)
         self.table_widget.remove_marker(marker_id)
         self.marker_position_update_widget.remove_marker(marker_id)
         del self.markers[marker_id]
@@ -153,3 +152,6 @@ class MainWindow(QWidget):
                 self.marker_position_update_widget.update_marker_position_from_main_window(marker_id, (x, y))
             self.markers[marker_id]["position_x"] = x
             self.markers[marker_id]["position_y"] = y
+
+    def init_chart_data(self):
+        self.historic_data_widget.init_chart_data(len(self.markers))

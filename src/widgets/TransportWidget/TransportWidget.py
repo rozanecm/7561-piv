@@ -45,6 +45,7 @@ class TransportWidget(GroupBox):
         return new_button
 
     def process_play_button_click(self):
+        self.main_window.init_chart_data()
         self.main_window.alg_running = True
         self.main_window.image_widget.image.can_manipulate_markers = False
         self.disable_start_button()
