@@ -139,14 +139,7 @@ class HistoricDataWidget(GroupBox):
             self.data[identifier]['vel_x'].append(velocities['vel_x'])
             self.data[identifier]['vel_y'].append(velocities['vel_y'])
             self.data[identifier]['vel_magnitude'].append(velocities['vel_magnitude'])
-            self.line_series[identifier]['series'].clear()
-            points = []
-            vel_to_show = self.get_velocity_to_show_key()
-            for i, e in enumerate(self.data[identifier][vel_to_show]):
-                points.append(QPointF(i, e))
-            self.line_series[identifier]['series'].append(points)
-
-        self.axis_x.setMax(len(self.data[1][vel_to_show]))
+        self.refresh_chart_visually()
 
     def get_velocity_to_show_key(self) -> str:
         current_option = self.velocity_selection.combo_box.currentText()
@@ -158,13 +151,7 @@ class HistoricDataWidget(GroupBox):
             return 'vel_y'
         return 'vel_magnitude'
 
-        # self.chart.addSeries(self.line_series[identifier]['series'])
-        # self.axis_y.setMax(len(self.data))
-        # self.chart.axisY().setMax(len(self.data))
-        # self.line_series[identifier]['series'].attachAxis(self.axis_x)
-        # print("data after chart update:", self.data)
-
-    def change_velocity_type(self, velocity_type: str):
+    def refresh_chart_visually(self):
         for identifier in self.data.keys():
             self.line_series[identifier]['series'].clear()
             points = []
@@ -174,4 +161,3 @@ class HistoricDataWidget(GroupBox):
             self.line_series[identifier]['series'].append(points)
 
         self.axis_x.setMax(len(self.data[1][vel_to_show]))
-        print("chart should now be showing", velocity_type)
