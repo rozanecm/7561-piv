@@ -154,4 +154,7 @@ class MainWindow(QWidget):
             self.markers[marker_id]["position_y"] = y
 
     def init_chart_data(self):
+        """
+        This methods makes sure the chart will have the data structures initialized once the results start coming in.
+        """
         self.historic_data_widget.init_chart_data(len(self.markers))

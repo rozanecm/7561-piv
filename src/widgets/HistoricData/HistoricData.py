@@ -1,5 +1,4 @@
 import os
-from random import gauss
 from typing import Dict
 
 from PyQt5.QtChart import QChart, QChartView, QValueAxis, QLineSeries
@@ -29,8 +28,6 @@ class HistoricDataWidget(GroupBox):
         self.side_layout = QVBoxLayout()
         self.settings_button = QPushButton("Configuración")
         self.setup_settings_button()
-        # self.download_csv_button = QPushButton("Obtener CSV")
-        # self.setup_download_button()
 
         self.line_series: Dict[int, line] = {}
 
@@ -40,11 +37,6 @@ class HistoricDataWidget(GroupBox):
         self.setup_chart()
 
         self.setup_general_layout()
-
-    # def setup_download_button(self):
-    #     self.download_csv_button.clicked.connect(lambda: self.process_csv_click())
-    #     icon_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../res/save.png"))
-    #     self.download_csv_button.setIcon(QIcon(icon_path))
 
     def setup_settings_button(self):
         self.settings_button.clicked.connect(lambda: self.process_settings_click())
@@ -57,7 +49,6 @@ class HistoricDataWidget(GroupBox):
         self.side_layout.addWidget(self.velocity_selection)
         self.side_layout.addWidget(self.chart_scale_settings)
         self.side_layout.addWidget(self.settings_button)
-        # self.side_layout.addWidget(self.download_csv_button)
         self.side_layout.addStretch()
         self.layout.addLayout(self.side_layout)
         self.setLayout(self.layout)
@@ -72,34 +63,9 @@ class HistoricDataWidget(GroupBox):
     def setup_chart(self):
         self.chart.setTitle("Evolución histórica (truncado a últimos 30 seg)")
         self.chart.setTheme(QChart.ChartThemeBlueIcy)
-        # self.chart.setAnimationOptions(QChart.SeriesAnimations)
         self.view.setRenderHint(QPainter.Antialiasing)
         self.chart.addAxis(self.axis_x, Qt.AlignBottom)
         self.chart.addAxis(self.axis_y, Qt.AlignLeft)
-
-    # def add_line(self, marker_id: int):
-    #     self.line_series[marker_id] = {'is_visible': True, 'series': QLineSeries()}
-    #     self.line_series[marker_id]['series'].setName(str(marker_id))
-    #     self.update_chart(marker_id)
-    #     self.chart.addSeries(self.line_series[marker_id]['series'])
-    #     self.line_series[marker_id]['series'].attachAxis(self.axis_y)
-    #     self.line_series[marker_id]['series'].attachAxis(self.axis_x)
-    #
-    # def remove_line(self, marker_id: int):
-    #     self.chart.removeSeries(self.line_series[marker_id]['series'])
-    #     del self.line_series[marker_id]
-    #     self.reorder_line_series()
-    #
-    #     for current_marker_id, serie in zip(self.line_series.keys(), self.line_series.values()):
-    #         serie['series'].setName(str(current_marker_id))
-    #
-    # def reorder_line_series(self):
-    #     l1 = [x + 1 for x in range(len(self.line_series.keys()))]
-    #     l2 = list(self.line_series.values())
-    #     self.line_series = dict(zip(l1, l2))
-    #
-    # def set_y_range(self, min_value: int, max_value: int):
-    #     self.axis_x.setRange(min_value, max_value)
 
     def init_chart_data(self, num_of_markers: int) -> None:
         for i in range(num_of_markers):
@@ -113,16 +79,12 @@ class HistoricDataWidget(GroupBox):
             self.chart.addSeries(self.line_series[i + 1]['series'])
             self.line_series[i + 1]['series'].attachAxis(self.axis_y)
             self.line_series[i + 1]['series'].attachAxis(self.axis_x)
-        # self.axis_x.setRange(0, 30)
 
     def set_y_max_value(self, max_value: int):
         self.axis_y.setMax(max_value)
 
     def set_y_min_value(self, min_value: int):
         self.axis_y.setMin(min_value)
-
-    # def process_csv_click(self):
-    #     print("clicked csv click")
 
     def process_settings_click(self):
         modal = Modal(self.line_series, self)
@@ -133,8 +95,6 @@ class HistoricDataWidget(GroupBox):
         self.line_series[line_id]['series'].show() if new_value else self.line_series[line_id]['series'].hide()
 
     def update_chart(self, data: dict) -> None:
-        # print("data before chart update:", self.data)
-        # self.chart.removeAllSeries()
         for identifier, velocities in data.items():
             self.data[identifier]['vel_x'].append(velocities['vel_x'])
             self.data[identifier]['vel_y'].append(velocities['vel_y'])

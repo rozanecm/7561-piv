@@ -56,7 +56,6 @@ class TransportWidget(GroupBox):
         self.main_window.image_widget.image.can_manipulate_markers = True
         self.disable_stop_button()
         self.enable_start_button()
-        # TODO DOWNLOAD CSV
         # TODO clear table
         # TODO clear chart
         self.save_file()
