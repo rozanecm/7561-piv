@@ -165,4 +165,13 @@ class HistoricDataWidget(GroupBox):
         # print("data after chart update:", self.data)
 
     def change_velocity_type(self, velocity_type: str):
+        for identifier in self.data.keys():
+            self.line_series[identifier]['series'].clear()
+            points = []
+            vel_to_show = self.get_velocity_to_show_key()
+            for i, e in enumerate(self.data[identifier][vel_to_show]):
+                points.append(QPointF(i, e))
+            self.line_series[identifier]['series'].append(points)
+
+        self.axis_x.setMax(len(self.data[1][vel_to_show]))
         print("chart should now be showing", velocity_type)
