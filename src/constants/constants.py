@@ -11,3 +11,6 @@ class Constants:
     SETTINGS_SELECTION_SIZE = "selection_size"
     SETTINGS_ROI = "roi"
     SETTINGS_MARKERS = "markers"
+
+    IMAGE_INPUT_FRECUENCY_IN_HZ = 10
+    UI_REFRESH_RATE_IN_HZ = 3

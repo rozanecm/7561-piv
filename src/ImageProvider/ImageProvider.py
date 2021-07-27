@@ -38,11 +38,12 @@ class ImageProvider(threading.Thread):
         self.main_window = main_window
         self.images_paths = get_image_list()
         self.fiuba_piv = MockedFiubaPIV()
+        self.last_ui_refresh_timestamp_ns = time.time_ns()
 
     def run(self):
         while True:
             for current_img_path in self.images_paths:
-                time.sleep(1)
+                time.sleep(1 / Constants.IMAGE_INPUT_FRECUENCY_IN_HZ)
                 left_half, right_half = self.read_image(current_img_path)
 
                 self.send_image_to_GUI(left_half)
@@ -55,7 +56,9 @@ class ImageProvider(threading.Thread):
         return left_half, right_half
 
     def send_image_to_GUI(self, new_img: PIL.TiffImagePlugin.TiffImageFile):
-        self.main_window.receive_img_from_img_reader(new_img)
+        if self.last_ui_refresh_timestamp_ns + int((1 / Constants.UI_REFRESH_RATE_IN_HZ) * 1e9) < time.time_ns():
+            self.last_ui_refresh_timestamp_ns = time.time_ns()
+            self.main_window.receive_img_from_img_reader(new_img)
 
     def split_img(self, new_img) -> (PIL.Image.Image, PIL.Image.Image):
         """
