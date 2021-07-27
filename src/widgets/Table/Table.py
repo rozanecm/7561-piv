@@ -57,3 +57,11 @@ class Table(QWidget):
     def update_marker_position(self, marker_id: int, x: int, y: int):
         self.table.setItem(marker_id, self._pos_x_column_index, QTableWidgetItem(str(x)))
         self.table.setItem(marker_id, self._pos_y_column_index, QTableWidgetItem(str(y)))
+
+    def update_velocities(self, data: dict) -> None:
+        """for reference on what exactly the data dict contains, please refer to the piv module."""
+        for marker_id, results in data.items():
+            self.table.setItem(marker_id, self._vel_x_column_index,
+                               QTableWidgetItem("{0:.2f}".format(results['vel_x'])))
+            self.table.setItem(marker_id, self._vel_y_column_index,
+                               QTableWidgetItem("{0:.2f}".format(results['vel_y'])))

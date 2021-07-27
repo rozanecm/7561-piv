@@ -79,6 +79,7 @@ class ImageProvider(threading.Thread):
                     'settings': self.main_window.settings_bearer.settings}
             piv_results = self.fiuba_piv.piv(data)
             self.main_window.historic_data_widget.update_chart(piv_results)
+            self.main_window.table_widget.update_velocities(piv_results)
 
     def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
         """crop imgs of size of ROI, with marker centered in the area"""
