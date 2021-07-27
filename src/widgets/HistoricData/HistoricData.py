@@ -17,6 +17,7 @@ from src.widgets.HistoricData.typedef import line
 class HistoricDataWidget(GroupBox):
     def __init__(self, parent=None):
         super().__init__("Historic data", parent=parent)
+        self.num_of_points_to_represent = Constants.CHART_TIME_REPRESENTED * Constants.IMAGE_INPUT_FRECUENCY_IN_HZ
         self.data = {}
         self.layout = QHBoxLayout()
 
@@ -121,8 +122,7 @@ class HistoricDataWidget(GroupBox):
             self.line_series[identifier]['series'].clear()
             points = []
             vel_to_show = self.get_velocity_to_show_key()
-            num_of_points_to_represent = Constants.CHART_TIME_REPRESENTED * Constants.IMAGE_INPUT_FRECUENCY_IN_HZ
-            for i, e in enumerate(self.data[identifier][vel_to_show][-num_of_points_to_represent:]):
+            for i, e in enumerate(self.data[identifier][vel_to_show][-self.num_of_points_to_represent:]):
                 points.append(QPointF(e[0], e[1]))
             self.line_series[identifier]['series'].append(points)
         self.axis_x.setMax(last_timestamp)
