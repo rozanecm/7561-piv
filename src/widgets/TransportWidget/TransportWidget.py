@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QHBoxLayout, QPushButton, QVBoxLayout
 from PyQt5.QtWidgets import QFileDialog
 
 from src.widgets.GroupBox.GroupBox import GroupBox
+import pandas as pd
 
 
 class TransportWidget(GroupBox):
@@ -52,20 +53,24 @@ class TransportWidget(GroupBox):
         self.enable_stop_button()
 
     def process_stop_button_click(self):
-        self.main_window.alg_stop()
+        self.main_window.alg_running = False
         self.save_file()
+        self.main_window.alg_stop()
         self.main_window.image_widget.image.can_manipulate_markers = True
         self.disable_stop_button()
         self.enable_start_button()
 
     def save_file(self):
-        name, _ = QFileDialog.getSaveFileName(self, 'Guardar archivo')
+        file_dialog = QFileDialog()
+        file_dialog.setDefaultSuffix("csv")
+        name, _ = file_dialog.getSaveFileName(self, 'Guardar archivo', "data.csv")
         if not name:
             return
-        file = open(name, 'w')
-        text = "self.textEdit.toPlainText()"
-        file.write(text)
-        file.close()
+        pd.DataFrame(self.main_window.results).to_csv(name, index=False)
+        # file = open(name, 'w')
+        # text = "self.textEdit.toPlainText()"
+        # file.write(text)
+        # file.close()
 
     def process_get_preview_button_click(self):
         self.main_window.get_img_sample = True

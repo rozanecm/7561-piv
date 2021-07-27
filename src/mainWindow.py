@@ -169,7 +169,6 @@ class MainWindow(QWidget):
         self.marker_position_update_widget.disable_spinboxes()
 
     def alg_stop(self):
-        self.alg_running = False
         self.results = []
         self.marker_position_update_widget.enable_spinboxes()
 

@@ -1,6 +1,7 @@
 PyQt5
 PyQtChart
 Pillow
+pandas
 
 # lint and type hints
 mypy
