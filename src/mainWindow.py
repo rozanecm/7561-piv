@@ -166,10 +166,12 @@ class MainWindow(QWidget):
     def alg_start(self):
         self.alg_running = True
         self.alg_start_time = time.time()
+        self.marker_position_update_widget.disable_spinboxes()
 
     def alg_stop(self):
         self.alg_running = False
         self.results = []
+        self.marker_position_update_widget.enable_spinboxes()
 
     def new_results(self, new_results: dict) -> None:
         """for reference on what exactly the data dict contains, please refer to the piv module."""
