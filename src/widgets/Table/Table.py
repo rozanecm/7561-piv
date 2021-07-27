@@ -1,8 +1,10 @@
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView, QWidget, QVBoxLayout, QLabel, QHeaderView
 
+from src.widgets.GroupBox.GroupBox import GroupBox
 
-class Table(QWidget):
+
+class Table(GroupBox):
     _marker_id_column_index = 0
     _vel_x_column_index = 1
     _vel_y_column_index = 2
@@ -10,7 +12,7 @@ class Table(QWidget):
     _pos_y_column_index = 4
 
     def __init__(self, parent=None):
-        super().__init__(parent=parent)
+        super().__init__("Velocidades instantáneas", parent=parent)
         self.table_title = QLabel()
         self.table = QTableWidget()
         self.layout = QVBoxLayout()
@@ -32,7 +34,6 @@ class Table(QWidget):
         self.table.setItem(0, 4, QTableWidgetItem("pos y"))
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        self.table_title.setText("Velocidades instantáneas")
         self.table_title.setAlignment(Qt.AlignCenter)
 
         self.table.verticalHeader().hide()
