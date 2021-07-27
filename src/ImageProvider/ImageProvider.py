@@ -50,7 +50,6 @@ class ImageProvider(threading.Thread):
                 self.send_image_to_backend(left_half, right_half)
 
     def read_image(self, img_number):
-        print("📖 read img", img_number)
         im = Image.open(img_number)
         left_half, right_half = self.split_img(im)
         return left_half, right_half
@@ -74,12 +73,10 @@ class ImageProvider(threading.Thread):
         new_img: whole img, which contains two imgs
         """
         if self.main_window.alg_running:
-            print("📤 sending img to backend", left_half, right_half)
             data = {'imgs': self.get_cropped_imgs(left_half, right_half, self.main_window.markers),
                     'settings': self.main_window.settings_bearer.settings}
             piv_results = self.fiuba_piv.piv(data)
-            self.main_window.historic_data_widget.update_chart(piv_results)
-            self.main_window.table_widget.update_velocities(piv_results)
+            self.main_window.new_results(piv_results)
 
     def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
         """crop imgs of size of ROI, with marker centered in the area"""

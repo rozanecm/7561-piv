@@ -23,4 +23,4 @@ class VelocitySelectionWidget(GroupBox):
         self.layout.addWidget(self.combo_box)
 
     def update_value(self, val):
-        self.parent().refresh_chart_visually()
+        pass

@@ -1,4 +1,6 @@
+import json
 import os
+import time
 
 import PIL.Image
 from PyQt5 import QtGui
@@ -23,6 +25,8 @@ class MainWindow(QWidget):
         self.layout = QVBoxLayout()
         self.setLayout(self.layout)
         self.markers = {}
+        self.results = []
+        self.alg_start_time: int = 0    # time.time() when alg starts running
         self.alg_running = False
         self.get_img_sample = False
 
@@ -158,3 +162,25 @@ class MainWindow(QWidget):
         This methods makes sure the chart will have the data structures initialized once the results start coming in.
         """
         self.historic_data_widget.init_chart_data(len(self.markers))
+
+    def alg_start(self):
+        self.alg_running = True
+        self.alg_start_time = time.time()
+
+    def alg_stop(self):
+        self.alg_running = False
+        self.results = []
+
+    def new_results(self, new_results: dict) -> None:
+        """for reference on what exactly the data dict contains, please refer to the piv module."""
+        timestamp = time.time() - self.alg_start_time
+        for identifier, velocities in new_results.items():
+            d = {'timestamp': timestamp,
+                 'vel_x': velocities['vel_x'],
+                 'vel_y': velocities['vel_y'],
+                 'pos_x': self.markers[identifier]["position_x"],
+                 'pos_y': self.markers[identifier]["position_y"]
+                 }
+            self.results.append(d)
+        self.historic_data_widget.update_chart(new_results, timestamp)
+        self.table_widget.update_velocities(new_results)

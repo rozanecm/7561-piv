@@ -65,3 +65,8 @@ class Table(QWidget):
                                QTableWidgetItem("{0:.2f}".format(results['vel_x'])))
             self.table.setItem(marker_id, self._vel_y_column_index,
                                QTableWidgetItem("{0:.2f}".format(results['vel_y'])))
+
+    def clear_table(self) -> None:
+        for i in range(1, self.table.rowCount()):
+            self.table.setItem(i, self._vel_x_column_index, QTableWidgetItem(""))
+            self.table.setItem(i, self._vel_y_column_index, QTableWidgetItem(""))

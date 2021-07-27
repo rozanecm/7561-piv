@@ -67,6 +67,10 @@ class HistoricDataWidget(GroupBox):
         self.chart.addAxis(self.axis_y, Qt.AlignLeft)
 
     def init_chart_data(self, num_of_markers: int) -> None:
+        self.data.clear()
+        self.clear_chart()
+        self.line_series: Dict[int, line] = {}
+        self.chart.removeAllSeries()
         for i in range(num_of_markers):
             self.data[i + 1] = {}
             self.data[i + 1]['vel_x'] = []
@@ -95,12 +99,12 @@ class HistoricDataWidget(GroupBox):
         self.line_series[line_id]['is_visible'] = new_value
         self.line_series[line_id]['series'].show() if new_value else self.line_series[line_id]['series'].hide()
 
-    def update_chart(self, data: dict) -> None:
+    def update_chart(self, data: dict, timestamp: float) -> None:
         for identifier, velocities in data.items():
-            self.data[identifier]['vel_x'].append(velocities['vel_x'])
-            self.data[identifier]['vel_y'].append(velocities['vel_y'])
-            self.data[identifier]['vel_magnitude'].append(velocities['vel_magnitude'])
-        self.refresh_chart_visually()
+            self.data[identifier]['vel_x'].append((timestamp, velocities['vel_x']))
+            self.data[identifier]['vel_y'].append((timestamp, velocities['vel_y']))
+            self.data[identifier]['vel_magnitude'].append((timestamp, velocities['vel_magnitude']))
+        self.refresh_chart_visually(timestamp)
 
     def get_velocity_to_show_key(self) -> str:
         current_option = self.velocity_selection.combo_box.currentText()
@@ -112,13 +116,18 @@ class HistoricDataWidget(GroupBox):
             return 'vel_y'
         return 'vel_magnitude'
 
-    def refresh_chart_visually(self):
+    def refresh_chart_visually(self, last_timestamp: float):
         for identifier in self.data.keys():
             self.line_series[identifier]['series'].clear()
             points = []
             vel_to_show = self.get_velocity_to_show_key()
-            for i, e in enumerate(self.data[identifier][vel_to_show]):
-                points.append(QPointF(i, e))
+            num_of_points_to_represent = Constants.CHART_TIME_REPRESENTED * Constants.IMAGE_INPUT_FRECUENCY_IN_HZ
+            for i, e in enumerate(self.data[identifier][vel_to_show][-num_of_points_to_represent:]):
+                points.append(QPointF(e[0], e[1]))
             self.line_series[identifier]['series'].append(points)
+        self.axis_x.setMax(last_timestamp)
+        self.axis_x.setMin(max(0, int(last_timestamp) - Constants.CHART_TIME_REPRESENTED + 1))
 
-        self.axis_x.setMax(len(self.data[1][vel_to_show]))
+    def clear_chart(self):
+        for identifier in self.data.keys():
+            self.line_series[identifier]['series'].clear()

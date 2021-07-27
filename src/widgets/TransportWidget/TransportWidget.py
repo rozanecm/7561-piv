@@ -46,19 +46,17 @@ class TransportWidget(GroupBox):
 
     def process_play_button_click(self):
         self.main_window.init_chart_data()
-        self.main_window.alg_running = True
+        self.main_window.alg_start()
         self.main_window.image_widget.image.can_manipulate_markers = False
         self.disable_start_button()
         self.enable_stop_button()
 
     def process_stop_button_click(self):
-        self.main_window.alg_running = False
+        self.main_window.alg_stop()
+        self.save_file()
         self.main_window.image_widget.image.can_manipulate_markers = True
         self.disable_stop_button()
         self.enable_start_button()
-        # TODO clear table
-        # TODO clear chart
-        self.save_file()
 
     def save_file(self):
         name, _ = QFileDialog.getSaveFileName(self, 'Guardar archivo')
