@@ -79,6 +79,8 @@ class HistoricDataWidget(GroupBox):
             self.chart.addSeries(self.line_series[i + 1]['series'])
             self.line_series[i + 1]['series'].attachAxis(self.axis_y)
             self.line_series[i + 1]['series'].attachAxis(self.axis_x)
+        self.axis_y.setMin(self.chart_scale_settings.min_y_spinbox.value())
+        self.axis_y.setMax(self.chart_scale_settings.max_y_spinbox.value())
 
     def set_y_max_value(self, max_value: int):
         self.axis_y.setMax(max_value)
