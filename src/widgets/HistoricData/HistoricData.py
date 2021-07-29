@@ -1,4 +1,5 @@
 import os
+import time
 from typing import Dict
 
 from PyQt5.QtChart import QChart, QChartView, QValueAxis, QLineSeries
@@ -17,7 +18,7 @@ from src.widgets.HistoricData.typedef import line
 class HistoricDataWidget(GroupBox):
     def __init__(self, parent=None):
         super().__init__("Historic data", parent=parent)
-        self.num_of_points_to_represent = Constants.CHART_TIME_REPRESENTED * Constants.IMAGE_INPUT_FRECUENCY_IN_HZ
+        self.num_of_points_to_represent = Constants.CHART_SECONDS_REPRESENTED * Constants.IMAGE_INPUT_FRECUENCY_IN_HZ
         self.data = {}
         self.layout = QHBoxLayout()
 
@@ -31,6 +32,7 @@ class HistoricDataWidget(GroupBox):
         self.setup_settings_button()
 
         self.line_series: Dict[int, line] = {}
+        self.last_chart_refresh_timestamp_ms = 0
 
         self.axis_x = QValueAxis()
         self.axis_y = QValueAxis()
@@ -101,11 +103,16 @@ class HistoricDataWidget(GroupBox):
         self.line_series[line_id]['series'].show() if new_value else self.line_series[line_id]['series'].hide()
 
     def update_chart(self, data: dict, timestamp: float) -> None:
+        """for reference on what exactly the data dict contains, please refer to the piv module."""
         for identifier, velocities in data.items():
             self.data[identifier]['vel_x'].append((timestamp, velocities['vel_x']))
             self.data[identifier]['vel_y'].append((timestamp, velocities['vel_y']))
             self.data[identifier]['vel_magnitude'].append((timestamp, velocities['vel_magnitude']))
-        self.refresh_chart_visually(timestamp)
+
+        timestamp_in_ms = time.time_ns() * 1e-6
+        if self.last_chart_refresh_timestamp_ms + (1 / Constants.CHART_REFRESH_RATE_IN_HZ) * 1e3 < timestamp_in_ms:
+            self.refresh_chart_visually(timestamp)
+            self.last_chart_refresh_timestamp_ms = timestamp_in_ms
 
     def get_velocity_to_show_key(self) -> str:
         current_option = self.velocity_selection.combo_box.currentText()
