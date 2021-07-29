@@ -63,7 +63,7 @@ class HistoricDataWidget(GroupBox):
         self.axis_y.setLabelFormat("%i")
 
     def setup_chart(self):
-        self.chart.setTitle("Evolución histórica (truncado a últimos 30 seg)")
+        self.chart.setTitle("Evolución histórica")
         self.chart.setTheme(QChart.ChartThemeBlueIcy)
         self.view.setRenderHint(QPainter.Antialiasing)
         self.chart.addAxis(self.axis_x, Qt.AlignBottom)
