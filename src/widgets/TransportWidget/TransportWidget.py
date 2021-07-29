@@ -67,10 +67,6 @@ class TransportWidget(GroupBox):
         if not name:
             return
         pd.DataFrame(self.main_window.results).to_csv(name, index=False)
-        # file = open(name, 'w')
-        # text = "self.textEdit.toPlainText()"
-        # file.write(text)
-        # file.close()
 
     def process_get_preview_button_click(self):
         self.main_window.get_img_sample = True
