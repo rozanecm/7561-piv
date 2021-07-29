@@ -51,6 +51,8 @@ class Image(QWidget):
                                                        QtCore.Qt.SmoothTransformation))
 
     def set_image_from_PIL(self, img: PIL.Image.Image):
+        self.img_width = img.width
+        self.img_height = img.height
         # docs to understand pixmap scaling: https://doc.qt.io/qtforpython/PySide6/QtGui/QPixmap.html#PySide6.QtGui.PySide6.QtGui.QPixmap.scaled    # noqa: E501
         self.imageLabel.setPixmap(QPixmap.fromImage(ImageQt(img)).scaled(self.imageLabel.size().width(),
                                                                          self.imageLabel.size().height(),
