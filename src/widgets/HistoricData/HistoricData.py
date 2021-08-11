@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QPushButton, QHBoxLayout, QVBoxLayout
 
 from src.constants.constants import Constants
 from src.widgets.GroupBox.GroupBox import GroupBox
+from src.widgets.HistoricData.ChartRefreshRateSettings import ChartRefreshRateSetting
 from src.widgets.HistoricData.ChartScaleSettings import ChartScaleSettingsWidget
 from src.widgets.HistoricData.Modal import Modal
 from src.widgets.HistoricData.VelocitySelection import VelocitySelectionWidget
@@ -30,6 +31,7 @@ class HistoricDataWidget(GroupBox):
         self.side_layout = QVBoxLayout()
         self.settings_button = QPushButton("Configuración")
         self.setup_settings_button()
+        self.refresh_rate_setting = ChartRefreshRateSetting()
 
         self.line_series: Dict[int, line] = {}
         self.last_chart_refresh_timestamp_ms = 0
@@ -52,6 +54,7 @@ class HistoricDataWidget(GroupBox):
         self.side_layout.addWidget(self.velocity_selection)
         self.side_layout.addWidget(self.chart_scale_settings)
         self.side_layout.addWidget(self.settings_button)
+        self.side_layout.addWidget(self.refresh_rate_setting)
         self.side_layout.addStretch()
         self.layout.addLayout(self.side_layout)
         self.setLayout(self.layout)
