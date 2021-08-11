@@ -129,12 +129,12 @@ class HistoricDataWidget(GroupBox):
             self.line_series[identifier]['series'].clear()
             points = []
             vel_to_show = self.get_velocity_to_show_key()
-            for i, e in enumerate(self.data[identifier][vel_to_show][-self.num_of_points_to_represent:]):
-                points.append(QPointF(e[0], e[1]))
+            for e in self.data[identifier][vel_to_show]:
+                if e[0] > (last_timestamp - Constants.CHART_SECONDS_REPRESENTED):
+                    points.append(QPointF(e[0], e[1]))
             self.line_series[identifier]['series'].append(points)
-        min_timestamp = self.data[1]['vel_x'][-self.num_of_points_to_represent:][0][0]
         self.axis_x.setMax(last_timestamp)
-        self.axis_x.setMin(max(0, min_timestamp))
+        self.axis_x.setMin(max(0, last_timestamp - Constants.CHART_SECONDS_REPRESENTED))
 
     def clear_chart(self):
         for identifier in self.data.keys():
