@@ -2,6 +2,9 @@ PyQt5
 PyQtChart
 Pillow
 pandas
+numpy
 
 # lint and type hints
 mypy
+
+git+git://github.com/LaCumbancha/piv-algorithm.git@piv-01#egg=piv-algorithm

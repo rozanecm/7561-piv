@@ -63,9 +63,9 @@ class Table(GroupBox):
         """for reference on what exactly the data dict contains, please refer to the piv module."""
         for marker_id, results in data.items():
             self.table.setItem(marker_id, self._vel_x_column_index,
-                               QTableWidgetItem("{0:.2f}".format(results['vel_x'])))
+                               QTableWidgetItem("{0:.2f}".format(results.u)))
             self.table.setItem(marker_id, self._vel_y_column_index,
-                               QTableWidgetItem("{0:.2f}".format(results['vel_y'])))
+                               QTableWidgetItem("{0:.2f}".format(results.v)))
 
     def clear_table(self) -> None:
         for i in range(1, self.table.rowCount()):

@@ -1,9 +1,13 @@
 import os
+import numpy as np
 import threading
+
+import piv
 import time
 
 import PIL.TiffImagePlugin
 from PIL import Image
+from piv.model import Point, InputPIV
 
 from src.MockedFiubaPIV.MockedFiubaPIV import MockedFiubaPIV
 from src.constants.constants import Constants
@@ -73,9 +77,18 @@ class ImageProvider(threading.Thread):
         new_img: whole img, which contains two imgs
         """
         if self.main_window.alg_running:
-            data = {'imgs': self.get_cropped_imgs(left_half, right_half, self.main_window.markers),
-                    'settings': self.main_window.settings_bearer.settings}
-            piv_results = self.fiuba_piv.piv(data)
+            points = {}
+            for marker_id, marker_imgs in self.get_cropped_imgs(left_half.convert("L"),
+                                                                right_half.convert("L"),
+                                                                self.main_window.markers).items():
+                marker = self.main_window.settings_bearer.settings[Constants.SETTINGS_MARKERS][marker_id]
+                points[marker_id] = Point(marker['position_x'], marker['position_y'], marker_imgs)
+            data = InputPIV(points,
+                            self.main_window.settings_bearer.settings[Constants.SETTINGS_DELTA_T],
+                            self.main_window.settings_bearer.settings[Constants.SETTINGS_PPM],
+                            self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE],
+                            self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI])
+            piv_results = piv.calculate_piv(data)
             self.main_window.new_results(piv_results)
 
     def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
@@ -92,5 +105,5 @@ class ImageProvider(threading.Thread):
             bottom = top + height
             left_half_crop = left_half.crop((left, top, right, bottom))  # PIL.Image.Image
             right_half_crop = right_half.crop((left, top, right, bottom))  # PIL.Image.Image
-            imgs[key] = (left_half_crop, right_half_crop)
+            imgs[key] = np.array([np.array(np.asarray(left_half_crop)), np.array(np.asarray(right_half_crop))])
         return imgs

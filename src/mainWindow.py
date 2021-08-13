@@ -177,8 +177,8 @@ class MainWindow(QWidget):
         timestamp = time.time() - self.alg_start_time
         for identifier, velocities in new_results.items():
             d = {'timestamp': timestamp,
-                 'vel_x': velocities['vel_x'],
-                 'vel_y': velocities['vel_y'],
+                 'vel_x': velocities.u,
+                 'vel_y': velocities.v,
                  'pos_x': self.markers[identifier]["position_x"],
                  'pos_y': self.markers[identifier]["position_y"]
                  }
