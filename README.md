@@ -5,13 +5,13 @@
    ```
 2. Install Qt
    ```bash
-   sudo apt-get install qt5-default -y
+   sudo apt install update -y && sudo apt-get install qt5-default -y
    ```
 3. Clone this repo, and `cd` to it.
 4. Virtual env.
    1. Install needed dependency
       ```bash
-      sudo apt install python3-virtualenv -y
+      sudo apt install update -y && sudo apt install python3-virtualenv -y
       ```
    2. Create virtual env
       ```bash
@@ -21,7 +21,10 @@
       ```bash
       source venv/bin/activate
       ```
-5. Install python dependencies: `pip install -r requirements.txt`
+5. Install python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
 # Packing app
 - `sudo apt install python3-dev -y`
