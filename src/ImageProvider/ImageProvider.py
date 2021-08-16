@@ -15,7 +15,7 @@ from src.mainWindow import MainWindow
 
 
 def get_image_list():
-    path = os.path.join(os.path.dirname(__file__), "../../res/paired")
+    path = os.path.join(os.path.dirname(__file__), "../../res/paired2")
     return [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
 
 
