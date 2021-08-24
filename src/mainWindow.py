@@ -196,22 +196,22 @@ class MainWindow(QWidget):
             points = {}
             for marker_id, marker_imgs in self.get_cropped_imgs(left_half.convert("L"),
                                                                 right_half.convert("L"),
-                                                                self.main_window.markers).items():
-                marker = self.main_window.settings_bearer.settings[Constants.SETTINGS_MARKERS][marker_id]
+                                                                self.markers).items():
+                marker = self.settings_bearer.settings[Constants.SETTINGS_MARKERS][marker_id]
                 points[marker_id] = Point(marker['position_x'], marker['position_y'], marker_imgs)
             data = InputPIV(points,
-                            self.main_window.settings_bearer.settings[Constants.SETTINGS_DELTA_T],
-                            self.main_window.settings_bearer.settings[Constants.SETTINGS_PPM],
-                            self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE],
-                            self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI])
+                            self.settings_bearer.settings[Constants.SETTINGS_DELTA_T],
+                            self.settings_bearer.settings[Constants.SETTINGS_PPM],
+                            self.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE],
+                            self.settings_bearer.settings[Constants.SETTINGS_ROI])
             piv_results = piv.calculate_piv(data)
             print(piv_results)
-            self.main_window.new_results(piv_results)
+            self.new_results(piv_results)
 
     def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
         """crop imgs of size of ROI, with marker centered in the area"""
         imgs = {}
-        roi_value = self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI]
+        roi_value = self.settings_bearer.settings[Constants.SETTINGS_ROI]
         width, height = roi_value, roi_value
         for key in markers:
             x = markers[key]["position_x"]
