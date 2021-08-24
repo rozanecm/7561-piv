@@ -2,13 +2,13 @@ import os
 import numpy as np
 import threading
 
-import piv
 import time
 
 import PIL.TiffImagePlugin
 from PIL import Image
-from piv.model import Point, InputPIV
 
+import piv
+from piv.model import Point, InputPIV
 from src.MockedFiubaPIV.MockedFiubaPIV import MockedFiubaPIV
 from src.constants.constants import Constants
 from src.mainWindow import MainWindow
