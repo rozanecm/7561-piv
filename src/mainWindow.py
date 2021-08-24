@@ -1,10 +1,12 @@
-import json
 import os
-import time
 
 import PIL.Image
+import numpy as np
+import piv
+import time
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout
+from piv.model import Point, InputPIV
 
 from src.SettingsBearer import SettingsBearer
 from src.constants.constants import Constants
@@ -185,3 +187,40 @@ class MainWindow(QWidget):
             self.results.append(d)
         self.historic_data_widget.update_chart(new_results, timestamp)
         self.table_widget.update_velocities(new_results)
+
+    def send_image_to_backend(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image):
+        """
+        new_img: whole img, which contains two imgs
+        """
+        if self.alg_running:
+            points = {}
+            for marker_id, marker_imgs in self.get_cropped_imgs(left_half.convert("L"),
+                                                                right_half.convert("L"),
+                                                                self.markers).items():
+                marker = self.settings_bearer.settings[Constants.SETTINGS_MARKERS][marker_id]
+                points[marker_id] = Point(marker['position_x'], marker['position_y'], marker_imgs)
+            data = InputPIV(points,
+                            self.settings_bearer.settings[Constants.SETTINGS_DELTA_T],
+                            self.settings_bearer.settings[Constants.SETTINGS_PPM],
+                            self.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE],
+                            self.settings_bearer.settings[Constants.SETTINGS_ROI])
+            piv_results = piv.calculate_piv(data)
+            print(piv_results)
+            self.new_results(piv_results)
+
+    def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
+        """crop imgs of size of ROI, with marker centered in the area"""
+        imgs = {}
+        roi_value = self.settings_bearer.settings[Constants.SETTINGS_ROI]
+        width, height = roi_value, roi_value
+        for key in markers:
+            x = markers[key]["position_x"]
+            y = markers[key]["position_y"]
+            left = x - (width // 2)
+            top = y - (height // 2)
+            right = left + width
+            bottom = top + height
+            left_half_crop = left_half.crop((left, top, right, bottom))  # PIL.Image.Image
+            right_half_crop = right_half.crop((left, top, right, bottom))  # PIL.Image.Image
+            imgs[key] = np.array([np.array(np.asarray(left_half_crop)), np.array(np.asarray(right_half_crop))])
+        return imgs
