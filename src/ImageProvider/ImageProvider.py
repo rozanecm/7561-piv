@@ -89,6 +89,7 @@ class ImageProvider(threading.Thread):
                             self.main_window.settings_bearer.settings[Constants.SETTINGS_SELECTION_SIZE],
                             self.main_window.settings_bearer.settings[Constants.SETTINGS_ROI])
             piv_results = piv.calculate_piv(data)
+            print(piv_results)
             self.main_window.new_results(piv_results)
 
     def get_cropped_imgs(self, left_half: PIL.Image.Image, right_half: PIL.Image.Image, markers: dict) -> dict:
