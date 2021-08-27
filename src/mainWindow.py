@@ -215,13 +215,15 @@ class MainWindow(QWidget):
         imgs = {}
         roi_value = self.settings_bearer.settings[Constants.SETTINGS_ROI]
         width, height = roi_value, roi_value
+        img_width, img_heigth = left_half.size
         for key in markers:
             x = markers[key]["position_x"]
             y = markers[key]["position_y"]
-            left = x - (width // 2)
-            top = y - (height // 2)
-            right = left + width
-            bottom = top + height
+            left = max(x - (width // 2), 0)
+            top = max(y - (height // 2), 0)
+            right = min(left + width, img_width)
+            bottom = min(top + height, img_heigth)
+
             left_half_crop = left_half.crop((left, top, right, bottom))  # PIL.Image.Image
             right_half_crop = right_half.crop((left, top, right, bottom))  # PIL.Image.Image
             imgs[key] = np.array([np.array(np.asarray(left_half_crop)), np.array(np.asarray(right_half_crop))])
