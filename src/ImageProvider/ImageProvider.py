@@ -12,7 +12,8 @@ from src.mainWindow import MainWindow
 
 def get_image_list():
     path = os.path.join(os.path.dirname(__file__), "../../res/paired")
-    return [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    paths = [os.path.join(path, f) for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+    return sorted(paths)
 
 
 def get_crop_params_for_left_img(width: int, height: int) -> (int, int, int, int):
