@@ -1,3 +1,6 @@
+# Executable
+An executable version of this software is available for download [here](https://drive.google.com/drive/folders/1YUM2VVjaF4yQYgm3gwEPKKY3SuDYmBK6?usp=sharing).
+
 # Environment setup
 The easiest way to install the software is by executing the scripts `setup.sh` or setup_mac.sh`, depending if you need the Linux or the Mac version. Nevertheless, detailed instructions are included below if you want to get a better grasp at each step of the setup.
 
