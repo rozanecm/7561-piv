@@ -225,6 +225,7 @@ class MainWindow(QWidget):
             left_half_crop = left_half.crop((left, top, right, bottom))  # PIL.Image.Image
             right_half_crop = right_half.crop((left, top, right, bottom))  # PIL.Image.Image
             imgs[key] = np.array([np.array(np.asarray(left_half_crop)), np.array(np.asarray(right_half_crop))])
+            # TODO remove this.
             left_half_crop.save("/home/rozanecm/Desktop/tmp/piv_cropped_01.png")
             right_half_crop.save("/home/rozanecm/Desktop/tmp/piv_cropped_02.png")
         return imgs

@@ -41,8 +41,6 @@ class Image(QWidget):
         self.layout = QVBoxLayout()
         self.layout.addStretch()
 
-        self.imageLabel.setStyleSheet("border: 3px solid blue;")
-
         self.layout.addWidget(self.imageLabel)
         self.layout.addStretch()
         self.setLayout(self.layout)
@@ -138,7 +136,10 @@ class Image(QWidget):
         current_marker = self.markers.get(point_id)
         x_on_widget = round(new_x * self.imageLabel.width() / self.img_width)
         y_on_widget = round(new_y * self.imageLabel.height() / self.img_height)
-        current_marker.move(x_on_widget, y_on_widget)
+        # I use this double mapping because self.mapFromWidget fails for whatever reason.
+        global_pos = self.imageLabel.mapToGlobal(QPoint(x_on_widget, y_on_widget))
+        mapped_from_global = self.mapFromGlobal(global_pos)
+        current_marker.move(mapped_from_global)
 
     def point_on_image(self, x: int, y: int):
         pixmap__width = self.imageLabel.pixmap().width()
