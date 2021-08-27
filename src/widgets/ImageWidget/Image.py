@@ -1,4 +1,5 @@
 import os
+import time
 from typing import Dict
 
 import PIL.Image
@@ -38,7 +39,12 @@ class Image(QWidget):
         self.set_image_from_path(path)
         self.main_window = main_window
         self.layout = QVBoxLayout()
+        self.layout.addStretch()
+
+        self.imageLabel.setStyleSheet("border: 3px solid blue;")
+
         self.layout.addWidget(self.imageLabel)
+        self.layout.addStretch()
         self.setLayout(self.layout)
 
         self.imageLabel.mouseDoubleClickEvent = self.process_double_click_on_img
@@ -62,11 +68,14 @@ class Image(QWidget):
     def process_double_click_on_img(self, event: QtGui.QMouseEvent) -> None:
         if self.can_manipulate_markers:
             pos_in_global = self.imageLabel.mapToGlobal(event.pos())
-            # this add point invokes the main window, which will handle all needed to create a new marker, like the id.
             pos_in_image_label = self.imageLabel.mapFromGlobal(pos_in_global)
+
             x_real_img = round(pos_in_image_label.x() * self.img_width / self.imageLabel.width())
             y_real_img = round(pos_in_image_label.y() * self.img_height / self.imageLabel.height())
-            self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
+            if self.point_on_image(pos_in_image_label.x(), pos_in_image_label.y()):
+                # this add point invokes the main window,
+                # which will handle all needed to create a new marker, like the id.
+                self.main_window.add_point(pos_in_global.x(), pos_in_global.y(), x_real_img, y_real_img)
         else:
             show_marker_manipulation_disabled_warning()
 
@@ -107,11 +116,13 @@ class Image(QWidget):
         """
         # we should translate new_x and new_y to self.imageLabel coords.
         current_marker = self.markers.get(point_id)
-        translated_coords = self.mapFromGlobal(QPoint(new_x, new_y))
+        translated_coords = self.imageLabel.mapFromGlobal(QPoint(new_x, new_y))
         # take position so that marker stays centered on mouse pos.
-        new_x = translated_coords.x() - current_marker.marker_size // 2
-        new_y = translated_coords.y() - current_marker.marker_size // 2
-        if self.point_on_image(new_x, new_y):
+        # new_x = round(translated_coords.x() * self.img_width / self.imageLabel.width())
+        # new_y = round(translated_coords.y() * self.img_height / self.imageLabel.height())
+        new_x = self.mapFromGlobal(QPoint(new_x, new_y)).x() - current_marker.marker_size // 2
+        new_y = self.mapFromGlobal(QPoint(new_x, new_y)).y() - current_marker.marker_size // 2
+        if self.point_on_image(translated_coords.x(), translated_coords.y()):
             current_marker.move(new_x, new_y)
             current_marker.update_position(self.map_from_self_to_real_image_coordinates((
                 translated_coords.x() - current_marker.marker_size // 2,

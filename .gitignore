@@ -7,3 +7,5 @@ res/piv_imgs/
 # images
 res/paired1/
 res/paired2/
+
+.octave-tmp/

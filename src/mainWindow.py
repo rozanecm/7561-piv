@@ -192,6 +192,8 @@ class MainWindow(QWidget):
         """
         new_img: whole img, which contains two imgs
         """
+        left_half.save("/home/rozanecm/Desktop/tmp/piv01.png")
+        right_half.save("/home/rozanecm/Desktop/tmp/piv02.png")
         if self.alg_running:
             points = {}
             for marker_id, marker_imgs in self.get_cropped_imgs(left_half.convert("L"),
@@ -223,4 +225,6 @@ class MainWindow(QWidget):
             left_half_crop = left_half.crop((left, top, right, bottom))  # PIL.Image.Image
             right_half_crop = right_half.crop((left, top, right, bottom))  # PIL.Image.Image
             imgs[key] = np.array([np.array(np.asarray(left_half_crop)), np.array(np.asarray(right_half_crop))])
+            left_half_crop.save("/home/rozanecm/Desktop/tmp/piv_cropped_01.png")
+            right_half_crop.save("/home/rozanecm/Desktop/tmp/piv_cropped_02.png")
         return imgs
