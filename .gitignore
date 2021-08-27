@@ -9,3 +9,8 @@ res/paired1/
 res/paired2/
 
 .octave-tmp/
+
+# pyinstaller
+build/
+dist/
+app.spec
