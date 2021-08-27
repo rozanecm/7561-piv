@@ -7,4 +7,4 @@ numpy
 # lint and type hints
 mypy
 
-git+ssh://git@github.com/LaCumbancha/piv-algorithm.git
+git+ssh://git@github.com/LaCumbancha/piv-algorithm.git@1.1.0
